@@ -1,0 +1,10 @@
+*.o
+*.exe
+*.pcm
+*.zip
+lib
+include
+bin
+build
+.sconsign.dblite
+docs
