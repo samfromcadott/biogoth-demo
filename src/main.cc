@@ -16,6 +16,7 @@ int main() {
 	raylib::Vector2 player_velocity(0.0, 0.0);
 
 	while ( !window.ShouldClose() ) {
+		// Move player
 		player_velocity = raylib::Vector2(0.0, 0.0);
 		const float speed = 5.0;
 
@@ -24,7 +25,34 @@ int main() {
 		if ( IsKeyDown(KEY_UP) ) player_velocity.y -= speed;
 		if ( IsKeyDown(KEY_DOWN) ) player_velocity.y += speed;
 
-		player_rect.SetPosition( player_rect.GetPosition() + player_velocity );
+		// player_rect.SetPosition( player_rect.GetPosition() + player_velocity );
+		player_rect.SetY( player_rect.GetY() + player_velocity.y );
+		// Check for collision
+		if ( player_rect.CheckCollision(floor_rect) ) {
+			// From above
+			if ( player_velocity.y > 0 && player_rect.GetY() < floor_rect.GetY() ) {
+				player_rect.SetY( floor_rect.GetY() - player_rect.GetHeight() );
+			}
+
+			// From below
+			else if ( player_velocity.y < 0 && player_rect.GetY() + player_rect.GetHeight() > floor_rect.GetY() + floor_rect.GetHeight() ) {
+				player_rect.SetY( floor_rect.GetY() + floor_rect.GetHeight() );
+			}
+		}
+
+		player_rect.SetX( player_rect.GetX() + player_velocity.x );
+
+		if ( player_rect.CheckCollision(floor_rect) ) {
+			// From left
+			if ( player_velocity.x > 0 && player_rect.GetX() < floor_rect.GetX() ) {
+				player_rect.SetX( floor_rect.GetX() - player_rect.GetWidth() );
+			}
+
+			// From right
+			else if ( player_velocity.x < 0 && player_rect.GetX() > floor_rect.GetX() ) {
+				player_rect.SetX( floor_rect.GetX() + floor_rect.GetWidth() );
+			}
+		}
 
 		BeginDrawing();
 
