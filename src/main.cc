@@ -1,6 +1,12 @@
 #include <raylib/raylib-cpp.hpp>
 
+#include "globals.hh"
+#include "components.hh"
+#include "systems.hh"
+
 using namespace raylib;
+
+entt::registry registry;
 
 int main() {
 	int screen_width = 1280;
@@ -15,50 +21,25 @@ int main() {
 
 	raylib::Vector2 player_velocity(0.0, 0.0);
 
+	const auto player = registry.create();
+	registry.emplace<Player>(player);
+	registry.emplace<Position>( player, raylib::Vector2(100, 100) );
+	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
+	registry.emplace<Collider>( player, 64.0f, 128.0f );
+
 	while ( !window.ShouldClose() ) {
-		// Move player
-		player_velocity = raylib::Vector2(0.0, 0.0);
-		const float speed = 5.0;
-
-		if ( IsKeyDown(KEY_RIGHT))  player_velocity.x += speed;
-		if ( IsKeyDown(KEY_LEFT) ) player_velocity.x -= speed;
-		if ( IsKeyDown(KEY_UP) ) player_velocity.y -= speed;
-		if ( IsKeyDown(KEY_DOWN) ) player_velocity.y += speed;
-
-		// player_rect.SetPosition( player_rect.GetPosition() + player_velocity );
-		player_rect.SetY( player_rect.GetY() + player_velocity.y );
-		// Check for collision
-		if ( player_rect.CheckCollision(floor_rect) ) {
-			// From above
-			if ( player_velocity.y > 0 && player_rect.GetY() < floor_rect.GetY() ) {
-				player_rect.SetY( floor_rect.GetY() - player_rect.GetHeight() );
-			}
-
-			// From below
-			else if ( player_velocity.y < 0 && player_rect.GetY() + player_rect.GetHeight() > floor_rect.GetY() + floor_rect.GetHeight() ) {
-				player_rect.SetY( floor_rect.GetY() + floor_rect.GetHeight() );
-			}
-		}
-
-		player_rect.SetX( player_rect.GetX() + player_velocity.x );
-
-		if ( player_rect.CheckCollision(floor_rect) ) {
-			// From left
-			if ( player_velocity.x > 0 && player_rect.GetX() < floor_rect.GetX() ) {
-				player_rect.SetX( floor_rect.GetX() - player_rect.GetWidth() );
-			}
-
-			// From right
-			else if ( player_velocity.x < 0 && player_rect.GetX() > floor_rect.GetX() ) {
-				player_rect.SetX( floor_rect.GetX() + floor_rect.GetWidth() );
-			}
-		}
+		player_move();
+		move_collide();
 
 		BeginDrawing();
 
 			window.ClearBackground(raylib::RAYWHITE);
 
-			player_rect.Draw(raylib::VIOLET);
+			auto view = registry.view<const Player, const Position, const Collider>();
+			for ( auto [player, position, collider] : view.each() ) {
+				collider.get_rectangle(position.value).Draw(raylib::VIOLET);
+			}
+
 			floor_rect.Draw(raylib::GRAY);
 
 		EndDrawing();
