@@ -3,6 +3,7 @@
 #include "globals.hh"
 #include "components.hh"
 #include "systems.hh"
+#include "tilemap.hh"
 
 using namespace raylib;
 
@@ -27,6 +28,10 @@ int main() {
 	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
 	registry.emplace<Collider>( player, 64.0f, 128.0f );
 
+	Tilemap tilemap(10, 10);
+	tilemap(2, 1) = 1;
+	tilemap(3, 1) = 1;
+
 	while ( !window.ShouldClose() ) {
 		player_move();
 		move_collide();
@@ -41,6 +46,8 @@ int main() {
 			}
 
 			floor_rect.Draw(raylib::GRAY);
+
+			tilemap.draw();
 
 		EndDrawing();
 	}

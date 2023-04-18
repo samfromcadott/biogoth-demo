@@ -16,7 +16,7 @@ private:
 
 public:
 	int width, height;
-	int tile_size;
+	int tile_size = 32;
 
 	int tile_index(const int x, const int y) const;
 	int tile_index(const TileCoord t) const;
@@ -33,6 +33,11 @@ public:
 	Tile& operator()(const TileCoord t);
 	Tile operator()(const TileCoord t) const;
 
-	Tilemap (const int width, const int height);
-	virtual ~Tilemap ();
+	Tilemap (const int width, const int height) {
+		this->width = width;
+		this->height = height;
+
+		tiles = std::vector<Tile>(width*height, empty_tile);
+	}
+	virtual ~Tilemap () {}
 };
