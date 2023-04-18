@@ -27,6 +27,7 @@ public:
 	Vector2 tile_to_world(const int x, const int y); // Gets the world coordinate from tile coordinate
 	Vector2 tile_to_world(const TileCoord t);
 	bool tile_in_map(TileCoord tile); // Returns true if the given TileCoord is in the map
+	bool tile_in_map(const int x, const int y);
 
 	Tile& operator()(const int x, const int y); // Setter
 	Tile operator()(const int x, const int y) const; // Getter

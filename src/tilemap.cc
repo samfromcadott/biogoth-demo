@@ -18,6 +18,7 @@ void Tilemap::draw() {
 	for (int y = 0; y < height; y++)
 	for (int x = 0; x < width; x++) {
 		Tile& t = tiles[ tile_index(x, y) ];
+		DrawRectangleLines(x*tile_size, y*tile_size, tile_size, tile_size, SKYBLUE);
 		if (t == empty_tile) continue;
 
 		DrawRectangle(x*tile_size, y*tile_size, tile_size, tile_size, GRAY);
@@ -49,6 +50,11 @@ bool Tilemap::tile_in_map(TileCoord tile) {
 	bool vertical = tile.y >= 0 && tile.y < height;
 
 	return horizontal && vertical;
+
+}
+
+bool Tilemap::tile_in_map(const int x, const int y) {
+	return tile_in_map({x, y});
 
 }
 

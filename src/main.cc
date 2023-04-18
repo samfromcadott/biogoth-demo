@@ -18,19 +18,26 @@ int main() {
 
 	SetTargetFPS(60);
 
-	raylib::Rectangle player_rect(100, 100, 64, 128);
-	raylib::Rectangle floor_rect(200, 200, 128, 64);
-
-	raylib::Vector2 player_velocity(0.0, 0.0);
-
 	const auto player = registry.create();
 	registry.emplace<Player>(player);
 	registry.emplace<Position>( player, raylib::Vector2(100, 100) );
 	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
 	registry.emplace<Collider>( player, 64.0f, 128.0f );
 
-	tilemap(2, 1) = 1;
-	tilemap(3, 1) = 1;
+	tilemap(0, 9) = 1;
+	tilemap(1, 9) = 1;
+	tilemap(2, 9) = 1;
+	tilemap(3, 9) = 1;
+	tilemap(4, 9) = 1;
+	tilemap(5, 9) = 1;
+	tilemap(6, 9) = 1;
+	tilemap(7, 9) = 1;
+	tilemap(8, 9) = 1;
+	tilemap(9, 9) = 1;
+	tilemap(9, 8) = 1;
+
+	tilemap(5, 5) = 1;
+	tilemap(5, 6) = 1;
 
 	while ( !window.ShouldClose() ) {
 		player_move();
@@ -44,8 +51,6 @@ int main() {
 			for ( auto [player, position, collider] : view.each() ) {
 				collider.get_rectangle(position.value).Draw(raylib::VIOLET);
 			}
-
-			floor_rect.Draw(raylib::GRAY);
 
 			tilemap.draw();
 
