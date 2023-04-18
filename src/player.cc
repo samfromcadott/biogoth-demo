@@ -16,7 +16,7 @@ void player_move() {
 
 		if ( IsKeyDown(KEY_RIGHT) )  velocity.value.x += speed;
 		if ( IsKeyDown(KEY_LEFT) ) velocity.value.x -= speed;
-		// if ( IsKeyDown(KEY_UP) ) velocity.value.y -= speed;
-		// if ( IsKeyDown(KEY_DOWN) ) velocity.value.y += speed;
+
+		if ( IsKeyPressed(KEY_SPACE) ) velocity.value.y -= 10.0;
 	}
 }
