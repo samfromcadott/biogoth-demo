@@ -26,8 +26,11 @@ bool tile_overlap(const Position& position, const Collider& collider) {
 }
 
 void move_collide() {
-	auto view = registry.view<Position, Velocity, const Collider>();
+	auto view = registry.view<Position, Velocity, Collider>();
 	for ( auto [entity, position, velocity, collider] : view.each() ) {
+		collider.on_floor = false;
+		collider.wall_direction = 0;
+
 		// Move the entity
 		position.value.y += velocity.value.y;
 
@@ -36,6 +39,7 @@ void move_collide() {
 			// From above
 			if ( velocity.value.y > 0 ) {
 				position.value.y = floor(position.value.y / tilemap.tile_size) * tilemap.tile_size;
+				collider.on_floor = true;
 			}
 
 			// From below

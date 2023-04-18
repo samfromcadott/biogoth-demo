@@ -25,7 +25,7 @@ int main() {
 	registry.emplace<Gravity>(player);
 	registry.emplace<Position>( player, raylib::Vector2(100, 100) );
 	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
-	registry.emplace<Collider>( player, 64.0f, 128.0f );
+	registry.emplace<Collider>( player, 64.0f, 128.0f, false, 0 );
 
 	tilemap(0, 9) = 1;
 	tilemap(1, 9) = 1;

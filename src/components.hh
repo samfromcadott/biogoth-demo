@@ -15,6 +15,8 @@ struct Velocity {
 
 struct Collider {
 	float width, height;
+	bool on_floor;
+	int wall_direction;
 
 	raylib::Rectangle get_rectangle(raylib::Vector2 position) const {
 		return raylib::Rectangle(
