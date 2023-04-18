@@ -18,7 +18,7 @@ void Tilemap::draw() {
 	for (int y = 0; y < height; y++)
 	for (int x = 0; x < width; x++) {
 		Tile& t = tiles[ tile_index(x, y) ];
-		DrawRectangleLines(x*tile_size, y*tile_size, tile_size, tile_size, SKYBLUE);
+		// DrawRectangleLines(x*tile_size, y*tile_size, tile_size, tile_size, SKYBLUE);
 		if (t == empty_tile) continue;
 
 		DrawRectangle(x*tile_size, y*tile_size, tile_size, tile_size, GRAY);
