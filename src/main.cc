@@ -8,6 +8,7 @@
 using namespace raylib;
 
 entt::registry registry;
+Tilemap tilemap(10, 10);
 
 int main() {
 	int screen_width = 1280;
@@ -28,7 +29,6 @@ int main() {
 	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
 	registry.emplace<Collider>( player, 64.0f, 128.0f );
 
-	Tilemap tilemap(10, 10);
 	tilemap(2, 1) = 1;
 	tilemap(3, 1) = 1;
 
