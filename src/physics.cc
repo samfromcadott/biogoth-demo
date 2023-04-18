@@ -16,12 +16,12 @@ void move_collide() {
 		// Check for collision
 		if ( collider.get_rectangle(position.value).CheckCollision(floor_rect) ) {
 			// From above
-			if ( velocity.value.y > 0 && position.value.y > floor_rect.GetY() ) {
+			if ( velocity.value.y > 0 ) {
 				position.value.y = floor_rect.GetY();
 			}
 
 			// From below
-			else if ( velocity.value.y < 0 && position.value.y - collider.height < floor_rect.GetY() + floor_rect.GetHeight() ) {
+			else if ( velocity.value.y < 0 ) {
 				position.value.y = floor_rect.GetY() + floor_rect.GetHeight() + collider.height;
 			}
 		}
@@ -31,12 +31,12 @@ void move_collide() {
 
 		if ( collider.get_rectangle(position.value).CheckCollision(floor_rect) ) {
 			// From left
-			if ( velocity.value.x > 0 && (position.value.x - collider.width/2) < floor_rect.GetX() ) {
+			if ( velocity.value.x > 0 ) {
 				position.value.x = floor_rect.GetX() - collider.width/2;
 			}
 
 			// From right
-			else if ( velocity.value.x < 0 && (position.value.x - collider.width/2) > floor_rect.GetX() ) {
+			else if ( velocity.value.x < 0 ) {
 				position.value.x = floor_rect.GetX() + floor_rect.GetWidth() + collider.width/2;
 			}
 		}
