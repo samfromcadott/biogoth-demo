@@ -3,6 +3,7 @@
 #include <raylib/raylib-cpp.hpp>
 
 struct Player {}; // Tags an object as player
+struct Gravity {}; // Makes an object affected by gravity
 
 struct Position {
 	raylib::Vector2 value;

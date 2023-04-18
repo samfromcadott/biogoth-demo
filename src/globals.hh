@@ -6,3 +6,5 @@
 
 extern entt::registry registry;
 extern Tilemap tilemap;
+
+extern const float G; // Gravity acceleration

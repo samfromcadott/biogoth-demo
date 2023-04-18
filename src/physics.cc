@@ -26,7 +26,7 @@ bool tile_overlap(const Position& position, const Collider& collider) {
 }
 
 void move_collide() {
-	auto view = registry.view<Position, const Velocity, const Collider>();
+	auto view = registry.view<Position, Velocity, const Collider>();
 	for ( auto [entity, position, velocity, collider] : view.each() ) {
 		// Move the entity
 		position.value.y += velocity.value.y;
@@ -42,6 +42,8 @@ void move_collide() {
 			else if ( velocity.value.y < 0 ) {
 				position.value.y = ceil(position.value.y / tilemap.tile_size) * tilemap.tile_size;
 			}
+
+			velocity.value.y = 0.0;
 		}
 
 		// Repeat for the other axis
@@ -57,7 +59,16 @@ void move_collide() {
 			else if ( velocity.value.x < 0 ) {
 				position.value.x = ceil(position.value.x / tilemap.tile_size) * tilemap.tile_size;
 			}
+
+			velocity.value.x = 0.0;
 		}
 
+	}
+}
+
+void gravity() {
+	auto view = registry.view<Velocity, const Gravity>();
+	for ( auto [entity, velocity] : view.each() ) {
+		velocity.value.y += G * GetFrameTime();
 	}
 }

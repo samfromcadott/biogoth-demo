@@ -10,6 +10,8 @@ using namespace raylib;
 entt::registry registry;
 Tilemap tilemap(10, 10);
 
+const float G = 13.0;
+
 int main() {
 	int screen_width = 1280;
 	int screen_height = 720;
@@ -20,6 +22,7 @@ int main() {
 
 	const auto player = registry.create();
 	registry.emplace<Player>(player);
+	registry.emplace<Gravity>(player);
 	registry.emplace<Position>( player, raylib::Vector2(100, 100) );
 	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
 	registry.emplace<Collider>( player, 64.0f, 128.0f );
@@ -41,6 +44,7 @@ int main() {
 
 	while ( !window.ShouldClose() ) {
 		player_move();
+		gravity();
 		move_collide();
 
 		BeginDrawing();
