@@ -9,12 +9,11 @@
 // Checks if a collider is overlapping a non-empty tile
 bool tile_overlap(const Position& position, const Collider& collider) {
 	const float e = 0.0001; // Ensures next tile isn't counted
+
 	int start_x = (position.value.x - collider.width/2) / tilemap.tile_size;
 	int end_x = (position.value.x - e + collider.width/2) / tilemap.tile_size;
 	int start_y = (position.value.y - collider.height) / tilemap.tile_size;
 	int end_y = (position.value.y - e) / tilemap.tile_size;
-	std::cout << "X " << start_x << " " << end_x << '\n';
-	std::cout << "Y " << start_y << " " << end_y << '\n';
 
 	for (int x=start_x; x<=end_x; x++)
 	for (int y=start_y; y<=end_y; y++) {
@@ -49,7 +48,6 @@ void move_collide() {
 		position.value.x += velocity.value.x;
 
 		if ( tile_overlap(position, collider) ) {
-			std::cout << "horizontal collide" << '\n';
 			// From left
 			if ( velocity.value.x > 0 ) {
 				position.value.x = floor(position.value.x / tilemap.tile_size) * tilemap.tile_size;
