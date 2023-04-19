@@ -7,15 +7,16 @@
 
 using namespace raylib;
 
+int screen_width = 1280;
+int screen_height = 720;
+
 entt::registry registry;
-Tilemap tilemap(30, 10);
+Tilemap tilemap(30, 20);
+raylib::Camera2D camera( raylib::Vector2(screen_width/2, screen_height/2), raylib::Vector2(0.0, 0.0) );
 
 const float G = 13.0;
 
 int main() {
-	int screen_width = 1280;
-	int screen_height = 720;
-
 	Window window(screen_width, screen_height, "raylib-cpp - basic window");
 
 	SetTargetFPS(60);
@@ -38,8 +39,11 @@ int main() {
 	tilemap(8, 9) = 1;
 	tilemap(9, 9) = 1;
 
-	tilemap(15, 9) = 1;
-	tilemap(16, 9) = 1;
+	tilemap(13, 5) = 1;
+	tilemap(14, 5) = 1;
+
+	tilemap(15, 15) = 1;
+	tilemap(16, 15) = 1;
 
 	tilemap(20, 9) = 1;
 	tilemap(21, 9) = 1;
@@ -59,6 +63,7 @@ int main() {
 		move_collide();
 
 		BeginDrawing();
+		camera.BeginMode();
 
 			window.ClearBackground(raylib::RAYWHITE);
 
@@ -67,9 +72,17 @@ int main() {
 				collider.get_rectangle(position.value).Draw(raylib::VIOLET);
 			}
 
+			// Camera update
+			for ( auto [player, position, collider] : view.each() ) {
+				camera.target.x += (position.value.x - camera.target.x) * 0.95 * GetFrameTime();
+				camera.target.y += (position.value.y - camera.target.y) * 0.3 * GetFrameTime();
+			}
+
 			tilemap.draw();
 
+		camera.EndMode();
 		EndDrawing();
+
 	}
 
 	return 0;
