@@ -9,12 +9,12 @@
 using namespace raylib;
 
 void player_move() {
-	float ground_acceleration = 5.0;
-	float air_acceleration = 1.0;
-	float ground_deceleration = 5.0;
-	float air_deceleration = 1.0;
-	float ground_turn_speed = 5.0;
-	float air_turn_speed = 1.0;
+	float ground_acceleration = 10.0;
+	float air_acceleration = 5.0;
+	float ground_deceleration = 15.0;
+	float air_deceleration = 3.0;
+	float ground_turn_speed = 13.0;
+	float air_turn_speed = 5.0;
 
 	auto view = registry.view<const Player, Velocity, const Collider>();
 
@@ -44,9 +44,7 @@ void player_move() {
 		}
 
 		// Move velocity towards target velocity
-		if (velocity.value.x < wish_speed) velocity.value.x += speed_change * GetFrameTime();
-		if (velocity.value.x > wish_speed) velocity.value.x -= speed_change * GetFrameTime();
-		if ( abs(velocity.value.x) > max_speed ) velocity.value.x = wish_speed;
+		velocity.value.x = move_towards( velocity.value.x, wish_speed, speed_change * GetFrameTime() );
 
 		if ( IsKeyDown(KEY_SPACE) && collider.on_floor ) velocity.value.y -= 10.0;
 	}
