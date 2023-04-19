@@ -27,3 +27,11 @@ struct Collider {
 		);
 	}
 };
+
+struct Health {
+	int now, max;
+};
+
+struct DebugColor {
+	raylib::Color color;
+};

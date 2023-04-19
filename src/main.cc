@@ -27,6 +27,14 @@ int main() {
 	registry.emplace<Position>( player, raylib::Vector2(100, 100) );
 	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
 	registry.emplace<Collider>( player, 64.0f, 128.0f, false, 0 );
+	registry.emplace<DebugColor>( player, raylib::VIOLET);
+
+	const auto enemy = registry.create();
+	registry.emplace<Gravity>(enemy);
+	registry.emplace<Position>( enemy, raylib::Vector2(500, 100) );
+	registry.emplace<Velocity>( enemy, raylib::Vector2(0, 0) );
+	registry.emplace<Collider>( enemy, 64.0f, 128.0f, false, 0 );
+	registry.emplace<DebugColor>( enemy, raylib::LIME);
 
 	tilemap(0, 9) = 1;
 	tilemap(1, 9) = 1;
@@ -68,14 +76,12 @@ int main() {
 			window.ClearBackground(raylib::RAYWHITE);
 
 			auto view = registry.view<const Player, const Position, const Collider>();
-			for ( auto [player, position, collider] : view.each() ) {
-				collider.get_rectangle(position.value).Draw(raylib::VIOLET);
-			}
+			render_colliders();
 
 			// Camera update
 			for ( auto [player, position, collider] : view.each() ) {
-				camera.target.x += (position.value.x - camera.target.x) * 0.95 * GetFrameTime();
-				camera.target.y += (position.value.y - camera.target.y) * 0.3 * GetFrameTime();
+				camera.target.x += (position.value.x - camera.target.x) * 0.98 * GetFrameTime();
+				camera.target.y += (position.value.y - camera.target.y) * 0.6 * GetFrameTime();
 			}
 
 			tilemap.draw();
