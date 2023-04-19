@@ -4,19 +4,50 @@
 #include "systems.hh"
 #include "globals.hh"
 #include "components.hh"
+#include "util.hh"
 
 using namespace raylib;
 
 void player_move() {
+	float ground_acceleration = 5.0;
+	float air_acceleration = 1.0;
+	float ground_deceleration = 5.0;
+	float air_deceleration = 1.0;
+	float ground_turn_speed = 5.0;
+	float air_turn_speed = 1.0;
+
 	auto view = registry.view<const Player, Velocity, const Collider>();
 
-	for( auto [player, velocity, collider] : view.each() ) {
-		velocity.value.x = 0.0;
-		const float speed = 5.0;
+	for ( auto [player, velocity, collider] : view.each() ) {
+		int dx = 0; // Input direction
+		const float max_speed = 5.0;
 
-		if ( IsKeyDown(KEY_RIGHT) )  velocity.value.x += speed;
-		if ( IsKeyDown(KEY_LEFT) ) velocity.value.x -= speed;
+		if ( IsKeyDown(KEY_RIGHT) )  dx = +1;
+		if ( IsKeyDown(KEY_LEFT) ) dx = -1;
 
-		if ( IsKeyPressed(KEY_SPACE) && collider.on_floor ) velocity.value.y -= 10.0;
+		float wish_speed = max_speed * dx;
+
+		float acceleration = collider.on_floor ? ground_acceleration : air_acceleration;
+		float deceleration = collider.on_floor ? ground_deceleration : air_deceleration;
+		float turn_speed = collider.on_floor ? ground_turn_speed : air_turn_speed;
+		float speed_change;
+
+		if ( dx != 0 ) {
+			// If the sign of dx and velocity.x are inequal the player is trying to change direction
+			if ( sign(dx) != sign(velocity.value.x) ) {
+				speed_change = turn_speed;
+			} else {
+				speed_change = acceleration; // Continuing in same direction
+			}
+		} else {
+			speed_change = deceleration; // Decelerate if no input
+		}
+
+		// Move velocity towards target velocity
+		if (velocity.value.x < wish_speed) velocity.value.x += speed_change * GetFrameTime();
+		if (velocity.value.x > wish_speed) velocity.value.x -= speed_change * GetFrameTime();
+		if ( abs(velocity.value.x) > max_speed ) velocity.value.x = wish_speed;
+
+		if ( IsKeyDown(KEY_SPACE) && collider.on_floor ) velocity.value.y -= 10.0;
 	}
 }

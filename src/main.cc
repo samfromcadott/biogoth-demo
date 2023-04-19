@@ -8,7 +8,7 @@
 using namespace raylib;
 
 entt::registry registry;
-Tilemap tilemap(10, 10);
+Tilemap tilemap(30, 10);
 
 const float G = 13.0;
 
@@ -37,10 +37,21 @@ int main() {
 	tilemap(7, 9) = 1;
 	tilemap(8, 9) = 1;
 	tilemap(9, 9) = 1;
-	tilemap(9, 8) = 1;
 
-	tilemap(5, 5) = 1;
-	tilemap(5, 6) = 1;
+	tilemap(15, 9) = 1;
+	tilemap(16, 9) = 1;
+
+	tilemap(20, 9) = 1;
+	tilemap(21, 9) = 1;
+	tilemap(22, 9) = 1;
+	tilemap(23, 9) = 1;
+	tilemap(24, 9) = 1;
+	tilemap(25, 9) = 1;
+	tilemap(26, 9) = 1;
+	tilemap(27, 9) = 1;
+	tilemap(28, 9) = 1;
+	tilemap(29, 9) = 1;
+	tilemap(29, 8) = 1;
 
 	while ( !window.ShouldClose() ) {
 		player_move();
