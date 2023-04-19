@@ -31,7 +31,7 @@ int main() {
 
 	const auto enemy = registry.create();
 	registry.emplace<Gravity>(enemy);
-	registry.emplace<Position>( enemy, raylib::Vector2(500, 100) );
+	registry.emplace<Position>( enemy, raylib::Vector2(700, 100) );
 	registry.emplace<Velocity>( enemy, raylib::Vector2(0, 0) );
 	registry.emplace<Collider>( enemy, 64.0f, 128.0f, false, 0 );
 	registry.emplace<DebugColor>( enemy, raylib::LIME);
@@ -79,7 +79,7 @@ int main() {
 			render_colliders();
 
 			// Camera update
-			for ( auto [player, position, collider] : view.each() ) {
+			for ( auto [entity, player, position, collider] : view.each() ) {
 				camera.target.x += (position.value.x - camera.target.x) * 0.98 * GetFrameTime();
 				camera.target.y += (position.value.y - camera.target.y) * 0.6 * GetFrameTime();
 			}

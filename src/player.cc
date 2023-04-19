@@ -9,27 +9,19 @@
 using namespace raylib;
 
 void player_move() {
-	float ground_acceleration = 10.0;
-	float air_acceleration = 5.0;
-	float ground_deceleration = 15.0;
-	float air_deceleration = 3.0;
-	float ground_turn_speed = 13.0;
-	float air_turn_speed = 5.0;
-
 	auto view = registry.view<const Player, Velocity, const Collider>();
 
-	for ( auto [player, velocity, collider] : view.each() ) {
+	for ( auto [entity, player, velocity, collider] : view.each() ) {
 		int dx = 0; // Input direction
-		const float max_speed = 5.0;
 
 		if ( IsKeyDown(KEY_RIGHT) )  dx = +1;
 		if ( IsKeyDown(KEY_LEFT) ) dx = -1;
 
-		float wish_speed = max_speed * dx;
+		float wish_speed = player.max_speed * dx;
 
-		float acceleration = collider.on_floor ? ground_acceleration : air_acceleration;
-		float deceleration = collider.on_floor ? ground_deceleration : air_deceleration;
-		float turn_speed = collider.on_floor ? ground_turn_speed : air_turn_speed;
+		float acceleration = collider.on_floor ? player.ground_acceleration : player.air_acceleration;
+		float deceleration = collider.on_floor ? player.ground_deceleration : player.air_deceleration;
+		float turn_speed = collider.on_floor ? player.ground_turn_speed : player.air_turn_speed;
 		float speed_change;
 
 		if ( dx != 0 ) {
