@@ -68,6 +68,7 @@ int main() {
 	while ( !window.ShouldClose() ) {
 		player_move();
 		gravity();
+		collider_overlap();
 		move_collide();
 
 		BeginDrawing();

@@ -76,3 +76,27 @@ void gravity() {
 		velocity.value.y += G * GetFrameTime();
 	}
 }
+
+void collider_overlap() {
+	const float push_speed = 1.0;
+
+	auto view = registry.view<Velocity, const Position, const Collider>();
+	for ( auto entity : view )
+	for ( auto other : view ) {
+		if (entity == other) continue; // Skip self
+
+		auto& position = view.get<Position>(entity);
+		auto& collider = view.get<Collider>(entity);
+		auto& velocity = view.get<Velocity>(entity);
+		auto& other_position = view.get<Position>(other);
+		auto& other_collider = view.get<Collider>(other);
+
+		// Check for collision
+		bool collided = collider.get_rectangle(position.value).CheckCollision( other_collider.get_rectangle(other_position.value) );
+		if ( !collided ) continue;
+
+		// Push away if they overlap
+		if (position.value.x < other_position.value.x) velocity.value.x = -push_speed;
+		else velocity.value.x = push_speed;
+	}
+}
