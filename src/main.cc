@@ -30,6 +30,7 @@ int main() {
 	registry.emplace<DebugColor>( player, raylib::VIOLET);
 	registry.emplace<MeleeAttack>( player, 64.0f, 10);
 	registry.emplace<Facing>(player, +1);
+	registry.emplace<Health>(player, 100, 100);
 
 	const auto enemy = registry.create();
 	registry.emplace<Gravity>(enemy);
