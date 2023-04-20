@@ -43,3 +43,29 @@ struct Health {
 struct DebugColor {
 	raylib::Color color;
 };
+
+struct MeleeAttack {
+	float distance;
+	int damage;
+};
+
+struct RayCast {
+	raylib::Vector2 start, end;
+
+	bool line_rectangle_intersect(raylib::Rectangle collider) {
+		bool left_intersect = CheckCollisionLines(
+			start, end,
+			raylib::Vector2( collider.GetX(),  collider.GetY() ),
+			raylib::Vector2( collider.GetX(),  collider.GetY()+collider.GetHeight() ),
+			NULL
+		);
+		bool right_intersect = CheckCollisionLines(
+			start, end,
+			raylib::Vector2( collider.GetX()+collider.GetWidth(),  collider.GetY() ),
+			raylib::Vector2( collider.GetX()+collider.GetWidth(),  collider.GetY()+collider.GetHeight() ),
+			NULL
+		);
+
+		return left_intersect || right_intersect;
+	}
+};
