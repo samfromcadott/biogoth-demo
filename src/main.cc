@@ -28,6 +28,7 @@ int main() {
 	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
 	registry.emplace<Collider>( player, 64.0f, 128.0f, false, 0 );
 	registry.emplace<DebugColor>( player, raylib::VIOLET);
+	registry.emplace<MeleeAttack>( player, 64.0f, 10);
 
 	const auto enemy = registry.create();
 	registry.emplace<Gravity>(enemy);
@@ -67,6 +68,8 @@ int main() {
 
 	while ( !window.ShouldClose() ) {
 		player_move();
+		player_attack();
+		melee_attack();
 		gravity();
 		collider_overlap();
 		move_collide();

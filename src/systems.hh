@@ -7,3 +7,5 @@ void move_collide(); // Moves a body and applies collisions
 void gravity();
 void render_colliders();
 void collider_overlap(); // Pushes colliders apart if they overlap
+void player_attack(); // Checks if player is attacking
+void melee_attack(); // Handles melee attacks

@@ -52,7 +52,7 @@ struct MeleeAttack {
 struct RayCast {
 	raylib::Vector2 start, end;
 
-	bool line_rectangle_intersect(raylib::Rectangle collider) {
+	bool intersect(raylib::Rectangle collider) const {
 		bool left_intersect = CheckCollisionLines(
 			start, end,
 			raylib::Vector2( collider.GetX(),  collider.GetY() ),

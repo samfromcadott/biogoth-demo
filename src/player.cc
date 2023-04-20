@@ -41,3 +41,15 @@ void player_move() {
 		if ( IsKeyDown(KEY_SPACE) && collider.on_floor ) velocity.value.y -= 10.0;
 	}
 }
+
+void player_attack() {
+	auto view = registry.view<const Player, const MeleeAttack, const Collider, const Position>();
+
+	for ( auto [entity, player, attack, collider, position] : view.each() ) {
+		if ( !IsKeyPressed(KEY_LEFT_CONTROL) ) continue;
+
+		raylib::Vector2 ray_start = position.value + raylib::Vector2(collider.width/2+0.001, -collider.height/2);
+		raylib::Vector2 ray_end = ray_start + raylib::Vector2(attack.distance);
+		registry.emplace<RayCast>(entity, ray_start, ray_end);
+	}
+}
