@@ -26,7 +26,7 @@ int main() {
 	registry.emplace<Gravity>(player);
 	registry.emplace<Position>( player, raylib::Vector2(100, 100) );
 	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
-	registry.emplace<Collider>( player, 64.0f, 128.0f, false, 0 );
+	registry.emplace<Collider>( player, 64.0f, 128.0f, false, 0, true );
 	registry.emplace<DebugColor>( player, raylib::VIOLET);
 	registry.emplace<MeleeAttack>( player, 64.0f, 10);
 	registry.emplace<Facing>(player, +1);
@@ -36,9 +36,17 @@ int main() {
 	registry.emplace<Gravity>(enemy);
 	registry.emplace<Position>( enemy, raylib::Vector2(700, 100) );
 	registry.emplace<Velocity>( enemy, raylib::Vector2(0, 0) );
-	registry.emplace<Collider>( enemy, 64.0f, 128.0f, false, 0 );
+	registry.emplace<Collider>( enemy, 64.0f, 128.0f, false, 0, true );
 	registry.emplace<DebugColor>( enemy, raylib::LIME);
 	registry.emplace<Health>(enemy, 100, 100);
+
+	const auto enemy2 = registry.create();
+	registry.emplace<Gravity>(enemy2);
+	registry.emplace<Position>( enemy2, raylib::Vector2(200, 100) );
+	registry.emplace<Velocity>( enemy2, raylib::Vector2(0, 0) );
+	registry.emplace<Collider>( enemy2, 64.0f, 128.0f, false, 0, false );
+	registry.emplace<DebugColor>( enemy2, raylib::LIME);
+	registry.emplace<Health>(enemy2, 100, 100);
 
 	tilemap(0, 9) = 1;
 	tilemap(1, 9) = 1;

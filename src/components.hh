@@ -29,6 +29,7 @@ struct Collider {
 	float width, height;
 	bool on_floor;
 	int wall_direction;
+	bool enabled; // Disabled collision with other entities
 
 	raylib::Rectangle get_rectangle(raylib::Vector2 position) const {
 		return raylib::Rectangle(

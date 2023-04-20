@@ -91,6 +91,8 @@ void collider_overlap() {
 		auto& other_position = view.get<Position>(other);
 		auto& other_collider = view.get<Collider>(other);
 
+		if ( !collider.enabled || !other_collider.enabled ) continue;
+
 		// Check for collision
 		bool collided = collider.get_rectangle(position.value).CheckCollision( other_collider.get_rectangle(other_position.value) );
 		if ( !collided ) continue;
