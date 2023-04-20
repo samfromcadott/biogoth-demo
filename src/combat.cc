@@ -21,9 +21,10 @@ void melee_attack() {
 		// Loop over potential targets
 		auto target_view = registry.view<const Position, const Collider, Health>();
 		for ( auto [target, position, collider, health] : target_view.each() ) {
-			if ( ray.intersect( collider.get_rectangle(position.value) ) )
+			if ( ray.intersect( collider.get_rectangle(position.value) ) ) {
 				std::cout << "SLASH!" << '\n';
 				health.now -= attack.damage;
+			}
 		}
 
 		registry.remove<RayCast>(entity); // Delete the ray cast
