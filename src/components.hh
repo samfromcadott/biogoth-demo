@@ -21,6 +21,10 @@ struct Velocity {
 	raylib::Vector2 value;
 };
 
+struct Facing {
+	int direction;
+};
+
 struct Collider {
 	float width, height;
 	bool on_floor;

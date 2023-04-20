@@ -9,13 +9,14 @@
 using namespace raylib;
 
 void player_move() {
-	auto view = registry.view<const Player, Velocity, const Collider>();
+	auto view = registry.view<const Player, Velocity, const Collider, Facing>();
 
-	for ( auto [entity, player, velocity, collider] : view.each() ) {
+	for ( auto [entity, player, velocity, collider, facing] : view.each() ) {
 		int dx = 0; // Input direction
 
 		if ( IsKeyDown(KEY_RIGHT) )  dx = +1;
 		if ( IsKeyDown(KEY_LEFT) ) dx = -1;
+		if ( dx != 0 ) facing.direction = dx;
 
 		float wish_speed = player.max_speed * dx;
 
@@ -43,13 +44,13 @@ void player_move() {
 }
 
 void player_attack() {
-	auto view = registry.view<const Player, const MeleeAttack, const Collider, const Position>();
+	auto view = registry.view<const Player, const MeleeAttack, const Collider, const Position, const Facing>();
 
-	for ( auto [entity, player, attack, collider, position] : view.each() ) {
+	for ( auto [entity, player, attack, collider, position, facing] : view.each() ) {
 		if ( !IsKeyPressed(KEY_LEFT_CONTROL) ) continue;
 
-		raylib::Vector2 ray_start = position.value + raylib::Vector2(collider.width/2+0.001, -collider.height/2);
-		raylib::Vector2 ray_end = ray_start + raylib::Vector2(attack.distance);
+		raylib::Vector2 ray_start = position.value + raylib::Vector2((collider.width/2+0.001)*facing.direction, -collider.height/2);
+		raylib::Vector2 ray_end = ray_start + raylib::Vector2(attack.distance) * facing.direction;
 		registry.emplace<RayCast>(entity, ray_start, ray_end);
 	}
 }
