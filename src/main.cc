@@ -36,6 +36,7 @@ int main() {
 	registry.emplace<Velocity>( enemy, raylib::Vector2(0, 0) );
 	registry.emplace<Collider>( enemy, 64.0f, 128.0f, false, 0 );
 	registry.emplace<DebugColor>( enemy, raylib::LIME);
+	registry.emplace<Health>(enemy, 100, 100);
 
 	tilemap(0, 9) = 1;
 	tilemap(1, 9) = 1;
@@ -73,6 +74,7 @@ int main() {
 		gravity();
 		collider_overlap();
 		move_collide();
+		death();
 
 		BeginDrawing();
 		camera.BeginMode();
