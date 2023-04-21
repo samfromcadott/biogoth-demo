@@ -52,6 +52,14 @@ struct DebugColor {
 struct MeleeAttack {
 	float distance;
 	int damage;
+	bool active;
+};
+
+struct BiteAttack {
+	float distance;
+	float timer; // Time remianing to next drain
+	int damage; // Health loss per second
+	bool active; // Entity is currently biting the target
 };
 
 struct RayCast {

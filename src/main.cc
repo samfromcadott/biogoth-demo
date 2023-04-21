@@ -28,9 +28,10 @@ int main() {
 	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
 	registry.emplace<Collider>( player, 64.0f, 128.0f, false, 0, true );
 	registry.emplace<DebugColor>( player, raylib::VIOLET);
-	registry.emplace<MeleeAttack>( player, 64.0f, 10);
+	registry.emplace<MeleeAttack>( player, 64.0f, 10, false);
 	registry.emplace<Facing>(player, +1);
 	registry.emplace<Health>(player, 100, 100);
+	registry.emplace<BiteAttack>(player, 64.0f, 0.0f, 10, false);
 
 	const auto enemy = registry.create();
 	registry.emplace<Gravity>(enemy);
@@ -44,7 +45,7 @@ int main() {
 	registry.emplace<Gravity>(enemy2);
 	registry.emplace<Position>( enemy2, raylib::Vector2(200, 100) );
 	registry.emplace<Velocity>( enemy2, raylib::Vector2(0, 0) );
-	registry.emplace<Collider>( enemy2, 64.0f, 128.0f, false, 0, false );
+	registry.emplace<Collider>( enemy2, 64.0f, 128.0f, false, 0, true );
 	registry.emplace<DebugColor>( enemy2, raylib::LIME);
 	registry.emplace<Health>(enemy2, 100, 100);
 
@@ -78,12 +79,20 @@ int main() {
 	tilemap(29, 8) = 1;
 
 	while ( !window.ShouldClose() ) {
+		// Player actions
 		player_move();
 		player_attack();
+		player_bite();
+
+		// Combat
 		melee_attack();
+		bite_attack();
+
+		// Physics
 		gravity();
 		collider_overlap();
 		move_collide();
+
 		death();
 
 		BeginDrawing();

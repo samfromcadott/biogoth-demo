@@ -15,9 +15,11 @@ void death() {
 }
 
 void melee_attack() {
-	auto view = registry.view<const MeleeAttack, const RayCast>();
+	auto view = registry.view<MeleeAttack, const RayCast>();
 
 	for ( auto [entity, attack, ray] : view.each() ) {
+		if (!attack.active) continue;
+
 		// Loop over potential targets
 		auto target_view = registry.view<const Position, const Collider, Health>();
 		for ( auto [target, position, collider, health] : target_view.each() ) {
@@ -28,5 +30,36 @@ void melee_attack() {
 		}
 
 		registry.remove<RayCast>(entity); // Delete the ray cast
+		attack.active = false;
+	}
+}
+
+void bite_attack() {
+	auto view = registry.view<BiteAttack, const RayCast, Health>();
+
+	for ( auto [entity, bite, ray, health] : view.each() ) {
+		if (!bite.active) continue; // Skip entities that don't want to bite
+
+		bite.timer -= GetFrameTime(); // Count down the timer
+
+		// Loop over potential targets
+		auto target_view = registry.view<const Position, const Collider, Health>();
+		for ( auto [target, target_position, target_collider, target_health] : target_view.each() ) {
+			// Skip non-interected entities
+			if ( !ray.intersect( target_collider.get_rectangle(target_position.value) ) ) continue;
+
+			if (bite.timer <= 0.0) {
+				// Suck blood
+				target_health.now -= bite.damage;
+				health.now += bite.damage;
+				if ( health.now > health.max ) health.now = health.max;
+
+				std::cout << "Drained " << bite.damage << " health" << '\n';
+
+				bite.timer = 1.0; // Reset timer
+			}
+
+			break; // Only suck blood from one enemy
+		}
 	}
 }

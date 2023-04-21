@@ -44,7 +44,7 @@ void player_move() {
 }
 
 void player_attack() {
-	auto view = registry.view<const Player, const MeleeAttack, const Collider, const Position, const Facing>();
+	auto view = registry.view<const Player, MeleeAttack, const Collider, const Position, const Facing>();
 
 	for ( auto [entity, player, attack, collider, position, facing] : view.each() ) {
 		if ( !IsKeyPressed(KEY_LEFT_CONTROL) ) continue;
@@ -52,5 +52,28 @@ void player_attack() {
 		raylib::Vector2 ray_start = position.value + raylib::Vector2((collider.width/2+0.001)*facing.direction, -collider.height/2);
 		raylib::Vector2 ray_end = ray_start + raylib::Vector2(attack.distance) * facing.direction;
 		registry.emplace<RayCast>(entity, ray_start, ray_end);
+
+		attack.active = true;
+	}
+}
+
+void player_bite() {
+	auto view = registry.view<const Player, BiteAttack, const Collider, const Position, const Facing>();
+
+	for ( auto [entity, player, bite, collider, position, facing] : view.each() ) {
+		if ( IsKeyPressed(KEY_V) ) {
+			raylib::Vector2 ray_start =
+				position.value + raylib::Vector2((collider.width/2+0.001)*facing.direction, -collider.height/2);
+			raylib::Vector2 ray_end = ray_start + raylib::Vector2(bite.distance) * facing.direction;
+			registry.emplace<RayCast>(entity, ray_start, ray_end);
+
+			bite.active = true;
+		}
+
+		if ( IsKeyReleased(KEY_V) ) {
+			registry.remove<RayCast>(entity); // Delete the ray cast
+			bite.active = false;
+		}
+
 	}
 }

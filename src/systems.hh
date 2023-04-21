@@ -9,4 +9,6 @@ void death();
 void render_colliders();
 void collider_overlap(); // Pushes colliders apart if they overlap
 void player_attack(); // Checks if player is attacking
+void player_bite(); // Checks if player is biting
 void melee_attack(); // Handles melee attacks
+void bite_attack();
