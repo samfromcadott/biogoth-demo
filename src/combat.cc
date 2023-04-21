@@ -74,6 +74,10 @@ void bullets() {
 	for ( auto [entity, position, velocity, bullet] : view.each() ) {
 		position.value += velocity.value;
 
+		// Check for tile collision
+		if ( tilemap( tilemap.world_to_tile(position.value) ) != 0 )
+			registry.destroy(entity); // Destroy the bullet
+
 		// Collider collisions
 		auto target_view = registry.view<const Position, const Collider, Health>();
 		for ( auto [target, target_position, target_collider, target_health] : target_view.each() ) {

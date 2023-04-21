@@ -54,6 +54,11 @@ int main() {
 	registry.emplace<Velocity>( bullet, raylib::Vector2(15, 0) );
 	registry.emplace<Bullet>( bullet, 1 );
 
+	const auto bullet2 = registry.create();
+	registry.emplace<Position>( bullet2, raylib::Vector2(150, 100) );
+	registry.emplace<Velocity>( bullet2, raylib::Vector2(0, 5) );
+	registry.emplace<Bullet>( bullet2, 1 );
+
 	tilemap(0, 9) = 1;
 	tilemap(1, 9) = 1;
 	tilemap(2, 9) = 1;
