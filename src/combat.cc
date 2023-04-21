@@ -35,18 +35,23 @@ void melee_attack() {
 }
 
 void bite_attack() {
-	auto view = registry.view<BiteAttack, const RayCast, Health>();
+	auto view = registry.view<BiteAttack, const RayCast, Health, const Position>();
 
-	for ( auto [entity, bite, ray, health] : view.each() ) {
+	for ( auto [entity, bite, ray, health, position] : view.each() ) {
 		if (!bite.active) continue; // Skip entities that don't want to bite
 
 		bite.timer -= GetFrameTime(); // Count down the timer
 
 		// Loop over potential targets
-		auto target_view = registry.view<const Position, const Collider, Health>();
+		auto target_view = registry.view<Position, Collider, Health>();
 		for ( auto [target, target_position, target_collider, target_health] : target_view.each() ) {
 			// Skip non-interected entities
 			if ( !ray.intersect( target_collider.get_rectangle(target_position.value) ) ) continue;
+
+			// Move the target to the biter
+			target_collider.enabled = false;
+			target_position.value.x = (ray.end.x + position.value.x) / 2;
+			target_position.value.y = position.value.y;
 
 			if (bite.timer <= 0.0) {
 				// Suck blood
