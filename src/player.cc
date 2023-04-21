@@ -29,11 +29,8 @@ void player_move() {
 
 		if ( dx != 0 ) {
 			// If the sign of dx and velocity.x are inequal the player is trying to change direction
-			if ( sign(dx) != sign(velocity.value.x) ) {
-				speed_change = turn_speed;
-			} else {
-				speed_change = acceleration; // Continuing in same direction
-			}
+			if ( sign(dx) != sign(velocity.value.x) ) speed_change = turn_speed;
+			else speed_change = acceleration; // Continuing in same direction
 		} else {
 			speed_change = deceleration; // Decelerate if no input
 		}
