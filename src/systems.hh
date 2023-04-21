@@ -12,3 +12,6 @@ void player_attack(); // Checks if player is attacking
 void player_bite(); // Checks if player is biting
 void melee_attack(); // Handles melee attacks
 void bite_attack();
+
+// UI Elements
+void health_bar();

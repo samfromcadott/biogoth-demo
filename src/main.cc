@@ -30,7 +30,7 @@ int main() {
 	registry.emplace<DebugColor>( player, raylib::VIOLET);
 	registry.emplace<MeleeAttack>( player, 64.0f, 10, false);
 	registry.emplace<Facing>(player, +1);
-	registry.emplace<Health>(player, 100, 100);
+	registry.emplace<Health>(player, 10, 100);
 	registry.emplace<BiteAttack>(player, 64.0f, 0.0f, 10, false);
 
 	const auto enemy = registry.create();
@@ -112,6 +112,10 @@ int main() {
 			tilemap.draw();
 
 		camera.EndMode();
+
+		// UI
+		health_bar();
+
 		EndDrawing();
 
 	}
