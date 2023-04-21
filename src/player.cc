@@ -12,6 +12,8 @@ void player_move() {
 	auto view = registry.view<const Player, Velocity, const Collider, Facing>();
 
 	for ( auto [entity, player, velocity, collider, facing] : view.each() ) {
+		if (!player.can_move) continue;
+
 		int dx = 0; // Input direction
 
 		if ( IsKeyDown(KEY_RIGHT) )  dx = +1;
@@ -58,9 +60,9 @@ void player_attack() {
 }
 
 void player_bite() {
-	auto view = registry.view<const Player, BiteAttack, const Collider, const Position, const Facing>();
+	auto view = registry.view<Player, BiteAttack, const Collider, const Position, const Facing, Velocity>();
 
-	for ( auto [entity, player, bite, collider, position, facing] : view.each() ) {
+	for ( auto [entity, player, bite, collider, position, facing, velocity] : view.each() ) {
 		if ( IsKeyPressed(KEY_V) ) {
 			raylib::Vector2 ray_start =
 				position.value + raylib::Vector2((collider.width/2+0.001)*facing.direction, -collider.height/2);
@@ -68,11 +70,14 @@ void player_bite() {
 			registry.emplace<RayCast>(entity, ray_start, ray_end);
 
 			bite.active = true;
+			player.can_move = false;
+			velocity.value.x = 0.0;
 		}
 
 		if ( IsKeyReleased(KEY_V) ) {
 			registry.remove<RayCast>(entity); // Delete the ray cast
 			bite.active = false;
+			player.can_move = true;
 		}
 
 	}

@@ -10,6 +10,7 @@ struct Player { // Tags an object as player
 	float air_deceleration = 3.0;
 	float ground_turn_speed = 13.0;
 	float air_turn_speed = 5.0;
+	bool can_move = true;
 };
 struct Gravity {}; // Makes an object affected by gravity
 
