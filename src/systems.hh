@@ -14,6 +14,7 @@ void melee_attack(); // Handles melee attacks
 void bite_attack();
 void bullets(); // Updates bullets
 void render_bullets();
+void enemy_think();
 
 // UI Elements
 void health_bar();

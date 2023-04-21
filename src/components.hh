@@ -12,6 +12,13 @@ struct Player { // Tags an object as player
 	float air_turn_speed = 5.0;
 	bool can_move = true;
 };
+
+struct Enemy {
+	float aggro_range; // Distance they will charge player
+	float attack_range; // Distance they will attack player
+	float max_speed;
+};
+
 struct Gravity {}; // Makes an object affected by gravity
 
 struct Position {
@@ -61,6 +68,15 @@ struct BiteAttack {
 	float timer; // Time remianing to next drain
 	int damage; // Health loss per second
 	bool active; // Entity is currently biting the target
+};
+
+struct GunAttack {
+	int damage; // Damage of each bullet
+	int count; // Number of bullets fired at once
+	float spread; // Spread when bullers are fired
+	float speed; // Speed of each bullet
+	float rate; // Time between shots
+	float timer; // Time until another shot is possible
 };
 
 struct RayCast {

@@ -40,6 +40,8 @@ int main() {
 	registry.emplace<Collider>( enemy, 64.0f, 128.0f, false, 0, true );
 	registry.emplace<DebugColor>( enemy, raylib::LIME);
 	registry.emplace<Health>(enemy, 100, 100);
+	registry.emplace<Facing>(enemy, -1);
+	registry.emplace<Enemy>(enemy, 500.0f, 100.0f, 5.0f);
 
 	const auto enemy2 = registry.create();
 	registry.emplace<Gravity>(enemy2);
@@ -48,6 +50,8 @@ int main() {
 	registry.emplace<Collider>( enemy2, 64.0f, 128.0f, false, 0, true );
 	registry.emplace<DebugColor>( enemy2, raylib::LIME);
 	registry.emplace<Health>(enemy2, 100, 100);
+	registry.emplace<Facing>(enemy2, -1);
+	registry.emplace<Enemy>(enemy2, 500.0f, 100.0f, 5.0f);
 
 	const auto bullet = registry.create();
 	registry.emplace<Position>( bullet, raylib::Vector2(-200, 100) );
@@ -93,6 +97,9 @@ int main() {
 		player_move();
 		player_attack();
 		player_bite();
+
+		// Enemy actions
+		enemy_think();
 
 		// Combat
 		melee_attack();
