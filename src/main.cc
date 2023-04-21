@@ -30,7 +30,7 @@ int main() {
 	registry.emplace<DebugColor>( player, raylib::VIOLET);
 	registry.emplace<MeleeAttack>( player, 64.0f, 40, false);
 	registry.emplace<Facing>(player, +1);
-	registry.emplace<Health>(player, 10, 100);
+	registry.emplace<Health>(player, 100, 100);
 	registry.emplace<BiteAttack>(player, 64.0f, 0.0f, 10, false);
 
 	const auto enemy = registry.create();
@@ -42,7 +42,7 @@ int main() {
 	registry.emplace<Health>(enemy, 100, 100);
 	registry.emplace<Facing>(enemy, -1);
 	registry.emplace<Enemy>(enemy, 500.0f, 100.0f, 3.0f);
-	registry.emplace<GunAttack>(enemy, 1, 5, 3.0f, 15.0f, 1.0f, 0.0f);
+	registry.emplace<GunAttack>(enemy, 1, 5, 0.5f, 15.0f, 1.0f, 0.0f);
 
 	const auto enemy2 = registry.create();
 	registry.emplace<Gravity>(enemy2);
@@ -53,17 +53,7 @@ int main() {
 	registry.emplace<Health>(enemy2, 100, 100);
 	registry.emplace<Facing>(enemy2, -1);
 	registry.emplace<Enemy>(enemy2, 500.0f, 100.0f, 3.0f);
-	registry.emplace<GunAttack>(enemy2, 1, 5, 3.0f, 15.0f, 1.0f, 0.0f);
-
-	// const auto bullet = registry.create();
-	// registry.emplace<Position>( bullet, raylib::Vector2(-200, 100) );
-	// registry.emplace<Velocity>( bullet, raylib::Vector2(15, 0) );
-	// registry.emplace<Bullet>( bullet, 1 );
-	//
-	// const auto bullet2 = registry.create();
-	// registry.emplace<Position>( bullet2, raylib::Vector2(150, 100) );
-	// registry.emplace<Velocity>( bullet2, raylib::Vector2(0, 5) );
-	// registry.emplace<Bullet>( bullet2, 1 );
+	registry.emplace<GunAttack>(enemy2, 1, 5, 0.5f, 15.0f, 1.0f, 0.0f);
 
 	tilemap(0, 8) = 1;
 	tilemap(0, 9) = 1;

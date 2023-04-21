@@ -1,4 +1,5 @@
 #include <cmath>
+#include <raylib.h>
 
 #include "util.hh"
 
@@ -13,4 +14,8 @@ float move_towards(float n, float t, float d) {
 	else  x = n + sign(t - n) * d;
 
 	return x;
+}
+
+float random_spread() {
+	return (float)GetRandomValue(-100, 100) / 100.0;
 }
