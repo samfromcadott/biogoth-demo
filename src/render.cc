@@ -12,3 +12,10 @@ void render_colliders() {
 		collider.get_rectangle(position.value).Draw(color.color);
 	}
 }
+
+void render_bullets() {
+	auto view = registry.view<const Position, const Bullet>();
+	for ( auto [entity, position, bullet] : view.each() ) {
+		DrawCircleV(position.value, 4, ORANGE);
+	}
+}

@@ -83,3 +83,7 @@ struct RayCast {
 		return left_intersect || right_intersect;
 	}
 };
+
+struct Bullet {
+	int damage;
+};

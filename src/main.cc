@@ -49,6 +49,11 @@ int main() {
 	registry.emplace<DebugColor>( enemy2, raylib::LIME);
 	registry.emplace<Health>(enemy2, 100, 100);
 
+	const auto bullet = registry.create();
+	registry.emplace<Position>( bullet, raylib::Vector2(-200, 100) );
+	registry.emplace<Velocity>( bullet, raylib::Vector2(15, 0) );
+	registry.emplace<Bullet>( bullet, 1 );
+
 	tilemap(0, 9) = 1;
 	tilemap(1, 9) = 1;
 	tilemap(2, 9) = 1;
@@ -87,6 +92,7 @@ int main() {
 		// Combat
 		melee_attack();
 		bite_attack();
+		bullets();
 
 		// Physics
 		gravity();
@@ -102,6 +108,7 @@ int main() {
 
 			auto view = registry.view<const Player, const Position, const Collider>();
 			render_colliders();
+			render_bullets();
 
 			// Camera update
 			for ( auto [entity, player, position, collider] : view.each() ) {

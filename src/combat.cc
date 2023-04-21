@@ -68,3 +68,22 @@ void bite_attack() {
 		}
 	}
 }
+
+void bullets() {
+	auto view = registry.view<Position, const Velocity, const Bullet>();
+	for ( auto [entity, position, velocity, bullet] : view.each() ) {
+		position.value += velocity.value;
+
+		// Collider collisions
+		auto target_view = registry.view<const Position, const Collider, Health>();
+		for ( auto [target, target_position, target_collider, target_health] : target_view.each() ) {
+			// Check if the bullet is in a collider
+			if ( !target_collider.get_rectangle(target_position.value).CheckCollision(position.value) )
+				continue;
+
+			target_health.now -= bullet.damage;
+			registry.destroy(entity); // Destroy the bullet
+		}
+
+	}
+}
