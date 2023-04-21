@@ -33,7 +33,6 @@ void enemy_think() {
 
 		// If the player if in attack_range and the GunAttack timer <= 0, stop moving and attack them
 		if ( distance < enemy.attack_range ) {
-			std::cout << gun.timer << '\n';
 			velocity.value.x = 0.0;
 
 			if (gun.timer <= 0.0) {
