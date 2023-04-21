@@ -3,7 +3,7 @@
 #include <raylib/raylib-cpp.hpp>
 
 struct Player { // Tags an object as player
-	float max_speed = 5.0;
+	float max_speed = 8.0;
 	float ground_acceleration = 10.0;
 	float air_acceleration = 5.0;
 	float ground_deceleration = 15.0;
