@@ -43,10 +43,12 @@ void bite_attack() {
 		bite.timer -= GetFrameTime(); // Count down the timer
 
 		// Loop over potential targets
-		auto target_view = registry.view<Position, Collider, Health>();
-		for ( auto [target, target_position, target_collider, target_health] : target_view.each() ) {
+		auto target_view = registry.view<Position, Collider, Health, Enemy>();
+		for ( auto [target, target_position, target_collider, target_health, enemy] : target_view.each() ) {
 			// Skip non-interected entities
 			if ( !ray.intersect( target_collider.get_rectangle(target_position.value) ) ) continue;
+
+			enemy.active = false; // Disable the enemy
 
 			// Move the target to the biter
 			target_collider.enabled = false;

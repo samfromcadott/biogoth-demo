@@ -15,7 +15,7 @@ void make_enemy(float x, float y, int direction) {
 	registry.emplace<DebugColor>( enemy, raylib::LIME);
 	registry.emplace<Health>(enemy, 100, 100);
 	registry.emplace<Facing>(enemy, direction);
-	registry.emplace<Enemy>(enemy, 500.0f, 100.0f, 3.0f);
+	registry.emplace<Enemy>(enemy, 500.0f, 100.0f, 3.0f, true);
 	registry.emplace<GunAttack>(enemy, 1, 5, 0.5f, 15.0f, 1.0f, 0.0f);
 }
 

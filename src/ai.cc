@@ -19,6 +19,7 @@ void enemy_think() {
 
 	auto view = registry.view<const Enemy, Velocity, const Position, Facing, GunAttack, const Collider>();
 	for ( auto [entity, enemy, velocity, position, facing, gun, collider] : view.each() ) {
+		if ( !enemy.active ) continue;
 		gun.timer -= GetFrameTime();
 
 		// Get the distance and direction of the player

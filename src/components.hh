@@ -17,6 +17,7 @@ struct Enemy {
 	float aggro_range; // Distance they will charge player
 	float attack_range; // Distance they will attack player
 	float max_speed;
+	bool active;
 };
 
 struct Gravity {}; // Makes an object affected by gravity
