@@ -1,3 +1,4 @@
+#include <iostream>
 #include <raylib/raylib-cpp.hpp>
 
 #include "globals.hh"
@@ -23,8 +24,12 @@ int main() {
 	SetTargetFPS(60);
 
 	make_player(100, 180, +1);
-	make_enemy(200, 180, -1);
-	make_enemy(700, 280, -1);
+	make_enemy(500, 180, -1);
+	make_enemy(900, 352, -1);
+	make_enemy(830, 180, -1);
+	make_enemy(1200, 180, -1);
+	make_enemy(100, 580, +1);
+	make_enemy(600, 780, +1);
 	make_level();
 
 	while ( !window.ShouldClose() ) {

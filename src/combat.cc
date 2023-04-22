@@ -77,8 +77,10 @@ void bullets() {
 		position.value += velocity.value;
 
 		// Check for tile collision
-		if ( tilemap( tilemap.world_to_tile(position.value) ) != 0 )
+		if ( tilemap( tilemap.world_to_tile(position.value) ) != 0 ) {
 			registry.destroy(entity); // Destroy the bullet
+			continue;
+		}
 
 		// Collider collisions
 		auto target_view = registry.view<const Position, const Collider, Health>();
