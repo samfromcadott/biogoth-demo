@@ -34,6 +34,17 @@ void make_player(float x, float y, int direction) {
 }
 
 void make_level() {
+	tilemap(0, 0) = 1;
+	tilemap(0, 1) = 1;
+	tilemap(0, 2) = 1;
+	tilemap(0, 3) = 1;
+	tilemap(0, 4) = 1;
+	tilemap(0, 5) = 1;
+	tilemap(0, 6) = 1;
+	tilemap(0, 7) = 1;
+	tilemap(0, 8) = 1;
+	tilemap(0, 9) = 1;
+
 	tilemap(0, 8) = 1;
 	tilemap(0, 9) = 1;
 	tilemap(1, 9) = 1;
