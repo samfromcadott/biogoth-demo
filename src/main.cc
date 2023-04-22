@@ -4,6 +4,7 @@
 #include "components.hh"
 #include "systems.hh"
 #include "tilemap.hh"
+#include "level.hh"
 
 using namespace raylib;
 
@@ -21,39 +22,9 @@ int main() {
 
 	SetTargetFPS(60);
 
-	const auto player = registry.create();
-	registry.emplace<Player>(player);
-	registry.emplace<Gravity>(player);
-	registry.emplace<Position>( player, raylib::Vector2(100, 100) );
-	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
-	registry.emplace<Collider>( player, 64.0f, 128.0f, false, 0, true );
-	registry.emplace<DebugColor>( player, raylib::VIOLET);
-	registry.emplace<MeleeAttack>( player, 64.0f, 40, false);
-	registry.emplace<Facing>(player, +1);
-	registry.emplace<Health>(player, 100, 100);
-	registry.emplace<BiteAttack>(player, 64.0f, 0.0f, 10, false);
-
-	const auto enemy = registry.create();
-	registry.emplace<Gravity>(enemy);
-	registry.emplace<Position>( enemy, raylib::Vector2(700, 100) );
-	registry.emplace<Velocity>( enemy, raylib::Vector2(0, 0) );
-	registry.emplace<Collider>( enemy, 64.0f, 128.0f, false, 0, true );
-	registry.emplace<DebugColor>( enemy, raylib::LIME);
-	registry.emplace<Health>(enemy, 100, 100);
-	registry.emplace<Facing>(enemy, -1);
-	registry.emplace<Enemy>(enemy, 500.0f, 100.0f, 3.0f);
-	registry.emplace<GunAttack>(enemy, 1, 5, 0.5f, 15.0f, 1.0f, 0.0f);
-
-	const auto enemy2 = registry.create();
-	registry.emplace<Gravity>(enemy2);
-	registry.emplace<Position>( enemy2, raylib::Vector2(200, 100) );
-	registry.emplace<Velocity>( enemy2, raylib::Vector2(0, 0) );
-	registry.emplace<Collider>( enemy2, 64.0f, 128.0f, false, 0, true );
-	registry.emplace<DebugColor>( enemy2, raylib::LIME);
-	registry.emplace<Health>(enemy2, 100, 100);
-	registry.emplace<Facing>(enemy2, -1);
-	registry.emplace<Enemy>(enemy2, 500.0f, 100.0f, 3.0f);
-	registry.emplace<GunAttack>(enemy2, 1, 5, 0.5f, 15.0f, 1.0f, 0.0f);
+	make_player(100, 100, +1);
+	make_enemy(200, 100, -1);
+	make_enemy(700, 100, -1);
 
 	tilemap(0, 8) = 1;
 	tilemap(0, 9) = 1;
