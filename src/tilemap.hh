@@ -12,9 +12,9 @@ struct TileCoord {
 
 class Tilemap {
 private:
-	std::vector<Tile> tiles;
 
 public:
+	std::vector<Tile> tiles;
 	int width, height;
 	int tile_size = 32;
 

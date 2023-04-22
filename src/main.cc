@@ -12,7 +12,7 @@ int screen_width = 1280;
 int screen_height = 720;
 
 entt::registry registry;
-Tilemap tilemap(30, 20);
+Tilemap tilemap(40, 40);
 raylib::Camera2D camera( raylib::Vector2(screen_width/2, screen_height/2), raylib::Vector2(0.0, 0.0) );
 
 const float G = 13.0;
@@ -22,9 +22,9 @@ int main() {
 
 	SetTargetFPS(60);
 
-	make_player(100, 100, +1);
-	make_enemy(200, 100, -1);
-	make_enemy(700, 100, -1);
+	make_player(100, 180, +1);
+	make_enemy(200, 180, -1);
+	make_enemy(700, 280, -1);
 	make_level();
 
 	while ( !window.ShouldClose() ) {

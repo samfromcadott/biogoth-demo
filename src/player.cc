@@ -38,12 +38,12 @@ void player_move() {
 		// Move velocity towards target velocity
 		velocity.value.x = move_towards( velocity.value.x, wish_speed, speed_change * GetFrameTime() );
 
-		if ( IsKeyDown(KEY_SPACE) && collider.on_floor ) velocity.value.y -= 10.0;
-		else if ( IsKeyDown(KEY_SPACE) && collider.wall_direction != 0 ) {
-			velocity.value.y -= 1.0;
-			velocity.value.x = collider.wall_direction;
-			velocity.value = velocity.value.Normalize() * 10.0;
-		}
+		if ( IsKeyPressed(KEY_SPACE) && collider.on_floor ) velocity.value.y -= 10.0;
+		// else if ( IsKeyDown(KEY_SPACE) && collider.wall_direction != 0 ) {
+		// 	velocity.value.y -= 1.0;
+		// 	velocity.value.x = collider.wall_direction;
+		// 	velocity.value = velocity.value.Normalize() * 10.0;
+		// }
 	}
 }
 

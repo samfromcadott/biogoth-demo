@@ -66,7 +66,7 @@ void move_collide() {
 				collider.wall_direction = +1;
 			}
 
-			if (collider.on_floor) velocity.value.x = 0.0;
+			velocity.value.x = 0.0;
 		}
 
 	}
