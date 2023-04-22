@@ -30,6 +30,8 @@ int main() {
 	make_enemy(1200, 180, -1);
 	make_enemy(100, 580, +1);
 	make_enemy(600, 780, +1);
+	make_enemy(1200, 1000, -1);
+	make_enemy(70, 1000, -1);
 	make_level();
 
 	while ( !window.ShouldClose() ) {
