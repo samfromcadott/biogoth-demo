@@ -15,6 +15,7 @@ void bite_attack();
 void bullets(); // Updates bullets
 void render_bullets();
 void enemy_think();
+void camera_update();
 
 // UI Elements
 void health_bar();

@@ -6,5 +6,6 @@
 
 extern entt::registry registry;
 extern Tilemap tilemap;
+extern raylib::Camera2D camera;
 
 extern const float G; // Gravity acceleration

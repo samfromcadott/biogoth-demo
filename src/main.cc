@@ -53,15 +53,10 @@ int main() {
 
 			window.ClearBackground(raylib::RAYWHITE);
 
-			auto view = registry.view<const Player, const Position, const Collider>();
 			render_colliders();
 			render_bullets();
 
-			// Camera update
-			for ( auto [entity, player, position, collider] : view.each() ) {
-				camera.target.x += (position.value.x - camera.target.x) * 0.98 * GetFrameTime();
-				camera.target.y += (position.value.y - camera.target.y) * 0.6 * GetFrameTime();
-			}
+			camera_update();
 
 			tilemap.draw();
 
