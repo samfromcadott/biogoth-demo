@@ -25,44 +25,7 @@ int main() {
 	make_player(100, 100, +1);
 	make_enemy(200, 100, -1);
 	make_enemy(700, 100, -1);
-
-	tilemap(0, 8) = 1;
-	tilemap(0, 9) = 1;
-	tilemap(1, 9) = 1;
-	tilemap(2, 9) = 1;
-	tilemap(3, 9) = 1;
-	tilemap(4, 9) = 1;
-	tilemap(5, 9) = 1;
-	tilemap(6, 9) = 1;
-	tilemap(7, 9) = 1;
-	tilemap(8, 9) = 1;
-	tilemap(9, 9) = 1;
-
-	tilemap(10, 9) = 1;
-	tilemap(11, 9) = 1;
-	tilemap(12, 9) = 1;
-	tilemap(13, 9) = 1;
-	tilemap(14, 9) = 1;
-	tilemap(15, 9) = 1;
-	tilemap(16, 9) = 1;
-	tilemap(17, 9) = 1;
-	tilemap(18, 9) = 1;
-	tilemap(19, 9) = 1;
-
-	tilemap(13, 5) = 1;
-	tilemap(14, 5) = 1;
-
-	tilemap(20, 9) = 1;
-	tilemap(21, 9) = 1;
-	tilemap(22, 9) = 1;
-	tilemap(23, 9) = 1;
-	tilemap(24, 9) = 1;
-	tilemap(25, 9) = 1;
-	tilemap(26, 9) = 1;
-	tilemap(27, 9) = 1;
-	tilemap(28, 9) = 1;
-	tilemap(29, 9) = 1;
-	tilemap(29, 8) = 1;
+	make_level();
 
 	while ( !window.ShouldClose() ) {
 		// Player actions
