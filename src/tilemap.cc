@@ -21,8 +21,8 @@ Tilemap::Tilemap(const std::string filename) {
 	tiles.resize(width*height);
 
 	// Loop through tiles
-	std::map<std::tuple<int, int>, tson::Tile*> tileData = terrain->getTileData();
-	for (const auto& [id, tile] : tileData) {
+	std::map<std::tuple<int, int>, tson::Tile*> tile_data = terrain->getTileData();
+	for (const auto& [id, tile] : tile_data) {
 		if (tile == nullptr) continue;
 		Tile new_tile = tile->getGid();
 
@@ -35,10 +35,10 @@ Tilemap::Tilemap(const std::string filename) {
 	}
 
 	// Get the object layer
-	tson::Layer* objectLayer = map->getLayer("Objects");
-	if (objectLayer->getType() != tson::LayerType::ObjectGroup) return;
+	tson::Layer* object_layer = map->getLayer("Objects");
+	if (object_layer->getType() != tson::LayerType::ObjectGroup) return;
 
-	for ( auto& object : objectLayer->getObjects() ) {
+	for ( auto& object : object_layer->getObjects() ) {
 		tson::Vector2i position = object.getPosition();
 		std::string type = object.getType();
 
