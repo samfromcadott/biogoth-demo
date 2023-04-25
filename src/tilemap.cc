@@ -2,6 +2,7 @@
 #include <tileson.hpp>
 
 #include "tilemap.hh"
+#include "level.hh"
 
 Tilemap::Tilemap(const std::string filename) {
 	// FileData map_file_data = File::open(filename);
@@ -29,41 +30,21 @@ Tilemap::Tilemap(const std::string filename) {
 		auto [cx, cy] = id;
 		TileCoord coord = {cx, cy};
 
-		// Get texture rect
-		// tson::Rect file_rect = tile->getDrawingRect();
-		// Rectangle rect = {(float)file_rect.x, (float)file_rect.y, (float)file_rect.width, (float)file_rect.height};
-		// new_tile.graphic.x = rect.x / tile_size;
-		// new_tile.graphic.y = rect.x / tile_size;
-
-		// Get tile type
-		// if (tile->getType() == "plane")
-		// 	new_tile.type = PLANE;
-		// if (tile->getType() == "water")
-		// 	new_tile.type = WATER;
-
-
 		// Add it to the vector of tiles
 		tiles[ tile_index(coord) ] = new_tile;
-
 	}
 
 	// Get the object layer
-	// tson::Layer* objectLayer = map->getLayer("objects");
-	// if (objectLayer->getType() != tson::LayerType::ObjectGroup) return;
-	//
-	// for ( auto& object : objectLayer->getObjects() ) {
-	// 	tson::Vector2i position = object.getPosition();
-	// 	TileCoord coord = {position.x / 16, position.y / 16};
-	//
-	// 	Unit unit = Unit( File::unit_type_list["soldier"], 0 );
-	// 	unit.position = coord;
-	//
-	// 	unit.id = Match::units.size(); // Index of the unit
-	// 	Match::units.push_back( unit );
-	// 	tiles[ tile_index(coord) ].unit = unit.id;
-	// 	Match::players[0].owned_units.push_back(unit.id);
-	// }
+	tson::Layer* objectLayer = map->getLayer("Objects");
+	if (objectLayer->getType() != tson::LayerType::ObjectGroup) return;
 
+	for ( auto& object : objectLayer->getObjects() ) {
+		tson::Vector2i position = object.getPosition();
+		std::string type = object.getType();
+
+		if (type == "Player") make_player(position.x, position.y, +1);
+		else if (type == "Enemy") make_enemy(position.x, position.y, +1);
+	}
 }
 
 int Tilemap::tile_index(const int x, const int y) const {
