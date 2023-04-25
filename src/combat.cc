@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <raylib/raylib-cpp.hpp>
 
 #include "systems.hh"
@@ -57,11 +58,12 @@ void bite_attack() {
 
 			if (bite.timer <= 0.0) {
 				// Suck blood
-				target_health.now -= bite.damage;
-				health.now += bite.damage;
-				if ( health.now > health.max ) health.now = health.max;
+				int damage = std::min(bite.damage, target_health.now);
+				target_health.now -= damage;
+				health.now += damage;
+				health.now = std::min(health.now, health.max); // Clamp health
 
-				std::cout << "Drained " << bite.damage << " health" << '\n';
+				std::cout << "Drained " << damage << " health" << '\n';
 
 				bite.timer = 1.0; // Reset timer
 			}
