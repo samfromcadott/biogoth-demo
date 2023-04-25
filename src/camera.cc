@@ -14,10 +14,11 @@ void camera_update() {
 	for ( auto [entity, player, position, velocity] : view.each() ) {
 		// Scale of camera movement
 		float sx = 0.8;
-		float sy = 0.6;
-		if (velocity.value.y < 0.0) sy = 0.3;
+		float sy = 0.9;
+		if (velocity.value.y < 0.0) sy = 0.25;
 
-		raylib::Vector2 target = position.value + (velocity.value * 32.0); // Look ahead
+		raylib::Vector2 look_ahead(96.0, 32.0);
+		raylib::Vector2 target = position.value + (velocity.value * look_ahead); // Look ahead
 
 		camera.target.x += (target.x - camera.target.x) * sx * GetFrameTime();
 		camera.target.y += (target.y - camera.target.y) * sy * GetFrameTime();
