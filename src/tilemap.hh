@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include <raylib.h>
 
 typedef char Tile;
@@ -40,5 +41,6 @@ public:
 
 		tiles = std::vector<Tile>(width*height, empty_tile);
 	}
+	Tilemap(const std::string filename);
 	virtual ~Tilemap () {}
 };
