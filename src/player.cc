@@ -66,7 +66,7 @@ void player_jump() {
 		if ( tilemap(right_side) != 0 ) collider.wall_direction = +1;
 
 		if ( IsKeyPressed(KEY_SPACE) && collider.wall_direction != 0 && !collider.on_floor ) {
-			velocity.value.y -= 1.0;
+			velocity.value.y = -1.0;
 			velocity.value.x = -collider.wall_direction * 2.0;
 			velocity.value = velocity.value.Normalize() * jump_speed;
 			gravity.scale = jump_gravity;
