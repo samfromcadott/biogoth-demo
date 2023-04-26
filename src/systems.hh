@@ -3,6 +3,7 @@
 #include "components.hh"
 
 void player_move(); // Gets movement input for player
+void player_jump();
 void move_collide(); // Moves a body and applies collisions
 void gravity();
 void death();

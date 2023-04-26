@@ -74,8 +74,8 @@ void move_collide() {
 
 void gravity() {
 	auto view = registry.view<Velocity, const Gravity>();
-	for ( auto [entity, velocity] : view.each() ) {
-		velocity.value.y += G * GetFrameTime();
+	for ( auto [entity, velocity, gravity] : view.each() ) {
+		velocity.value.y += G * gravity.scale * GetFrameTime();
 	}
 }
 

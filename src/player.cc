@@ -37,8 +37,22 @@ void player_move() {
 
 		// Move velocity towards target velocity
 		velocity.value.x = move_towards( velocity.value.x, wish_speed, speed_change * GetFrameTime() );
+	}
+}
 
-		if ( IsKeyPressed(KEY_SPACE) && collider.on_floor ) velocity.value.y -= 10.0;
+void player_jump() {
+	auto view = registry.view<const Player, Velocity, const Collider, Gravity>();
+	for ( auto [entity, player, velocity, collider, gravity] : view.each() ) {
+		if ( IsKeyPressed(KEY_SPACE) && collider.on_floor ) {
+			velocity.value.y -= 10.0;
+			gravity.scale = 0.5;
+		}
+
+		// Reset gravity scale when going down or on jump release
+		if ( IsKeyReleased(KEY_SPACE) || velocity.value.y > 0.0 ) {
+			gravity.scale = 1.0;
+		}
+
 		// else if ( IsKeyDown(KEY_SPACE) && collider.wall_direction != 0 ) {
 		// 	velocity.value.y -= 1.0;
 		// 	velocity.value.x = collider.wall_direction;

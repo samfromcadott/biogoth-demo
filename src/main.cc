@@ -28,6 +28,7 @@ int main() {
 	while ( !window.ShouldClose() ) {
 		// Player actions
 		player_move();
+		player_jump();
 		player_attack();
 		player_bite();
 

@@ -20,7 +20,9 @@ struct Enemy {
 	bool active;
 };
 
-struct Gravity {}; // Makes an object affected by gravity
+struct Gravity { // Makes an object affected by gravity
+	float scale = 1.0;
+};
 
 struct Position {
 	raylib::Vector2 value;
