@@ -7,9 +7,9 @@ struct Player { // Tags an object as player
 	float ground_acceleration = 10.0;
 	float air_acceleration = 5.0;
 	float ground_deceleration = 15.0;
-	float air_deceleration = 3.0;
+	float air_deceleration = 0.5;
 	float ground_turn_speed = 13.0;
-	float air_turn_speed = 5.0;
+	float air_turn_speed = 10.0;
 	bool can_move = true;
 };
 

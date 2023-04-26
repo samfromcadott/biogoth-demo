@@ -57,13 +57,11 @@ void move_collide() {
 			// From left
 			if ( velocity.value.x > 0 ) {
 				position.value.x = floor(position.value.x / tilemap.tile_size) * tilemap.tile_size;
-				collider.wall_direction = -1;
 			}
 
 			// From right
 			else if ( velocity.value.x < 0 ) {
 				position.value.x = ceil(position.value.x / tilemap.tile_size) * tilemap.tile_size;
-				collider.wall_direction = +1;
 			}
 
 			velocity.value.x = 0.0;
