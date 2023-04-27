@@ -41,14 +41,11 @@ void player_move() {
 }
 
 void player_jump() {
-	auto view = registry.view<const Player, Position, Velocity, Collider, Gravity>();
-	for ( auto [entity, player, position, velocity, collider, gravity] : view.each() ) {
-		const float jump_speed = 10.0;
-		const float jump_gravity = 0.5;
-
+	auto view = registry.view<const Player, Position, Velocity, Collider, Gravity, Jump>();
+	for ( auto [entity, player, position, velocity, collider, gravity, jump] : view.each() ) {
 		if ( IsKeyPressed(KEY_SPACE) && collider.on_floor ) {
-			velocity.value.y -= jump_speed;
-			gravity.scale = jump_gravity;
+			velocity.value.y -= jump.speed;
+			gravity.scale = jump.gravity_scale;
 		}
 
 		// Reset gravity scale when going down or on jump release
@@ -68,8 +65,8 @@ void player_jump() {
 		if ( IsKeyPressed(KEY_SPACE) && collider.wall_direction != 0 && !collider.on_floor ) {
 			velocity.value.y = -1.0;
 			velocity.value.x = -collider.wall_direction * 2.0;
-			velocity.value = velocity.value.Normalize() * jump_speed;
-			gravity.scale = jump_gravity;
+			velocity.value = velocity.value.Normalize() * jump.speed;
+			gravity.scale = jump.gravity_scale;
 		}
 	}
 }

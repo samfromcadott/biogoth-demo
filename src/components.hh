@@ -106,3 +106,15 @@ struct RayCast {
 struct Bullet {
 	int damage;
 };
+
+
+struct Jump {
+	float speed;
+	float gravity_scale;
+	float coyote_length; // Max time player can jump after leaving floor
+	float buffer_length; // Max time for jump buffer
+	float coyote_timer = 0; // Current coyote time
+	float buffer_timer = 0; // Current buffer time
+	bool can_jump = false;
+	bool wish_jump = false;
+};
