@@ -29,6 +29,7 @@ int main() {
 		// Player actions
 		player_move();
 		player_jump();
+		jump_buffer();
 		player_attack();
 		player_bite();
 

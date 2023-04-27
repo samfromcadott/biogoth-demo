@@ -43,7 +43,10 @@ void player_move() {
 void player_jump() {
 	auto view = registry.view<const Player, Position, Velocity, Collider, Gravity, Jump>();
 	for ( auto [entity, player, position, velocity, collider, gravity, jump] : view.each() ) {
-		if ( IsKeyPressed(KEY_SPACE) && collider.on_floor ) {
+		if( IsKeyPressed(KEY_SPACE) ) jump.wish_jump = true;
+
+		// Floor jump
+		if ( jump.wish_jump && collider.on_floor ) {
 			velocity.value.y -= jump.speed;
 			gravity.scale = jump.gravity_scale;
 		}
@@ -62,12 +65,27 @@ void player_jump() {
 		if ( tilemap(left_side) != 0 ) collider.wall_direction = -1;
 		if ( tilemap(right_side) != 0 ) collider.wall_direction = +1;
 
-		if ( IsKeyPressed(KEY_SPACE) && collider.wall_direction != 0 && !collider.on_floor ) {
+		// Wall jump
+		if ( jump.wish_jump && collider.wall_direction != 0 && !collider.on_floor ) {
 			velocity.value.y = -1.0;
 			velocity.value.x = -collider.wall_direction * 2.0;
 			velocity.value = velocity.value.Normalize() * jump.speed;
 			gravity.scale = jump.gravity_scale;
 		}
+	}
+}
+
+void jump_buffer() {
+	auto view = registry.view<const Player, Position, Velocity, Collider, Gravity, Jump>();
+	for ( auto [entity, player, position, velocity, collider, gravity, jump] : view.each() ) {
+		jump.buffer_timer -= GetFrameTime();
+		if (jump.buffer_timer <= 0) jump.wish_jump = false;
+
+		// Check for key press
+		if ( !IsKeyPressed(KEY_SPACE) ) continue;
+		if ( collider.wall_direction != 0 || collider.on_floor ) continue; // Don't buffer when the player can jump
+		jump.buffer_timer = jump.buffer_length; // Set the timer
+		jump.wish_jump = true;
 	}
 }
 

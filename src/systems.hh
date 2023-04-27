@@ -5,6 +5,7 @@
 // Player actions
 void player_move(); // Gets movement input for player
 void player_jump();
+void jump_buffer();
 void player_attack(); // Checks if player is attacking
 void player_bite(); // Checks if player is biting
 
