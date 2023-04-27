@@ -43,14 +43,16 @@ void move_collide() {
 		bool left_collide = tilemap(left_side) != 0;
 		bool right_collide = tilemap(right_side) != 0;
 
+		// Don't round corner if the entity is moving the other way
+		// if (velocity.value.x < 0) left_collide = false;
+		// if (velocity.value.x > 0) right_collide = false;
+
 		// Slide around corner
 		const float corner_push = 3;
-		if ( left_collide && !right_collide && velocity.value.y < 0 ) {
+		if ( left_collide && !right_collide && velocity.value.y < 0 && velocity.value.x >= 0) {
 			position.value.x += corner_push;
-			if (velocity.value.x < 0) velocity.value.x = 0; // Zero out velocity if they move in the opposite direction
-		} else if ( right_collide && !left_collide && velocity.value.y < 0 ) {
+		} else if ( right_collide && !left_collide && velocity.value.y < 0 && velocity.value.x <= 0) {
 			position.value.x -= corner_push;
-			if (velocity.value.x > 0) velocity.value.x = 0;
 		}
 
 		// Move the entity
