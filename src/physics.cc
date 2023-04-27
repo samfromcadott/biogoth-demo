@@ -31,27 +31,27 @@ void move_collide() {
 		collider.on_floor = false;
 		collider.wall_direction = 0;
 
+		// Round corners
+		TileCoord left_side = tilemap.world_to_tile( {
+			position.value.x - collider.width/2 + 0.0001f, position.value.y - collider.height - 0.0001f
+		} );
+		TileCoord right_side = tilemap.world_to_tile( {
+			position.value.x + collider.width/2 - 0.0001f, position.value.y - collider.height - 0.0001f
+		} );
+
+		// Upper corner collision
+		bool left_collide = tilemap(left_side) != 0;
+		bool right_collide = tilemap(right_side) != 0;
+
+		// Slide around corner
+		const float corner_push = 0.1;
+		if ( left_collide && !right_collide && velocity.value.y < 0 ) velocity.value.x += corner_push;
+		else if ( right_collide && !left_collide && velocity.value.y < 0 ) velocity.value.x -= corner_push;
+
 		// Move the entity
-		position.value.y += velocity.value.y;
+		position.value.x += velocity.value.x;
 
 		// Check for collision
-		if ( tile_overlap(position, collider) ) {
-			// From above
-			if ( velocity.value.y > 0 ) {
-				position.value.y = floor(position.value.y / tilemap.tile_size) * tilemap.tile_size;
-				collider.on_floor = true;
-			}
-
-			// From below
-			else if ( velocity.value.y < 0 ) {
-				position.value.y = ceil(position.value.y / tilemap.tile_size) * tilemap.tile_size;
-			}
-
-			velocity.value.y = 0.0;
-		}
-
-		// Repeat for the other axis
-		position.value.x += velocity.value.x;
 
 		if ( tile_overlap(position, collider) ) {
 			// From left
@@ -65,6 +65,26 @@ void move_collide() {
 			}
 
 			velocity.value.x = 0.0;
+		}
+
+		// Repeat for the other axis
+		position.value.y += velocity.value.y;
+
+		if ( tile_overlap(position, collider) ) {
+			// From above
+			if ( velocity.value.y > 0 ) {
+				position.value.y = floor(position.value.y / tilemap.tile_size) * tilemap.tile_size;
+				collider.on_floor = true;
+				velocity.value.y = 0.0;
+			}
+
+			// From below
+			else if ( velocity.value.y < 0 ) {
+				position.value.y = ceil(position.value.y / tilemap.tile_size) * tilemap.tile_size;
+
+				// Only stop when not at corner
+				if (left_collide && right_collide) velocity.value.y = 0.0;
+			}
 		}
 
 	}
