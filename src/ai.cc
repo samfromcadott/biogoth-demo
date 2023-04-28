@@ -7,20 +7,45 @@
 #include "systems.hh"
 #include "util.hh"
 
+// Checks for line of sight between two tile coordinates
+bool line_of_sight(const TileCoord a, const TileCoord b) {
+	TileCoord c = a;
+
+	while (c.x != b.x || c.y != b.y) {
+		// Move towards the destination
+		c.x += sign(b.x - c.x);
+		c.y += sign(b.y - c.y);
+
+		if (c.x == b.x && c.y == b.y) return true; // Return true if the destination is reached
+		if ( !tilemap.tile_in_map(c) ) return false; // Return false if it gets to the edge of the map
+		if ( tilemap(c) != empty_tile ) return false; // If a tile in the way isn't empty then there is no line of sight
+	}
+
+	return false;
+}
+
 void enemy_think() {
 	raylib::Vector2 player_position;
+	float player_height;
 
 	// Find player position
-	auto player_view = registry.view<const Player, const Position>();
-	for ( auto [entity, player, position] : player_view.each() ) {
+	auto player_view = registry.view<const Player, const Position, const Collider>();
+	for ( auto [entity, player, position, collider] : player_view.each() ) {
 		player_position = position.value;
+		player_height = collider.height;
 		break;
 	}
+
+	const TileCoord player_coord = tilemap.world_to_tile(player_position.x, player_position.y-player_height);
 
 	auto view = registry.view<const Enemy, Velocity, const Position, Facing, GunAttack, const Collider>();
 	for ( auto [entity, enemy, velocity, position, facing, gun, collider] : view.each() ) {
 		if ( !enemy.active ) continue;
 		gun.timer -= GetFrameTime();
+
+		// Check for line of sight to the player
+		TileCoord entity_coord = tilemap.world_to_tile(position.value.x, position.value.y-collider.height);
+		if ( !line_of_sight(entity_coord, player_coord) ) continue;
 
 		// Get the distance and direction of the player
 		float distance = abs( player_position.x - position.value.x );

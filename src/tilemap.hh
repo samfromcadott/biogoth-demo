@@ -25,6 +25,7 @@ public:
 	void draw();
 
 	TileCoord world_to_tile(const Vector2 position); // Gets the tile coordinate from world coordinate
+	TileCoord world_to_tile(float x, float y);
 	Vector2 tile_to_world(const int x, const int y); // Gets the world coordinate from tile coordinate
 	Vector2 tile_to_world(const TileCoord t);
 	bool tile_in_map(TileCoord tile); // Returns true if the given TileCoord is in the map

@@ -78,6 +78,10 @@ TileCoord Tilemap::world_to_tile(const Vector2 position) { // Gets the tile coor
 	return TileCoord {x, y};
 }
 
+TileCoord Tilemap::world_to_tile(float x, float y) {
+	return world_to_tile( Vector2 {x, y} );
+}
+
 Vector2 Tilemap::tile_to_world(const int x, const int y) { // Gets the world coordinate from tile coordinate
 	Vector2 v;
 	v.x = x*tile_size;
