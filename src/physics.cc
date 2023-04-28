@@ -43,10 +43,6 @@ void move_collide() {
 		bool left_collide = tilemap(left_side) != 0;
 		bool right_collide = tilemap(right_side) != 0;
 
-		// Don't round corner if the entity is moving the other way
-		// if (velocity.value.x < 0) left_collide = false;
-		// if (velocity.value.x > 0) right_collide = false;
-
 		// Slide around corner
 		const float corner_push = 3;
 		if ( left_collide && !right_collide && velocity.value.y < 0 && velocity.value.x >= 0) {
@@ -62,12 +58,12 @@ void move_collide() {
 
 		if ( tile_overlap(position, collider) ) {
 			// From left
-			if ( velocity.value.x > 0 || left_collide ) {
+			if ( velocity.value.x > 0 || (left_collide && !right_collide) ) {
 				position.value.x = floor(position.value.x / tilemap.tile_size) * tilemap.tile_size;
 			}
 
 			// From right
-			else if ( velocity.value.x < 0 || right_collide ) {
+			else if ( velocity.value.x < 0 || (right_collide && !left_collide) ) {
 				position.value.x = ceil(position.value.x / tilemap.tile_size) * tilemap.tile_size;
 			}
 
