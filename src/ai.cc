@@ -24,6 +24,27 @@ bool line_of_sight(const TileCoord a, const TileCoord b) {
 	return false;
 }
 
+void fire_gun(GunAttack& gun, const Position& position, const Facing& facing, const Collider& collider) {
+	raylib::Vector2 bullet_start =
+		position.value + raylib::Vector2((collider.width/2+0.001)*facing.direction, -collider.height/2);
+
+	// Create bullets
+	for (int i = 0; i < gun.count; i++) {
+		raylib::Vector2 v;
+		v.x = facing.direction;
+		v.y = gun.spread * random_spread();
+		v = v.Normalize();
+		v *= gun.speed;
+
+		const auto bullet = registry.create();
+		registry.emplace<Position>( bullet, bullet_start );
+		registry.emplace<Velocity>( bullet, v );
+		registry.emplace<Bullet>( bullet, gun.damage );
+	}
+
+	gun.timer = gun.rate;
+}
+
 void enemy_think() {
 	raylib::Vector2 player_position;
 	float player_height;
@@ -63,23 +84,6 @@ void enemy_think() {
 
 		if (gun.timer > 0.0) continue;
 
-		raylib::Vector2 bullet_start =
-			position.value + raylib::Vector2((collider.width/2+0.001)*facing.direction, -collider.height/2);
-
-		// Create bullets
-		for (int i = 0; i < gun.count; i++) {
-			raylib::Vector2 v;
-			v.x = facing.direction;
-			v.y = gun.spread * random_spread();
-			v = v.Normalize();
-			v *= gun.speed;
-
-			const auto bullet = registry.create();
-			registry.emplace<Position>( bullet, bullet_start );
-			registry.emplace<Velocity>( bullet, v );
-			registry.emplace<Bullet>( bullet, gun.damage );
-		}
-
-		gun.timer = gun.rate;
+		fire_gun(gun, position, facing, collider);
 	}
 }
