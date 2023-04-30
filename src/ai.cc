@@ -66,7 +66,10 @@ void enemy_think() {
 
 		// Check for line of sight to the player
 		TileCoord entity_coord = tilemap.world_to_tile(position.value.x, position.value.y-collider.height);
-		if ( !line_of_sight(entity_coord, player_coord) ) continue;
+		if ( !line_of_sight(entity_coord, player_coord) ) {
+			velocity.value.x = 0;
+			continue;
+		}
 
 		// Get the distance and direction of the player
 		float distance = abs( player_position.x - position.value.x );
@@ -87,7 +90,8 @@ void enemy_think() {
 
 		// If the player if in attack_range and the GunAttack timer <= 0, stop moving and attack them
 		if ( distance > enemy.attack_range ) continue;
-			velocity.value.x = 0.0;
+
+		velocity.value.x = 0.0;
 
 		if (gun.timer > 0.0) continue;
 
