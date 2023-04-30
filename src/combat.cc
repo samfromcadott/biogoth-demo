@@ -93,6 +93,7 @@ void bullets() {
 
 			target_health.now -= bullet.damage;
 			registry.destroy(entity); // Destroy the bullet
+			break; // Stop looping over targets
 		}
 
 	}
