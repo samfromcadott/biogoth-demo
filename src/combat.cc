@@ -39,8 +39,6 @@ void bite_attack() {
 	auto view = registry.view<BiteAttack, const RayCast, Health, const Position>();
 
 	for ( auto [entity, bite, ray, health, position] : view.each() ) {
-		if (!bite.active) continue; // Skip entities that don't want to bite
-
 		bite.timer -= GetFrameTime(); // Count down the timer
 
 		// Loop over potential targets
@@ -48,6 +46,14 @@ void bite_attack() {
 		for ( auto [target, target_position, target_collider, target_health, enemy] : target_view.each() ) {
 			// Skip non-interected entities
 			if ( !ray.intersect( target_collider.get_rectangle(target_position.value) ) ) continue;
+
+			// When entity stops biting
+			if (!bite.active) {
+				registry.remove<RayCast>(entity); // Delete the ray cast
+				enemy.active = true; // Enable the enemy
+				target_collider.enabled = true;
+				break;
+			}
 
 			enemy.active = false; // Disable the enemy
 
