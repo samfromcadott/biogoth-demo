@@ -78,6 +78,13 @@ void enemy_think() {
 		velocity.value.x = enemy.max_speed * direction;
 		facing.direction = direction;
 
+		// Check if the entity is on a ledge
+		const TileCoord next_tile = tilemap.world_to_tile( position.value.x+(direction*(collider.width+3)/2), position.value.y+1 );
+
+		// Don't walk off a ledge if the player is above
+		if ( tilemap(next_tile) == empty_tile && player_position.y < position.value.y )
+			velocity.value.x = 0;
+
 		// If the player if in attack_range and the GunAttack timer <= 0, stop moving and attack them
 		if ( distance > enemy.attack_range ) continue;
 			velocity.value.x = 0.0;
