@@ -6,12 +6,15 @@ Sprite::Sprite(std::string filename) {
 	width = 32;
 	height = 32;
 	lengths[IDLE] = 2;
+	offset[IDLE] = 0;
+	lengths[WALK] = 2;
+	offset[WALK] = 1;
 }
 
 void Sprite::render(float x, float y, const Action action, float timer, int direction, float rotation) {
 	// Find the origin of the frame
 	int rx = int(timer*rate) % lengths[action] * width;
-	int ry = action*height;
+	int ry = action * offset[action] * height;
 
 	raylib::Rectangle source(rx, ry, width, height);
 	raylib::Rectangle dest(x, y, width, height);

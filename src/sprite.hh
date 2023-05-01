@@ -8,8 +8,12 @@ enum Action {
 	IDLE,
 	WALK,
 	ATTACK,
-	BITE,
 	DIE,
+	BITE,
+	FALL,
+	JUMP,
+	WALL_SLIDE,
+	WALL_JUMP,
 	ACTION_COUNT
 };
 
@@ -18,6 +22,7 @@ private:
 	raylib::Texture texture;
 	int rate; // Frame rate
 	std::array<int, ACTION_COUNT> lengths; // Length of each action
+	std::array<int, ACTION_COUNT> offset; // Offset of each action
 
 public:
 	unsigned int width, height; // Size of sprite

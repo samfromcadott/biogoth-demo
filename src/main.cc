@@ -65,7 +65,7 @@ int main() {
 			tilemap.draw();
 
 			// Sprite test
-			sprite.render(100, 200, IDLE, GetTime(), +1, GetTime()*180);
+			sprite.render(100, 200, WALK, GetTime(), +1, GetTime()*180);
 
 		camera.EndMode();
 
