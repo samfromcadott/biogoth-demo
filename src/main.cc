@@ -6,6 +6,7 @@
 #include "systems.hh"
 #include "tilemap.hh"
 #include "level.hh"
+#include "sprite.hh"
 
 using namespace raylib;
 
@@ -24,6 +25,9 @@ int main() {
 	SetTargetFPS(60);
 
 	tilemap = Tilemap("assets/levels/test.json");
+
+	// Sprite test
+	Sprite sprite("assets/graphics/sprites/sprite_test.png");
 
 	while ( !window.ShouldClose() ) {
 		// Player actions
@@ -59,6 +63,9 @@ int main() {
 			camera_update();
 
 			tilemap.draw();
+
+			// Sprite test
+			sprite.render(100, 200, IDLE, GetTime(), +1, GetTime()*180);
 
 		camera.EndMode();
 
