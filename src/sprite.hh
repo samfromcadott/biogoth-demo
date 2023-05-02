@@ -21,7 +21,7 @@ class Sprite {
 private:
 	raylib::Texture texture;
 	int rate; // Frame rate
-	std::array<int, ACTION_COUNT> lengths; // Length of each action
+	std::array<int, ACTION_COUNT> length; // Length of each action
 	std::array<int, ACTION_COUNT> offset; // Offset of each action
 
 public:

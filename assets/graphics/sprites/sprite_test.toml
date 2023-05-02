@@ -1,0 +1,11 @@
+rate = 1
+width = 32
+height = 32
+
+[length]
+IDLE = 2
+WALK = 2
+
+[offset]
+IDLE = 0
+WALK = 1

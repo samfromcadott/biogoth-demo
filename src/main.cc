@@ -27,7 +27,7 @@ int main() {
 	tilemap = Tilemap("assets/levels/test.json");
 
 	// Sprite test
-	Sprite sprite("assets/graphics/sprites/sprite_test.png");
+	Sprite sprite("sprite_test");
 
 	while ( !window.ShouldClose() ) {
 		// Player actions
