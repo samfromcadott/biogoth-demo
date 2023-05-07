@@ -12,7 +12,12 @@ void make_enemy(float x, float y, int direction) {
 	registry.emplace<Position>( enemy, raylib::Vector2(x, y) );
 	registry.emplace<Velocity>( enemy, raylib::Vector2(0, 0) );
 	registry.emplace<Collider>( enemy, 64.0f, 128.0f, false, 0, true );
-	registry.emplace<DebugColor>( enemy, raylib::LIME);
+	// registry.emplace<DebugColor>( enemy, raylib::LIME);
+	registry.emplace<AnimationState>( enemy,
+		IDLE,
+		&sprite_list["guard"],
+		(float)GetRandomValue(0, 100) / 12.0f
+	);
 	registry.emplace<Health>(enemy, 100, 100);
 	registry.emplace<Facing>(enemy, direction);
 	registry.emplace<Enemy>(enemy, 550.0f, 300.0f, 3.0f, true);

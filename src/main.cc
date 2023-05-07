@@ -28,6 +28,7 @@ int main() {
 
 	// Sprite test
 	Sprite sprite("sprite_test");
+	sprite_list["guard"] = Sprite("guard");
 
 	while ( !window.ShouldClose() ) {
 		// Player actions
@@ -58,6 +59,7 @@ int main() {
 			window.ClearBackground(raylib::RAYWHITE);
 
 			render_colliders();
+			render_collider_sprites();
 			render_bullets();
 
 			camera_update();
@@ -65,7 +67,7 @@ int main() {
 			tilemap.draw();
 
 			// Sprite test
-			sprite.render(100, 200, WALK, GetTime(), +1, GetTime()*180);
+			sprite.render(100, 200, IDLE, GetTime(), +1, GetTime()*180);
 
 		camera.EndMode();
 
@@ -74,6 +76,10 @@ int main() {
 
 		EndDrawing();
 
+	}
+
+	for (auto& [name, sprite] : sprite_list) {
+		sprite.unload();
 	}
 
 	return 0;

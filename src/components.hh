@@ -2,6 +2,8 @@
 
 #include <raylib/raylib-cpp.hpp>
 
+#include "sprite.hh"
+
 struct Player { // Tags an object as player
 	float max_speed = 8.0;
 	float ground_acceleration = 10.0;
@@ -117,4 +119,10 @@ struct Jump {
 	float buffer_timer = 0; // Current buffer time
 	bool can_jump = false;
 	bool wish_jump = false;
+};
+
+struct AnimationState {
+	Action state;
+	Sprite* sprite;
+	float timer;
 };

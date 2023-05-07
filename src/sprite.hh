@@ -2,6 +2,8 @@
 
 #include <array>
 #include <string>
+#include <map>
+#include <memory>
 #include <raylib/raylib-cpp.hpp>
 
 enum Action {
@@ -19,7 +21,7 @@ enum Action {
 
 class Sprite {
 private:
-	raylib::Texture texture;
+	Texture2D texture;
 	int rate; // Frame rate
 	std::array<int, ACTION_COUNT> length; // Length of each action
 	std::array<int, ACTION_COUNT> offset; // Offset of each action
@@ -30,7 +32,11 @@ public:
 	void render(float x, float y, const Action action, float timer, int direction, float rotation=0.0);
 	void render(raylib::Vector2 position, const Action action, float timer, int direction, float rotation=0.0);
 
+	void unload(); // Deletes the texture
+
 	Sprite(){}
 	Sprite(std::string filename);
 	virtual ~Sprite(){}
 };
+
+extern std::map< std::string, Sprite > sprite_list;

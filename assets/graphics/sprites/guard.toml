@@ -1,0 +1,9 @@
+rate = 12
+width = 128
+height = 128
+
+[length]
+IDLE = 22
+
+[offset]
+IDLE = 0

@@ -29,6 +29,7 @@ void camera_update();
 // Render
 void render_colliders();
 void render_bullets();
+void render_collider_sprites();
 
 // UI Elements
 void health_bar();

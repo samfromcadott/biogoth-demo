@@ -19,3 +19,19 @@ void render_bullets() {
 		DrawCircleV(position.value, 4, ORANGE);
 	}
 }
+
+void render_collider_sprites() {
+	auto view = registry.view<const Position, const Collider, AnimationState, const Facing>();
+	for ( auto [entity, position, collider, animation, facing] : view.each() ) {
+		// Update the timer
+		animation.timer += GetFrameTime();
+
+		// Render the sprite
+		animation.sprite->render(
+			position.value.x, position.value.y - collider.height/2,
+			animation.state,
+			animation.timer,
+			facing.direction
+		);
+	}
+}
