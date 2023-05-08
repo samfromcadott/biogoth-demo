@@ -125,4 +125,11 @@ struct AnimationState {
 	Action state;
 	Sprite* sprite;
 	float timer;
+
+	void set_state(Action new_state) {
+		if (state == new_state) return;
+
+		state = new_state;
+		timer = 0;
+	}
 };

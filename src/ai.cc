@@ -59,8 +59,8 @@ void enemy_think() {
 
 	const TileCoord player_coord = tilemap.world_to_tile(player_position.x, player_position.y-player_height);
 
-	auto view = registry.view<const Enemy, Velocity, const Position, Facing, GunAttack, const Collider>();
-	for ( auto [entity, enemy, velocity, position, facing, gun, collider] : view.each() ) {
+	auto view = registry.view<const Enemy, Velocity, const Position, Facing, GunAttack, const Collider, AnimationState>();
+	for ( auto [entity, enemy, velocity, position, facing, gun, collider, animation] : view.each() ) {
 		if ( !enemy.active ) continue;
 		gun.timer -= GetFrameTime();
 
@@ -68,6 +68,8 @@ void enemy_think() {
 		TileCoord entity_coord = tilemap.world_to_tile(position.value.x, position.value.y-collider.height);
 		if ( !line_of_sight(entity_coord, player_coord) ) {
 			velocity.value.x = 0;
+			animation.set_state(IDLE); // Go to the idle state
+
 			continue;
 		}
 
@@ -80,6 +82,7 @@ void enemy_think() {
 
 		velocity.value.x = enemy.max_speed * direction;
 		facing.direction = direction;
+		animation.set_state(WALK); // When moving play the walk animation
 
 		// Check if the entity is on a ledge
 		const TileCoord next_tile = tilemap.world_to_tile( position.value.x+(direction*(collider.width+3)/2), position.value.y+1 );
@@ -92,6 +95,7 @@ void enemy_think() {
 		if ( distance > enemy.attack_range ) continue;
 
 		velocity.value.x = 0.0;
+		animation.set_state(IDLE);
 
 		if (gun.timer > 0.0) continue;
 
