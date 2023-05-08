@@ -1,4 +1,5 @@
 #include <toml.hpp>
+#include <iostream>
 
 #include "sprite.hh"
 
@@ -14,21 +15,37 @@ Sprite::Sprite(std::string filename) {
 	width = toml::find<int>(data, "width");
 	height = toml::find<int>(data, "height");
 
-	// Action lengths
-	const auto& file_lengths = toml::find(data, "length");
-	length[IDLE] = toml::find<int>(file_lengths, "IDLE");
-	length[WALK] = toml::find<int>(file_lengths, "WALK");
+	const auto& file_lengths = toml::find(data, "length"); // Action lengths
+	const auto& file_offsets = toml::find(data, "offset"); // Action offsets
 
-	// Action offsets
-	const auto& file_offsets = toml::find(data, "offset");
-	offset[IDLE] = toml::find<int>(file_offsets, "IDLE");
-	offset[WALK] = toml::find<int>(file_offsets, "WALK");
+	// Names of actions
+	static const std::vector<std::string> action_names = {
+		"IDLE",
+		"WALK",
+		"ATTACK",
+		"DIE",
+		"BITE",
+		"FALL",
+		"JUMP",
+		"WALL_SLIDE",
+		"WALL_JUMP"
+	};
+
+	// Get data for actions
+	for (int action = IDLE; action < ACTION_COUNT; action++) {
+		// Check if the action is defined in the file
+		if ( !file_lengths.contains( action_names[action] ) ) continue;
+		if ( !file_offsets.contains( action_names[action] ) ) continue;
+
+		length[action] = toml::find<int>( file_lengths, action_names[action] );
+		offset[action] = toml::find<int>( file_offsets, action_names[action] );
+	}
 }
 
 void Sprite::render(float x, float y, const Action action, float timer, int direction, float rotation) {
 	// Find the origin of the frame
 	float rx = int(timer*rate) % length[action] * width;
-	float ry = action * offset[action] * height;
+	float ry = offset[action] * height;
 
 	Rectangle source = {rx, ry, float(width), float(height)};
 	Rectangle dest = {float(x), float(y), float(width), float(height)};
