@@ -4,6 +4,8 @@ height = 128
 
 [length]
 IDLE = 22
+WALK = 12
 
 [offset]
 IDLE = 0
+WALK = 1

@@ -78,6 +78,7 @@ int main() {
 
 	}
 
+	// Unload sprites
 	for (auto& [name, sprite] : sprite_list) {
 		sprite.unload();
 	}

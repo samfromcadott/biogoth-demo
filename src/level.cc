@@ -14,7 +14,7 @@ void make_enemy(float x, float y, int direction) {
 	registry.emplace<Collider>( enemy, 64.0f, 128.0f, false, 0, true );
 	// registry.emplace<DebugColor>( enemy, raylib::LIME);
 	registry.emplace<AnimationState>( enemy,
-		IDLE,
+		WALK,
 		&sprite_list["guard"],
 		(float)GetRandomValue(0, 100) / 12.0f
 	);
