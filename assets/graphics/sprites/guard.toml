@@ -1,6 +1,7 @@
 rate = 12
 width = 128
 height = 128
+direction_offset = 3
 
 [length]
 IDLE = 22

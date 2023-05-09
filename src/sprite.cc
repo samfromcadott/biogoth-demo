@@ -14,6 +14,7 @@ Sprite::Sprite(std::string filename) {
 	rate = toml::find<int>(data, "rate");
 	width = toml::find<int>(data, "width");
 	height = toml::find<int>(data, "height");
+	if ( data.contains("direction_offset") ) direction_offset =  toml::find<int>(data, "direction_offset");
 
 	const auto& file_lengths = toml::find(data, "length"); // Action lengths
 	const auto& file_offsets = toml::find(data, "offset"); // Action offsets
@@ -43,9 +44,13 @@ Sprite::Sprite(std::string filename) {
 }
 
 void Sprite::render(float x, float y, const Action action, float timer, int direction, float rotation) {
+	// Use direction_offset if the sprite is facing left
+	int off = 0;
+	if (direction == -1) off = direction_offset;
+
 	// Find the origin of the frame
 	float rx = int(timer*rate) % length[action] * width;
-	float ry = offset[action] * height;
+	float ry = (offset[action] + off) * height;
 
 	Rectangle source = {rx, ry, float(width), float(height)};
 	Rectangle dest = {float(x), float(y), float(width), float(height)};

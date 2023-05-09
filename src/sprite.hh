@@ -23,6 +23,7 @@ class Sprite {
 private:
 	Texture2D texture;
 	int rate; // Frame rate
+	int direction_offset;
 	std::array<int, ACTION_COUNT> length; // Length of each action
 	std::array<int, ACTION_COUNT> offset; // Offset of each action
 
