@@ -30,13 +30,23 @@ int main() {
 	Sprite sprite("sprite_test");
 	sprite_list["guard"] = Sprite("guard");
 
+	// Get a reference to the player
+	auto player_view = registry.view<const Player>();
+	entt::entity player;
+	for ( auto [entity, p] : player_view.each() ) {
+		player = entity;
+		break;
+	}
+
 	while ( !window.ShouldClose() ) {
 		// Player actions
-		player_move();
-		player_jump();
-		jump_buffer();
-		player_attack();
-		player_bite();
+		if ( registry.get<Health>(player).now > 0 ) { // Check is the player is alive
+			player_move();
+			player_jump();
+			jump_buffer();
+			player_attack();
+			player_bite();
+		}
 
 		// Enemy actions
 		enemy_think();

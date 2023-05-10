@@ -7,8 +7,10 @@ direction_offset = 3
 IDLE = 22
 WALK = 12
 ATTACK = 10
+DIE = 1
 
 [offset]
 IDLE = 0
 WALK = 1
 ATTACK = 2
+DIE = 0

@@ -7,11 +7,14 @@
 #include "components.hh"
 
 void death() {
-	auto view = registry.view<const Health>();
-	for ( auto [entity, health] : view.each() ) {
-		// Delete entities with 0 health
-		if ( health.now <= 0 )
-			registry.destroy(entity);
+	auto view = registry.view<const Health, Collider, AnimationState, Enemy, Velocity>();
+	for ( auto [entity, health, collider, animation, enemy, velocity] : view.each() ) {
+		if ( health.now > 0 ) continue;
+
+		collider.enabled = false;
+		enemy.active = false;
+		animation.set_state(DIE);
+		velocity.value = 0;
 	}
 }
 
@@ -46,6 +49,7 @@ void bite_attack() {
 		for ( auto [target, target_position, target_collider, target_health, enemy] : target_view.each() ) {
 			// Skip non-interected entities
 			if ( !ray.intersect( target_collider.get_rectangle(target_position.value) ) ) continue;
+			if ( target_health.now <= 0 ) continue; // Skip dead enemies
 
 			// When entity stops biting
 			if (!bite.active) {
