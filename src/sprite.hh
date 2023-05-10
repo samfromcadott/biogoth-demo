@@ -22,12 +22,12 @@ enum Action {
 class Sprite {
 private:
 	Texture2D texture;
+
+public:
 	int rate; // Frame rate
 	int direction_offset;
 	std::array<int, ACTION_COUNT> length; // Length of each action
 	std::array<int, ACTION_COUNT> offset; // Offset of each action
-
-public:
 	unsigned int width, height; // Size of sprite
 
 	void render(float x, float y, const Action action, float timer, int direction, float rotation=0.0);
