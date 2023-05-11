@@ -26,6 +26,12 @@ void render_collider_sprites() {
 		// Update the timer
 		animation.timer += GetFrameTime();
 
+		// Pause at end of death animation
+		const float death_length = float(animation.sprite->length[DIE]) / float(animation.sprite->rate);
+		if ( animation.state == DIE && animation.timer >= death_length ) {
+			animation.timer = death_length - GetFrameTime();
+		}
+
 		// Render the sprite
 		animation.sprite->render(
 			position.value.x, position.value.y - collider.height/2,
