@@ -101,6 +101,8 @@ void bullets() {
 			if ( !target_collider.get_rectangle(target_position.value).CheckCollision(position.value) )
 				continue;
 
+			if ( !target_collider.enabled ) continue; // Skip disabled colliders
+
 			target_health.now -= bullet.damage;
 			registry.destroy(entity); // Destroy the bullet
 			break; // Stop looping over targets
