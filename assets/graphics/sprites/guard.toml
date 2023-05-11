@@ -1,16 +1,16 @@
 rate = 12
 width = 128
 height = 128
-direction_offset = 3
+direction_offset = 4
 
 [length]
 IDLE = 22
 WALK = 12
 ATTACK = 10
-DIE = 6
+DIE = 5
 
 [offset]
 IDLE = 0
 WALK = 1
 ATTACK = 2
-DIE = 0
+DIE = 3
