@@ -29,6 +29,7 @@ int main() {
 	// Sprite test
 	Sprite sprite("sprite_test");
 	sprite_list["guard"] = Sprite("guard");
+	sprite_list["vampire"] = Sprite("vampire");
 
 	// Get a reference to the player
 	auto player_view = registry.view<const Player>();
