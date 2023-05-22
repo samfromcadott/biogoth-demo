@@ -49,6 +49,8 @@ int main() {
 			player_bite();
 		}
 
+		player_animate();
+
 		// Enemy actions
 		enemy_think();
 

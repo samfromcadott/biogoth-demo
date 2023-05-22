@@ -94,12 +94,14 @@ void player_attack() {
 
 	for ( auto [entity, player, attack, collider, position, facing] : view.each() ) {
 		if ( !IsKeyPressed(KEY_LEFT_CONTROL) ) continue;
+		if (attack.active) continue; // Don't attack if the player is already attacking
 
 		raylib::Vector2 ray_start = position.value + raylib::Vector2((collider.width/2+0.001)*facing.direction, -collider.height/2);
 		raylib::Vector2 ray_end = ray_start + raylib::Vector2(attack.distance) * facing.direction;
 		registry.emplace_or_replace<RayCast>(entity, ray_start, ray_end);
 
 		attack.active = true;
+		attack.timer = attack.rate;
 	}
 }
 
@@ -122,5 +124,15 @@ void player_bite() {
 			bite.active = false;
 			player.can_move = true;
 		}
+	}
+}
+
+void player_animate() {
+	auto view = registry.view<const Player, AnimationState, const Velocity, const Collider, const MeleeAttack>();
+
+	for ( auto [entity, player, animation, velocity, collider, attack] : view.each() ) {
+		if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
+		else if ( attack.timer > 0.0 ) animation.set_state(ATTACK);
+		else animation.set_state(IDLE);
 	}
 }

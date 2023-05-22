@@ -8,6 +8,7 @@ void player_jump();
 void jump_buffer();
 void player_attack(); // Checks if player is attacking
 void player_bite(); // Checks if player is biting
+void player_animate();
 
 // Physics
 void move_collide(); // Moves a body and applies collisions

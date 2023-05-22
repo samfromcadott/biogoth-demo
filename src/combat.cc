@@ -19,22 +19,34 @@ void death() {
 }
 
 void melee_attack() {
-	auto view = registry.view<MeleeAttack, const RayCast>();
+	auto view = registry.view<MeleeAttack, RayCast>();
 
 	for ( auto [entity, attack, ray] : view.each() ) {
+		attack.timer -= GetFrameTime(); // Count down the timer
+		std::cout << attack.timer << '\n';
+
 		if (!attack.active) continue;
+
+		if (attack.timer <= 0) {
+			attack.active = false;
+			registry.remove<RayCast>(entity); // Delete the ray cast
+			continue;
+		}
+
 
 		// Loop over potential targets
 		auto target_view = registry.view<const Position, const Collider, Health>();
 		for ( auto [target, position, collider, health] : target_view.each() ) {
-			if ( ray.intersect( collider.get_rectangle(position.value) ) ) {
-				std::cout << "SLASH!" << '\n';
-				health.now -= attack.damage;
-			}
+			if ( !ray.intersect( collider.get_rectangle(position.value) ) ) continue;
+
+			std::cout << "SLASH!" << '\n';
+			health.now -= attack.damage;
+			attack.active = false;
 		}
 
-		registry.remove<RayCast>(entity); // Delete the ray cast
-		attack.active = false;
+		// Put the ray cast out of bounds
+		ray.start = raylib::Vector2(0, 0);
+		ray.end = raylib::Vector2(0, 0);
 	}
 }
 

@@ -65,6 +65,8 @@ struct DebugColor {
 struct MeleeAttack {
 	float distance;
 	int damage;
+	float rate; // Time between attacks
+	float timer; // Time remaining on next attack
 	bool active;
 };
 
