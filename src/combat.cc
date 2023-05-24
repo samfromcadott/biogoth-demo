@@ -37,6 +37,7 @@ void melee_attack() {
 		auto target_view = registry.view<const Position, const Collider, Health>();
 		for ( auto [target, position, collider, health] : target_view.each() ) {
 			if ( !ray.intersect( collider.get_rectangle(position.value) ) ) continue;
+			if (target == entity) continue; // Don't harm self
 
 			std::cout << "SLASH!" << '\n';
 			health.now -= attack.damage;
