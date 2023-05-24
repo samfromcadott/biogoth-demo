@@ -131,8 +131,9 @@ void player_animate() {
 	auto view = registry.view<const Player, AnimationState, const Velocity, const Collider, const MeleeAttack>();
 
 	for ( auto [entity, player, animation, velocity, collider, attack] : view.each() ) {
-		if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
-		else if ( attack.timer > 0.0 ) animation.set_state(ATTACK);
+		if ( attack.timer > 0.0 ) animation.set_state(ATTACK);
+		else if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
+		else if ( !collider.on_floor ) animation.set_state(FALL);
 		else animation.set_state(IDLE);
 	}
 }
