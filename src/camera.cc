@@ -14,8 +14,13 @@ void camera_update() {
 	for ( auto [entity, player, position, velocity] : view.each() ) {
 		// Scale of camera movement
 		float sx = 0.8;
-		float sy = 0.9;
-		if (velocity.value.y < 0.0) sy = 0.25;
+		float sy = 0.1;
+
+		// Track the player faster when near top or bottom
+		if (
+			position.value.y < camera.target.y - screen_height/4 ||
+			position.value.y > camera.target.y + screen_height/4
+		) sy = 1.0;
 
 		raylib::Vector2 look_ahead(96.0, 32.0);
 		raylib::Vector2 target = position.value + (velocity.value * look_ahead); // Look ahead
