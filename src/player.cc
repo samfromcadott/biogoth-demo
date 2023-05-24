@@ -41,8 +41,8 @@ void player_move() {
 }
 
 void player_jump() {
-	auto view = registry.view<const Player, Position, Velocity, Collider, Gravity, Jump>();
-	for ( auto [entity, player, position, velocity, collider, gravity, jump] : view.each() ) {
+	auto view = registry.view<const Player, Position, Velocity, Collider, Gravity, Jump, Facing>();
+	for ( auto [entity, player, position, velocity, collider, gravity, jump, facing] : view.each() ) {
 		if( IsKeyPressed(KEY_SPACE) ) jump.wish_jump = true;
 
 		// Floor jump
@@ -64,6 +64,8 @@ void player_jump() {
 
 		if ( tilemap(left_side) != 0 ) collider.wall_direction = -1;
 		if ( tilemap(right_side) != 0 ) collider.wall_direction = +1;
+
+		if ( collider.wall_direction != 0 && !collider.on_floor ) facing.direction = -collider.wall_direction;
 
 		// Wall jump
 		if ( jump.wish_jump && collider.wall_direction != 0 && !collider.on_floor ) {
@@ -133,6 +135,7 @@ void player_animate() {
 	for ( auto [entity, player, animation, velocity, collider, attack] : view.each() ) {
 		if ( attack.timer > 0.0 ) animation.set_state(ATTACK);
 		else if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
+		else if ( collider.wall_direction != 0 && !collider.on_floor ) animation.set_state(WALL_SLIDE);
 		else if ( !collider.on_floor ) animation.set_state(FALL);
 		else animation.set_state(IDLE);
 	}
