@@ -71,13 +71,13 @@ int main() {
 
 			window.ClearBackground(raylib::RAYWHITE);
 
+			tilemap.draw();
+
 			render_colliders();
 			render_collider_sprites();
 			render_bullets();
 
 			camera_update();
-
-			tilemap.draw();
 
 			// Sprite test
 			sprite.render(100, 200, IDLE, GetTime(), +1, GetTime()*180);
