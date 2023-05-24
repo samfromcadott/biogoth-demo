@@ -75,7 +75,7 @@ void bite_attack() {
 
 			// Move the target to the biter
 			target_collider.enabled = false;
-			target_position.value.x = (ray.end.x + position.value.x) / 2;
+			target_position.value.x = position.value.x + (ray.end.x - ray.start.x) / 2;
 			target_position.value.y = position.value.y;
 
 			if (bite.timer <= 0.0) {

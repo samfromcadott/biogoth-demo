@@ -130,10 +130,11 @@ void player_bite() {
 }
 
 void player_animate() {
-	auto view = registry.view<const Player, AnimationState, const Velocity, const Collider, const MeleeAttack>();
+	auto view = registry.view<const Player, AnimationState, const Velocity, const Collider, const MeleeAttack, const BiteAttack>();
 
-	for ( auto [entity, player, animation, velocity, collider, attack] : view.each() ) {
+	for ( auto [entity, player, animation, velocity, collider, attack, bite] : view.each() ) {
 		if ( attack.timer > 0.0 ) animation.set_state(ATTACK);
+		else if ( bite.active ) animation.set_state(BITE);
 		else if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
 		else if ( collider.wall_direction != 0 && !collider.on_floor ) animation.set_state(WALL_SLIDE);
 		else if ( !collider.on_floor ) animation.set_state(FALL);
