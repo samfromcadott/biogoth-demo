@@ -31,7 +31,7 @@ void make_player(float x, float y, int direction) {
 	registry.emplace<Position>( player, raylib::Vector2(x, y) );
 	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
 	registry.emplace<Collider>( player, 64.0f, 128.0f, false, 0, true );
-	registry.emplace<DebugColor>( player, raylib::VIOLET);
+	// registry.emplace<DebugColor>( player, raylib::VIOLET);
 	registry.emplace<AnimationState>( player,
 		IDLE,
 		&sprite_list["vampire"],
