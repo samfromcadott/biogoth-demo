@@ -23,7 +23,6 @@ void melee_attack() {
 
 	for ( auto [entity, attack, ray] : view.each() ) {
 		attack.timer -= GetFrameTime(); // Count down the timer
-		std::cout << attack.timer << '\n';
 
 		if (!attack.active) continue;
 
