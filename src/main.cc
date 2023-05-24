@@ -69,7 +69,7 @@ int main() {
 		BeginDrawing();
 		camera.BeginMode();
 
-			window.ClearBackground(raylib::RAYWHITE);
+			window.ClearBackground( raylib::Color(111, 133, 163, 255) );
 
 			tilemap.draw();
 

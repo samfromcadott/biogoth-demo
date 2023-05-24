@@ -13,6 +13,8 @@ struct TileCoord {
 
 class Tilemap {
 private:
+	std::vector<Rectangle> rects; // Vector of drawing rects
+	Texture2D texture;
 
 public:
 	std::vector<Tile> tiles;
@@ -43,5 +45,7 @@ public:
 		tiles = std::vector<Tile>(width*height, empty_tile);
 	}
 	Tilemap(const std::string filename);
-	virtual ~Tilemap () {}
+	virtual ~Tilemap () {
+		// UnloadTexture(texture);
+	}
 };
