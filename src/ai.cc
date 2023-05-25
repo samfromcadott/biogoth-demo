@@ -45,6 +45,8 @@ void fire_gun(GunAttack& gun, const Position& position, const Facing& facing, co
 
 	gun.timer = gun.rate;
 
+	sound_list["gun"].SetPitch( 1.0 + random_spread() * 0.1 );
+	sound_list["gun"].SetVolume( 0.6 + random_spread() * 0.1 );
 	sound_list["gun"].Play();
 }
 
