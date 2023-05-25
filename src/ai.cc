@@ -6,6 +6,7 @@
 #include "components.hh"
 #include "systems.hh"
 #include "util.hh"
+#include "audio.hh"
 
 // Checks for line of sight between two tile coordinates
 bool line_of_sight(const TileCoord a, const TileCoord b) {
@@ -43,6 +44,8 @@ void fire_gun(GunAttack& gun, const Position& position, const Facing& facing, co
 	}
 
 	gun.timer = gun.rate;
+
+	sound_list["gun"].Play();
 }
 
 void enemy_think() {

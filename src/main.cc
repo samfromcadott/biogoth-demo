@@ -7,6 +7,7 @@
 #include "tilemap.hh"
 #include "level.hh"
 #include "sprite.hh"
+#include "audio.hh"
 
 using namespace raylib;
 
@@ -30,6 +31,10 @@ int main() {
 	Sprite sprite("sprite_test");
 	sprite_list["guard"] = Sprite("guard");
 	sprite_list["vampire"] = Sprite("vampire");
+
+	// Load sounds
+	InitAudioDevice();
+	sound_list["gun"] = raylib::Sound("assets/audio/sfx/gun.wav");
 
 	// Get a reference to the player
 	auto player_view = registry.view<const Player>();
