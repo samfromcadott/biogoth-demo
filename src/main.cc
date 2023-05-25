@@ -35,6 +35,7 @@ int main() {
 	// Load sounds
 	InitAudioDevice();
 	sound_list["gun"] = raylib::Sound("assets/audio/sfx/gun.wav");
+	sound_list["guard_bitten"] = raylib::Sound("assets/audio/sfx/guard_bitten.wav");
 
 	// Get a reference to the player
 	auto player_view = registry.view<const Player>();

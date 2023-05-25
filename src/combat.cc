@@ -5,6 +5,7 @@
 #include "systems.hh"
 #include "globals.hh"
 #include "components.hh"
+#include "audio.hh"
 
 void death() {
 	auto view = registry.view<const Health, Collider, AnimationState, Enemy, Velocity>();
@@ -70,6 +71,9 @@ void bite_attack() {
 				target_collider.enabled = true;
 				break;
 			}
+
+			// Play the guard scream
+			if( enemy.active ) sound_list["guard_bitten"].Play(); // Only play audio when first bitten
 
 			enemy.active = false; // Disable the enemy
 
