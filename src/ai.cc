@@ -69,6 +69,12 @@ void enemy_think() {
 		if ( !enemy.active ) continue;
 		gun.timer -= GetFrameTime();
 
+		// Check if the entity is in the air
+		if (!collider.on_floor) {
+			animation.set_state(FALL); // Play the fall animation when in the air
+			continue;
+		}
+
 		// Check for line of sight to the player
 		TileCoord entity_coord = tilemap.world_to_tile(position.value.x, position.value.y-collider.height);
 		if ( !line_of_sight(entity_coord, player_coord) ) {
@@ -101,6 +107,7 @@ void enemy_think() {
 			continue;
 		}
 
+		// Firing gun
 		velocity.value.x = 0.0;
 		animation.set_state(ATTACK);
 
