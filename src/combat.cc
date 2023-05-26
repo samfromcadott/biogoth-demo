@@ -16,7 +16,7 @@ void death() {
 		collider.enabled = false;
 		enemy.active = false;
 		animation.set_state(DIE);
-		velocity.value.x = 0;
+		velocity.value.x = move_towards(velocity.value.x, 0.0, 1.0);
 	}
 }
 
