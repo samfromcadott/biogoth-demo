@@ -6,6 +6,7 @@
 #include "globals.hh"
 #include "components.hh"
 #include "audio.hh"
+#include "util.hh"
 
 void death() {
 	auto view = registry.view<const Health, Collider, AnimationState, Enemy, Velocity>();
@@ -35,13 +36,18 @@ void melee_attack() {
 
 
 		// Loop over potential targets
-		auto target_view = registry.view<const Position, const Collider, Health>();
-		for ( auto [target, position, collider, health] : target_view.each() ) {
+		auto target_view = registry.view<const Position, const Collider, Velocity, Health>();
+		for ( auto [target, position, collider, velocity, health] : target_view.each() ) {
 			if ( !ray.intersect( collider.get_rectangle(position.value) ) ) continue;
 			if (target == entity) continue; // Don't harm self
+			if (health.now <= 0) continue; // Skip dead enemies
 
 			std::cout << "SLASH!" << '\n';
 			health.now -= attack.damage;
+
+			// Push the enemy back
+			velocity.value.x -= sign(ray.start.x - ray.end.x) * (attack.damage / 4.0);
+
 			attack.active = false;
 		}
 

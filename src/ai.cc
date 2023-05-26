@@ -53,6 +53,7 @@ void fire_gun(GunAttack& gun, const Position& position, const Facing& facing, co
 void enemy_think() {
 	raylib::Vector2 player_position;
 	float player_height;
+	float acceleration = 1.0;
 
 	// Find player position
 	auto player_view = registry.view<const Player, const Position, const Collider>();
@@ -78,7 +79,7 @@ void enemy_think() {
 		// Check for line of sight to the player
 		TileCoord entity_coord = tilemap.world_to_tile(position.value.x, position.value.y-collider.height);
 		if ( !line_of_sight(entity_coord, player_coord) ) {
-			velocity.value.x = 0;
+			velocity.value.x = move_towards(velocity.value.x, 0.0, acceleration);
 			animation.set_state(IDLE); // Go to the idle state
 
 			continue;
@@ -91,7 +92,7 @@ void enemy_think() {
 		// If the player is in aggro_range, set facing and velocity to move toward them
 		if ( distance > enemy.aggro_range ) continue;
 
-		velocity.value.x = enemy.max_speed * direction;
+		velocity.value.x = move_towards(velocity.value.x, enemy.max_speed * direction, acceleration);
 		facing.direction = direction;
 
 		// Check if the entity is on a ledge
@@ -108,7 +109,7 @@ void enemy_think() {
 		}
 
 		// Firing gun
-		velocity.value.x = 0.0;
+		velocity.value.x = move_towards(velocity.value.x, 0.0, acceleration);
 		animation.set_state(ATTACK);
 
 		if (gun.timer > 0.0) continue;
