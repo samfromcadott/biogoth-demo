@@ -79,7 +79,7 @@ void bite_attack() {
 			}
 
 			// Play the guard scream
-			if( enemy.active ) sound_list["guard_bitten"].Play(); // Only play audio when first bitten
+			if( enemy.active ) play_sound("guard_bitten", 0.6); // Only play audio when first bitten
 			target_animation.set_state(BITE);
 
 			enemy.active = false; // Disable the enemy

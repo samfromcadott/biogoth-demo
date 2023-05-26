@@ -4,4 +4,5 @@
 #include <string>
 #include <raylib/raylib-cpp.hpp>
 
-extern std::map<std::string, raylib::Sound> sound_list;
+void load_sound(std::string name);
+void play_sound(std::string name, float volume=1.0, float pitch=1.0);
