@@ -107,8 +107,9 @@ void enemy_think() {
 
 		// Firing gun
 		velocity.value.x = move_towards(velocity.value.x, 0.0, acceleration);
-		animation.set_state(ATTACK);
+		if ( abs(velocity.value.x) > acceleration ) continue; // Wait until stopped to shoot
 
+		animation.set_state(ATTACK);
 		if (gun.timer > 0.0) continue;
 
 		fire_gun(gun, position, facing, collider);
