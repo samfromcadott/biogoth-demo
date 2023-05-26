@@ -49,6 +49,9 @@ void melee_attack() {
 			velocity.value.x -= sign(ray.start.x - ray.end.x) * (attack.damage / 8.0);
 			velocity.value.y -= 1.0;
 
+			// Play the sound effect
+			play_sound("sword_hit", 0.7 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);
+
 			attack.active = false;
 		}
 

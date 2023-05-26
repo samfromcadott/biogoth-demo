@@ -10,3 +10,4 @@ build
 docs
 *.asd
 assets/audio/sfx/*.ogg
+assets/audio/sfx/*/
