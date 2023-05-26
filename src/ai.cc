@@ -44,7 +44,7 @@ void fire_gun(GunAttack& gun, const Position& position, const Facing& facing, co
 	}
 
 	gun.timer = gun.rate;
-	play_sound("gun", 0.6 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);
+	play_sound("gun", 0.4 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);
 }
 
 void enemy_think() {

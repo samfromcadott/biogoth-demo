@@ -10,6 +10,7 @@ enum Action {
 	IDLE,
 	WALK,
 	ATTACK,
+	AIR_ATTACK,
 	DIE,
 	BITE,
 	FALL,

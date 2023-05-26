@@ -13,10 +13,15 @@ void death() {
 	for ( auto [entity, health, collider, animation, enemy, velocity] : view.each() ) {
 		if ( health.now > 0 ) continue;
 
+		velocity.value.x = move_towards(velocity.value.x, 0.0, 1.0);
+
+		if (animation.state == DIE) continue; // Skip dead enemies
+
 		collider.enabled = false;
 		enemy.active = false;
 		animation.set_state(DIE);
-		velocity.value.x = move_towards(velocity.value.x, 0.0, 1.0);
+
+		play_sound("guard_death", 0.4 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);
 	}
 }
 
@@ -84,7 +89,7 @@ void bite_attack() {
 
 			// Play the guard scream
 			if( enemy.active ) // Only play audio when first bitten
-				play_sound("guard_bitten", 0.5);
+				play_sound("guard_bitten", 0.7);
 
 			target_animation.set_state(BITE);
 

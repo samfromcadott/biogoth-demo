@@ -24,6 +24,7 @@ Sprite::Sprite(std::string filename) {
 		"IDLE",
 		"WALK",
 		"ATTACK",
+		"AIR_ATTACK",
 		"DIE",
 		"BITE",
 		"FALL",

@@ -36,6 +36,7 @@ int main() {
 	InitAudioDevice();
 	load_sound("gun");
 	load_sound("guard_bitten");
+	load_sound("guard_death");
 	load_sound("sword_swing");
 	load_sound("sword_hit");
 
