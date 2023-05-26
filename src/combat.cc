@@ -80,7 +80,9 @@ void bite_attack() {
 			}
 
 			// Play the guard scream
-			if( enemy.active ) play_sound("guard_bitten", 0.6); // Only play audio when first bitten
+			if( enemy.active ) // Only play audio when first bitten
+				play_sound("guard_bitten", 0.5);
+
 			target_animation.set_state(BITE);
 
 			enemy.active = false; // Disable the enemy

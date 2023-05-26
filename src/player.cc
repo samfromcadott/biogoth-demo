@@ -5,6 +5,7 @@
 #include "globals.hh"
 #include "components.hh"
 #include "util.hh"
+#include "audio.hh"
 
 using namespace raylib;
 
@@ -104,6 +105,8 @@ void player_attack() {
 
 		attack.active = true;
 		attack.timer = attack.rate;
+
+		play_sound("sword_swing", 0.6 + random_spread() * 0.1, 1.0 + random_spread() * 0.2);
 	}
 }
 

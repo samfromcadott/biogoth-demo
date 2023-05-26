@@ -36,6 +36,7 @@ int main() {
 	InitAudioDevice();
 	load_sound("gun");
 	load_sound("guard_bitten");
+	load_sound("sword_swing");
 
 	// Get a reference to the player
 	auto player_view = registry.view<const Player>();
