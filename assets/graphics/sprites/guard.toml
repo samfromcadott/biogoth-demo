@@ -1,16 +1,20 @@
 rate = 12
 width = 128
 height = 128
-direction_offset = 4
+direction_offset = 6
 
 [length]
 IDLE = 22
 WALK = 12
 ATTACK = 10
 DIE = 5
+FALL = 1
+BITE = 1
 
 [offset]
 IDLE = 0
 WALK = 1
 ATTACK = 2
 DIE = 3
+FALL = 4
+BITE = 5

@@ -58,8 +58,8 @@ void bite_attack() {
 		bite.timer -= GetFrameTime(); // Count down the timer
 
 		// Loop over potential targets
-		auto target_view = registry.view<Position, Collider, Health, Enemy>();
-		for ( auto [target, target_position, target_collider, target_health, enemy] : target_view.each() ) {
+		auto target_view = registry.view<Position, Collider, Health, AnimationState, Enemy>();
+		for ( auto [target, target_position, target_collider, target_health, target_animation, enemy] : target_view.each() ) {
 			// Skip non-interected entities
 			if ( !ray.intersect( target_collider.get_rectangle(target_position.value) ) ) continue;
 			if ( target_health.now <= 0 ) continue; // Skip dead enemies
@@ -74,6 +74,7 @@ void bite_attack() {
 
 			// Play the guard scream
 			if( enemy.active ) sound_list["guard_bitten"].Play(); // Only play audio when first bitten
+			target_animation.set_state(BITE);
 
 			enemy.active = false; // Disable the enemy
 
