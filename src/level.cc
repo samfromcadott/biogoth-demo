@@ -21,7 +21,7 @@ void make_enemy(float x, float y, int direction) {
 	registry.emplace<Health>(enemy, 100, 100);
 	registry.emplace<Facing>(enemy, direction);
 	registry.emplace<Enemy>(enemy, 550.0f, 300.0f, 3.0f, true);
-	registry.emplace<GunAttack>(enemy, 3, 5, 0.5f, 15.0f, 0.8333f, 0.0f);
+	registry.emplace<GunAttack>(enemy, 3, 10, 0.5f, 15.0f, 0.8333f, 0.0f);
 }
 
 void make_player(float x, float y, int direction) {
@@ -37,9 +37,9 @@ void make_player(float x, float y, int direction) {
 		&sprite_list["vampire"],
 		0.0f
 	);
-	registry.emplace<MeleeAttack>( player, 64.0f, 40, 0.5f, 0.0f, false);
+	registry.emplace<MeleeAttack>( player, 64.0f, 50, 0.5f, 0.0f, false);
 	registry.emplace<Facing>(player, direction);
 	registry.emplace<Health>(player, 100, 100);
-	registry.emplace<BiteAttack>(player, 64.0f, 0.0f, 30, false);
+	registry.emplace<BiteAttack>(player, 64.0f, 0.0f, 20, false);
 	registry.emplace<Jump>(player, 10.0f, 0.5f, 0.1f, 0.1f);
 }
