@@ -8,6 +8,7 @@
 #include "level.hh"
 #include "sprite.hh"
 #include "audio.hh"
+#include "timer.hh"
 
 using namespace raylib;
 
