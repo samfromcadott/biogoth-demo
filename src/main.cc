@@ -20,6 +20,8 @@ Tilemap tilemap(40, 40);
 raylib::Camera2D camera( raylib::Vector2(screen_width/2, screen_height/2), raylib::Vector2(0.0, 0.0) );
 entt::entity player; // Reference to the player character entity
 
+Timer death_timer; // Counts down when player dies
+
 const float G = 13.0;
 
 void game_update();
@@ -82,11 +84,12 @@ void game_update() {
 		jump_buffer();
 		player_attack();
 		player_bite();
-	} else {
-		game_start(); // Restart if the player is dead
+	} else if ( !death_timer.is_active() ) {
+		death_timer = Timer( 1.0, game_start ); // Restart if the player is dead
 	}
 
 	player_animate();
+	death_timer.update();
 
 	// Enemy actions
 	enemy_think();

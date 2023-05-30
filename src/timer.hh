@@ -12,5 +12,6 @@ public:
 	bool is_active();
 
 	Timer( float time, void(& function)() );
+	Timer(){}
 	virtual ~Timer(){}
 };
