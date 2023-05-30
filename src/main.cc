@@ -17,15 +17,17 @@ int screen_height = 720;
 entt::registry registry;
 Tilemap tilemap(40, 40);
 raylib::Camera2D camera( raylib::Vector2(screen_width/2, screen_height/2), raylib::Vector2(0.0, 0.0) );
+entt::entity player; // Reference to the player character entity
 
 const float G = 13.0;
+
+void game_update();
+void game_start();
 
 int main() {
 	Window window(screen_width, screen_height, "raylib-cpp - basic window");
 
 	SetTargetFPS(60);
-
-	tilemap = Tilemap("assets/levels/test.json");
 
 	// Sprite test
 	Sprite sprite("sprite_test");
@@ -40,13 +42,7 @@ int main() {
 	load_sound("sword_swing");
 	load_sound("sword_hit");
 
-	// Get a reference to the player
-	auto player_view = registry.view<const Player>();
-	entt::entity player;
-	for ( auto [entity, p] : player_view.each() ) {
-		player = entity;
-		break;
-	}
+	game_start();
 
 	while ( !window.ShouldClose() ) {
 		// Player actions
@@ -74,6 +70,8 @@ int main() {
 		move_collide();
 
 		death();
+
+		if ( IsKeyPressed(KEY_R) ) game_start(); // Voluntary reset
 
 		BeginDrawing();
 		camera.BeginMode();
@@ -106,4 +104,21 @@ int main() {
 	}
 
 	return 0;
+}
+
+void game_start() {
+	registry.clear();
+
+	// Load the level
+	tilemap = Tilemap("assets/levels/test.json");
+
+	// Get a reference to the player
+	auto player_view = registry.view<const Player>();
+	for ( auto [entity, p] : player_view.each() ) {
+		player = entity;
+		break;
+	}
+
+	// Reset the camera
+	camera.target = registry.get<const Position>(player).value;
 }
