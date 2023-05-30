@@ -22,3 +22,12 @@ void health_bar() {
 		DrawRectangle(int(bar_origin.x), int(bar_origin.y+height_loss), bar_width, current_bar_height, RED);
 	}
 }
+
+void help_text() {
+
+}
+
+void death_text() {
+	DrawRectangle( 0, 0, screen_width, screen_height, raylib::Color(0, 0, 0, 127) );
+	raylib::WHITE.DrawText("YOU DIED", 256, screen_height/2, 128);
+}

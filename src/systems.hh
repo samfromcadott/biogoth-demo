@@ -35,3 +35,5 @@ void render_game(raylib::Window& window);
 
 // UI Elements
 void health_bar();
+void help_text();
+void death_text();

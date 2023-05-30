@@ -13,3 +13,5 @@ extern const float G; // Gravity acceleration
 
 extern int screen_width;
 extern int screen_height;
+
+extern bool player_died;
