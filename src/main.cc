@@ -103,6 +103,8 @@ void game_update() {
 		jump_buffer();
 		player_attack();
 		player_bite();
+	} else {
+		game_start(); // Restart if the player is dead
 	}
 
 	player_animate();
