@@ -19,9 +19,12 @@ entt::registry registry;
 Tilemap tilemap(40, 40);
 raylib::Camera2D camera( raylib::Vector2(screen_width/2, screen_height/2), raylib::Vector2(0.0, 0.0) );
 entt::entity player; // Reference to the player character entity
+
 bool player_died;
+bool show_help;
 
 Timer death_timer; // Counts down when player dies
+Timer help_timer; // Shows help text for limited time
 
 const float G = 13.0;
 
@@ -76,6 +79,9 @@ void game_start() {
 	// Reset the camera
 	camera.target = registry.get<const Position>(player).value;
 	player_died = false;
+	show_help = true;
+
+	help_timer = Timer( 3.0, [](){show_help = false;} );
 }
 
 void game_update() {
@@ -88,7 +94,7 @@ void game_update() {
 		player_bite();
 	} else if ( !player_died ) {
 		player_died = true;
-		death_timer = Timer( 1.0, game_start ); // Restart if the player is dead
+		death_timer = Timer( 1.0, &game_start ); // Restart if the player is dead
 	} else { // When player is dead
 		death_timer.update();
 	}
@@ -113,4 +119,6 @@ void game_update() {
 	if ( IsKeyPressed(KEY_R) ) game_start(); // Voluntary reset
 
 	camera_update();
+
+	help_timer.update();
 }

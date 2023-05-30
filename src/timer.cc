@@ -2,9 +2,9 @@
 
 #include "timer.hh"
 
-Timer::Timer( float time, void(& function)() ) {
+Timer::Timer( float time, void(* function)() ) {
 	this->time = time;
-	this->function = &function;
+	this->function = function;
 	active = true;
 }
 

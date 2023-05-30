@@ -24,7 +24,24 @@ void health_bar() {
 }
 
 void help_text() {
+	const int margin_left = 64;
+	const int margin_top = 32;
 
+	const int title_size = 128;
+	const int name_size = 16;
+	const int help_size = 64;
+
+	DrawRectangle( 0, 0, screen_width, screen_height, raylib::Color(0, 0, 0, 127) );
+
+	raylib::WHITE.DrawText("VAMP: MVP", margin_left, margin_top, title_size);
+	raylib::WHITE.DrawText("Sam Jackson", margin_left, margin_top+title_size+4, name_size);
+
+	raylib::WHITE.DrawText(
+		"Arrows to move\nCTRL to bite\nSpace to jump\nV to bite",
+		margin_left,
+		margin_top+title_size+name_size+64,
+		help_size
+	);
 }
 
 void death_text() {

@@ -22,6 +22,7 @@ void render_game(raylib::Window& window) {
 
 	// UI
 	health_bar();
+	if (show_help) help_text();
 	if (player_died) death_text();
 
 	EndDrawing();

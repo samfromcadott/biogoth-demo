@@ -15,3 +15,4 @@ extern int screen_width;
 extern int screen_height;
 
 extern bool player_died;
+extern bool show_help;

@@ -11,7 +11,7 @@ public:
 	float time_left();
 	bool is_active();
 
-	Timer( float time, void(& function)() );
+	Timer( float time, void(* function)() );
 	Timer(){}
 	virtual ~Timer(){}
 };
