@@ -1,6 +1,7 @@
 #pragma once
 
 #include <entt/entt.hpp>
+#include <raylib/raylib-cpp.hpp>
 
 #include "tilemap.hh"
 

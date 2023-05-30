@@ -29,8 +29,7 @@ int main() {
 
 	SetTargetFPS(60);
 
-	// Sprite test
-	Sprite sprite("sprite_test");
+	// Load sprites
 	sprite_list["guard"] = Sprite("guard");
 	sprite_list["vampire"] = Sprite("vampire");
 
@@ -46,28 +45,7 @@ int main() {
 
 	while ( !window.ShouldClose() ) {
 		game_update();
-
-		BeginDrawing();
-		camera.BeginMode();
-
-			window.ClearBackground( raylib::Color(111, 133, 163, 255) );
-
-			tilemap.draw();
-
-			render_colliders();
-			render_collider_sprites();
-			render_bullets();
-
-			// Sprite test
-			sprite.render(100, 200, IDLE, GetTime(), +1, GetTime()*180);
-
-		camera.EndMode();
-
-		// UI
-		health_bar();
-
-		EndDrawing();
-
+		render_game(window);
 	}
 
 	// Unload sprites

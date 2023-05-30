@@ -6,6 +6,26 @@
 #include "components.hh"
 #include "systems.hh"
 
+void render_game(raylib::Window& window) {
+	BeginDrawing();
+	camera.BeginMode();
+
+		window.ClearBackground( raylib::Color(111, 133, 163, 255) );
+
+		tilemap.draw();
+
+		render_colliders();
+		render_collider_sprites();
+		render_bullets();
+
+	camera.EndMode();
+
+	// UI
+	health_bar();
+
+	EndDrawing();
+}
+
 void render_colliders() {
 	auto view = registry.view<const Position, const Collider, const DebugColor>();
 	for ( auto [entity, position, collider, color] : view.each() ) {
