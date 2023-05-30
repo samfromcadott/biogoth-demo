@@ -45,33 +45,7 @@ int main() {
 	game_start();
 
 	while ( !window.ShouldClose() ) {
-		// Player actions
-		if ( registry.get<Health>(player).now > 0 ) { // Check is the player is alive
-			player_move();
-			player_jump();
-			jump_buffer();
-			player_attack();
-			player_bite();
-		}
-
-		player_animate();
-
-		// Enemy actions
-		enemy_think();
-
-		// Combat
-		melee_attack();
-		bite_attack();
-		bullets();
-
-		// Physics
-		gravity();
-		collider_overlap();
-		move_collide();
-
-		death();
-
-		if ( IsKeyPressed(KEY_R) ) game_start(); // Voluntary reset
+		game_update();
 
 		BeginDrawing();
 		camera.BeginMode();
@@ -83,8 +57,6 @@ int main() {
 			render_colliders();
 			render_collider_sprites();
 			render_bullets();
-
-			camera_update();
 
 			// Sprite test
 			sprite.render(100, 200, IDLE, GetTime(), +1, GetTime()*180);
@@ -121,4 +93,36 @@ void game_start() {
 
 	// Reset the camera
 	camera.target = registry.get<const Position>(player).value;
+}
+
+void game_update() {
+	// Player actions
+	if ( registry.get<Health>(player).now > 0 ) { // Check is the player is alive
+		player_move();
+		player_jump();
+		jump_buffer();
+		player_attack();
+		player_bite();
+	}
+
+	player_animate();
+
+	// Enemy actions
+	enemy_think();
+
+	// Combat
+	melee_attack();
+	bite_attack();
+	bullets();
+
+	// Physics
+	gravity();
+	collider_overlap();
+	move_collide();
+
+	death();
+
+	if ( IsKeyPressed(KEY_R) ) game_start(); // Voluntary reset
+
+	camera_update();
 }
