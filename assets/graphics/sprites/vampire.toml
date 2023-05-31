@@ -1,13 +1,14 @@
 rate = 12
 width = 256
 height = 128
-direction_offset = 7
+direction_offset = 8
 
 [length]
 IDLE = 13
 WALK = 12
 ATTACK = 6
-DIE = 1
+AIR_ATTACK = 6
+DIE = 5
 FALL = 1
 WALL_SLIDE = 1
 BITE = 1
@@ -16,7 +17,8 @@ BITE = 1
 IDLE = 0
 WALK = 1
 ATTACK = 2
-DIE = 3
-FALL = 4
-WALL_SLIDE = 5
-BITE = 6
+AIR_ATTACK = 3
+DIE = 4
+FALL = 5
+WALL_SLIDE = 6
+BITE = 7

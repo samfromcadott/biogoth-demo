@@ -136,7 +136,9 @@ void player_animate() {
 	auto view = registry.view<const Player, AnimationState, const Velocity, const Collider, const MeleeAttack, const BiteAttack>();
 
 	for ( auto [entity, player, animation, velocity, collider, attack, bite] : view.each() ) {
-		if ( attack.timer > 0.0 ) animation.set_state(ATTACK);
+		if (player_died) animation.set_state(DIE);
+		else if ( attack.timer > 0.0 && !collider.on_floor ) animation.set_state(AIR_ATTACK);
+		else if ( attack.timer > 0.0 ) animation.set_state(ATTACK);
 		else if ( bite.active ) animation.set_state(BITE);
 		else if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
 		else if ( collider.wall_direction != 0 && !collider.on_floor ) animation.set_state(WALL_SLIDE);
