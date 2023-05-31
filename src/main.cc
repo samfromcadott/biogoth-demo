@@ -50,6 +50,10 @@ int main() {
 
 	game_start();
 
+	// Display help message
+	show_help = true;
+	help_timer = Timer( 3.0, [](){show_help = false;} ); // Hide help after a few seconds
+
 	while ( !window.ShouldClose() ) {
 		game_update();
 		render_game(window);
@@ -79,9 +83,6 @@ void game_start() {
 	// Reset the camera
 	camera.target = registry.get<const Position>(player).value;
 	player_died = false;
-	show_help = true;
-
-	help_timer = Timer( 3.0, [](){show_help = false;} );
 }
 
 void game_update() {
