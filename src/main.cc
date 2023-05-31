@@ -26,6 +26,8 @@ bool show_help;
 Timer death_timer; // Counts down when player dies
 Timer help_timer; // Shows help text for limited time
 
+raylib::Font title_font, normal_font;
+
 const float G = 13.0;
 
 void game_update();
@@ -47,6 +49,10 @@ int main() {
 	load_sound("guard_death");
 	load_sound("sword_swing");
 	load_sound("sword_hit");
+
+	// Load fonts
+	title_font = raylib::Font("assets/graphics/fonts/UnifrakturCook-Bold.ttf", 128);
+	normal_font = raylib::Font("assets/graphics/fonts/PermanentMarker-Regular.ttf", 128);
 
 	game_start();
 

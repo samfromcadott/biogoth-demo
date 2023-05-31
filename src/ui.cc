@@ -28,23 +28,24 @@ void help_text() {
 	const int margin_top = 32;
 
 	const int title_size = 128;
-	const int name_size = 16;
+	const int name_size = 32;
 	const int help_size = 64;
 
 	DrawRectangle( 0, 0, screen_width, screen_height, raylib::Color(0, 0, 0, 127) );
 
-	raylib::WHITE.DrawText("VAMP: MVP", margin_left, margin_top, title_size);
-	raylib::WHITE.DrawText("Sam Jackson", margin_left, margin_top+title_size+4, name_size);
+	title_font.DrawText("VAMP: MVP", margin_left, margin_top, title_size, raylib::WHITE);
+	normal_font.DrawText("Sam Jackson", margin_left, margin_top+title_size+4, name_size, raylib::WHITE);
 
-	raylib::WHITE.DrawText(
+	normal_font.DrawText(
 		"Arrows to move\nCTRL to bite\nSpace to jump\nV to bite",
 		margin_left,
 		margin_top+title_size+name_size+64,
-		help_size
+		help_size,
+		raylib::WHITE
 	);
 }
 
 void death_text() {
 	DrawRectangle( 0, 0, screen_width, screen_height, raylib::Color(0, 0, 0, 127) );
-	raylib::WHITE.DrawText("YOU DIED", 256, screen_height/2, 128);
+	title_font.DrawText("YOU DIED", 256, screen_height/2, 128, raylib::WHITE);
 }

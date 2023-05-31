@@ -16,3 +16,6 @@ extern int screen_height;
 
 extern bool player_died;
 extern bool show_help;
+
+extern raylib::Font title_font;
+extern raylib::Font normal_font;
