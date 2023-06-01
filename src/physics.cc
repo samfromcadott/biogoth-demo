@@ -8,7 +8,7 @@
 
 // Checks if a collider is overlapping a non-empty tile
 bool tile_overlap(const Position& position, const Collider& collider) {
-	const float e = 0.0001; // Ensures next tile isn't counted
+	const float e = 0.1; // Ensures next tile isn't counted
 
 	int start_x = (position.value.x - collider.width/2) / tilemap.tile_size;
 	int end_x = (position.value.x - e + collider.width/2) / tilemap.tile_size;
