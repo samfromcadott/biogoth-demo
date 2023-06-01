@@ -32,6 +32,6 @@ void camera_update() {
 		if (camera.target.x < camera.offset.x) camera.target.x = camera.offset.x; // Left edge
 		if (camera.target.x > map_width - camera.offset.x) camera.target.x = map_width - camera.offset.x; // Right edge
 		if (camera.target.y < camera.offset.y) camera.target.y = camera.offset.y; // Top edge
-		if (camera.target.y > map_height - camera.offset.y) camera.target.y = map_width - camera.offset.y; // Bottom edge
+		if (camera.target.y > map_height - camera.offset.y) camera.target.y = map_height - camera.offset.y; // Bottom edge
 	}
 }
