@@ -60,11 +60,11 @@ void player_jump() {
 		// Find if the player is touching a wall
 		collider.wall_direction = 0;
 
-		TileCoord left_side = tilemap.world_to_tile( {position.value.x - collider.width/2 - 1, position.value.y - 1} );
-		TileCoord right_side = tilemap.world_to_tile( {position.value.x + collider.width/2 + 1, position.value.y - 1} );
+		TileCoord left_side = tilemap.world_to_tile( position.value.x - collider.width/2 - 4, position.value.y - 1 );
+		TileCoord right_side = tilemap.world_to_tile( position.value.x + collider.width/2 + 4, position.value.y - 1 );
 
-		if ( tilemap(left_side) != 0 ) collider.wall_direction = -1;
-		if ( tilemap(right_side) != 0 ) collider.wall_direction = +1;
+		if ( tilemap(left_side) != empty_tile ) collider.wall_direction = -1;
+		if ( tilemap(right_side) != empty_tile ) collider.wall_direction = +1;
 
 		if ( collider.wall_direction != 0 && !collider.on_floor ) facing.direction = -collider.wall_direction;
 

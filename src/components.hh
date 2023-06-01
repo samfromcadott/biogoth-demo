@@ -5,13 +5,13 @@
 #include "sprite.hh"
 
 struct Player { // Tags an object as player
-	float max_speed = 8.0;
-	float ground_acceleration = 10.0;
-	float air_acceleration = 5.0;
-	float ground_deceleration = 15.0;
+	float max_speed = 10.0;
+	float ground_acceleration = 9.0;
+	float air_acceleration = 3.0;
+	float ground_deceleration = 20.0;
 	float air_deceleration = 0.5;
-	float ground_turn_speed = 13.0;
-	float air_turn_speed = 10.0;
+	float ground_turn_speed = 20.0;
+	float air_turn_speed = 15.0;
 	bool can_move = true;
 };
 
