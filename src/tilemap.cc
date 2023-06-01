@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 #include <tileson.hpp>
 
 #include "tilemap.hh"
@@ -21,10 +22,10 @@ Tilemap::Tilemap(const std::string filename) {
 	tiles.resize(width*height);
 
 	// Setup the rectangle vector
-	rects.resize(1);
+	rects.resize(18);
 
 	// Load the texture
-	this->texture = LoadTexture("assets/graphics/tilesets/single_tile.png");
+	this->texture = LoadTexture("assets/graphics/tilesets/bricks.png");
 
 	// Loop through tiles
 	std::map<std::tuple<int, int>, tson::Tile*> tile_data = terrain->getTileData();
@@ -40,15 +41,11 @@ Tilemap::Tilemap(const std::string filename) {
 		tiles[ tile_index(coord) ] = new_tile;
 
 		// Add the drawing rectangle to the rects vector
-		if ( new_tile >= rects.size() ) {
-			rects.resize(new_tile + 1); // Update rects size
-
-			auto file_rect = tile->getDrawingRect();
-			rects[new_tile].x = file_rect.x;
-			rects[new_tile].y = file_rect.y;
-			rects[new_tile].width = file_rect.width;
-			rects[new_tile].height = file_rect.height;
-		}
+		auto file_rect = tile->getDrawingRect();
+		rects[new_tile].x = file_rect.x;
+		rects[new_tile].y = file_rect.y;
+		rects[new_tile].width = file_rect.width;
+		rects[new_tile].height = file_rect.height;
 	}
 
 	// Get the object layer
@@ -84,10 +81,12 @@ void Tilemap::draw() {
 		if (t == empty_tile) continue;
 
 		// DrawRectangle(x*tile_size, y*tile_size, tile_size, tile_size, GRAY);
-		DrawTextureRec(
-			this->texture,
+		DrawTexturePro(
+			texture,
 			rects[t],
-			{ float(x*tile_size), float(y*tile_size) },
+			{ float(x*tile_size), float(y*tile_size), float(tile_size), float(tile_size) },
+			{0.0, 0.0},
+			0.0,
 			WHITE
 		);
 	}
