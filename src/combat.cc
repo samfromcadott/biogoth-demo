@@ -43,6 +43,7 @@ void melee_attack() {
 		// Loop over potential targets
 		auto target_view = registry.view<const Position, const Collider, Velocity, Health>();
 		for ( auto [target, position, collider, velocity, health] : target_view.each() ) {
+			if (!collider.enabled) continue;
 			if ( !ray.intersect( collider.get_rectangle(position.value) ) ) continue;
 			if (target == entity) continue; // Don't harm self
 			if (health.now <= 0) continue; // Skip dead enemies
@@ -73,8 +74,8 @@ void bite_attack() {
 		bite.timer -= GetFrameTime(); // Count down the timer
 
 		// Loop over potential targets
-		auto target_view = registry.view<Position, Collider, Health, AnimationState, Enemy>();
-		for ( auto [target, target_position, target_collider, target_health, target_animation, enemy] : target_view.each() ) {
+		auto target_view = registry.view<Position, Velocity, Collider, Health, AnimationState, Enemy>();
+		for ( auto [target, target_position, target_velocity, target_collider, target_health, target_animation, enemy] : target_view.each() ) {
 			// Skip non-interected entities
 			if ( !ray.intersect( target_collider.get_rectangle(target_position.value) ) ) continue;
 			if ( target_health.now <= 0 ) continue; // Skip dead enemies
@@ -83,6 +84,7 @@ void bite_attack() {
 			if (!bite.active) {
 				registry.remove<RayCast>(entity); // Delete the ray cast
 				enemy.active = true; // Enable the enemy
+				target_velocity.value.y -= 3.0; // Stops them from attacking for a bit
 				target_collider.enabled = true;
 				break;
 			}

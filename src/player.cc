@@ -98,6 +98,7 @@ void player_attack() {
 	for ( auto [entity, player, attack, collider, position, facing] : view.each() ) {
 		if ( !IsKeyDown(KEY_LEFT_CONTROL) ) continue;
 		if (attack.active || attack.timer > 0.0) continue; // Don't attack if the player is already attacking
+		if (!player.can_move) continue;
 
 		raylib::Vector2 ray_start = position.value + raylib::Vector2((collider.width/2+0.001)*facing.direction, -collider.height/2);
 		raylib::Vector2 ray_end = ray_start + raylib::Vector2(attack.distance) * facing.direction;
