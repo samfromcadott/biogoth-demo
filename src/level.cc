@@ -20,8 +20,8 @@ void make_enemy(float x, float y, int direction) {
 	);
 	registry.emplace<Health>(enemy, 100, 100);
 	registry.emplace<Facing>(enemy, direction);
-	registry.emplace<Enemy>(enemy, 550.0f, 300.0f, 3.0f, true);
-	registry.emplace<GunAttack>(enemy, 3, 10, 0.5f, 15.0f, 0.8333f, 0.0f);
+	registry.emplace<Enemy>(enemy, 700.0f, 300.0f, 3.0f, true);
+	registry.emplace<GunAttack>(enemy, 1, 20, 0.5f, 15.0f, 0.8333f, 0.0f);
 }
 
 void make_player(float x, float y, int direction) {

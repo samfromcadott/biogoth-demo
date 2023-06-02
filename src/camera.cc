@@ -14,7 +14,7 @@ void camera_update() {
 	for ( auto [entity, player, position, velocity] : view.each() ) {
 		// Scale of camera movement
 		float sx = 0.8;
-		float sy = 0.1;
+		float sy = 0.3;
 
 		// Track the player faster when near top or bottom
 		if (
