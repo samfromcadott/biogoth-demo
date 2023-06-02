@@ -22,7 +22,7 @@ Tilemap::Tilemap(const std::string filename) {
 	tiles.resize(width*height);
 
 	// Setup the rectangle vector
-	rects.resize(18);
+	rects.resize(19);
 
 	// Load the texture
 	this->texture = LoadTexture("assets/graphics/tilesets/bricks.png");
