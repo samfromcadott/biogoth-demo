@@ -109,9 +109,7 @@ void bite_attack() {
 				health.now += damage;
 				health.now = std::min(health.now, health.max); // Clamp health
 
-				std::cout << "Drained " << damage << " health" << '\n';
-
-				bite.timer = 1.0; // Reset timer
+				bite.timer = 0.1; // Reset timer
 			}
 
 			break; // Only suck blood from one enemy

@@ -40,6 +40,6 @@ void make_player(float x, float y, int direction) {
 	registry.emplace<MeleeAttack>( player, 64.0f, 50, 0.5f, 0.0f, false);
 	registry.emplace<Facing>(player, direction);
 	registry.emplace<Health>(player, 100, 100);
-	registry.emplace<BiteAttack>(player, 64.0f, 0.0f, 20, false);
+	registry.emplace<BiteAttack>(player, 64.0f, 0.0f, 1, false);
 	registry.emplace<Jump>(player, 10.0f, 0.5f, 0.1f, 0.1f);
 }

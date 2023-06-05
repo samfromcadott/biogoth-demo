@@ -9,7 +9,7 @@
 const raylib::Vector2 bar_origin(32, 550);
 const float max_height = 150;
 const float bar_width = 32;
-const float bar_speed = 5.0;
+const float bar_speed = 2.0;
 float current_bar_height = max_height;
 
 void health_bar() {
