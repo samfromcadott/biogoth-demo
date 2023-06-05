@@ -33,7 +33,7 @@ void help_text() {
 
 	DrawRectangle( 0, 0, screen_width, screen_height, raylib::Color(0, 0, 0, 127) );
 
-	title_font.DrawText("VAMP: MVP", margin_left, margin_top, title_size, raylib::WHITE);
+	title_font.DrawText("HEMOGLOBIN - MVP", margin_left, margin_top, title_size, raylib::WHITE);
 	normal_font.DrawText("Sam Jackson", margin_left, margin_top+title_size+4, name_size, raylib::WHITE);
 
 	normal_font.DrawText(

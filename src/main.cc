@@ -34,7 +34,7 @@ void game_update();
 void game_start();
 
 int main() {
-	Window window(screen_width, screen_height, "raylib-cpp - basic window");
+	Window window(screen_width, screen_height, "HEMOGLOBIN - MVP");
 
 	SetTargetFPS(60);
 
