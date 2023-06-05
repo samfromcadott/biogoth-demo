@@ -52,8 +52,8 @@ void melee_attack() {
 			health.now -= attack.damage;
 
 			// Push the enemy back
-			velocity.value.x -= sign(ray.start.x - ray.end.x) * (attack.damage / 5.0);
-			velocity.value.y -= 1.0;
+			velocity.value.x -= sign(ray.start.x - ray.end.x) * (attack.damage / 8.0);
+			velocity.value.y -= 2.0;
 
 			// Play the sound effect
 			play_sound("sword_hit", 0.7 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);
