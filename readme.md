@@ -5,6 +5,14 @@ This is a prototype for a game I'm developing.
 
 The game is a hack and slash platformer set in a world that combines Gothic horror with post-apocalyptic sci-fi. The player is a vampire that can bite enemies to regain health.
 
+Libraries
+-----------
+
+* https://github.com/raysan5/raylib
+* https://github.com/skypjack/entt
+* https://github.com/SSBMTonberry/tileson
+* https://github.com/ToruNiina/toml11
+
 Assets
 -----------
 
