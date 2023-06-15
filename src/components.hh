@@ -3,6 +3,7 @@
 #include <raylib/raylib-cpp.hpp>
 
 #include "sprite.hh"
+#include "weapon.hh"
 
 struct Player { // Tags an object as player
 	float max_speed = 10.0;
