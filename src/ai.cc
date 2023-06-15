@@ -25,28 +25,6 @@ bool line_of_sight(const TileCoord a, const TileCoord b) {
 	return false;
 }
 
-void fire_gun(GunAttack& gun, const Position& position, const Facing& facing, const Collider& collider) {
-	raylib::Vector2 bullet_start =
-		position.value + raylib::Vector2((collider.width/2+0.001)*facing.direction, -collider.height/2);
-
-	// Create bullets
-	for (int i = 0; i < gun.count; i++) {
-		raylib::Vector2 v;
-		v.x = facing.direction;
-		v.y = gun.spread * random_spread();
-		v = v.Normalize();
-		v *= gun.speed;
-
-		const auto bullet = registry.create();
-		registry.emplace<Position>( bullet, bullet_start );
-		registry.emplace<Velocity>( bullet, v );
-		registry.emplace<Bullet>( bullet, gun.damage );
-	}
-
-	gun.timer = gun.rate;
-	play_sound("gun", 0.4 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);
-}
-
 void enemy_think() {
 	raylib::Vector2 player_position;
 	float player_height;
@@ -63,9 +41,10 @@ void enemy_think() {
 	const TileCoord player_coord = tilemap.world_to_tile(player_position.x, player_position.y-player_height);
 
 	auto view = registry.view<const Enemy, Velocity, const Position, Facing, GunAttack, const Collider, AnimationState>();
-	for ( auto [entity, enemy, velocity, position, facing, gun, collider, animation] : view.each() ) {
+	for ( auto [entity, enemy, velocity, position, facing, gun_attack, collider, animation] : view.each() ) {
 		if ( !enemy.active ) continue;
-		gun.timer -= GetFrameTime();
+		// gun.timer -= GetFrameTime();
+		gun_attack.gun.update();
 
 		// Check if the entity is in the air
 		if (!collider.on_floor) {
@@ -111,8 +90,8 @@ void enemy_think() {
 
 		animation.set_state(ATTACK);
 		velocity.value.x = 0.0;
-		if (gun.timer > 0.0) continue;
+		if (gun_attack.gun.timer > 0.0) continue;
 
-		fire_gun(gun, position, facing, collider);
+		gun_attack.gun.fire();
 	}
 }

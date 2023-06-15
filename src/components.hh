@@ -79,12 +79,7 @@ struct BiteAttack {
 };
 
 struct GunAttack {
-	int damage; // Damage of each bullet
-	int count; // Number of bullets fired at once
-	float spread; // Spread when bullers are fired
-	float speed; // Speed of each bullet
-	float rate; // Time between shots
-	float timer; // Time until another shot is possible
+	Gun gun;
 };
 
 struct RayCast {

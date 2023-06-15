@@ -24,7 +24,7 @@ private:
 
 public:
 	bool active;
-	float timer;		// Time remaining until next shot
+	float timer = 0.0;	// Time remaining until next shot
 
 	Gun(){}
 	Gun(

@@ -7,7 +7,7 @@ LIBPATH='./lib'
 
 CCFLAGS='--target=x86_64-w64-windows-gnu -Wno-unknown-warning-option'
 CXXFLAGS='--target=x86_64-w64-windows-gnu -std=c++17 -Wno-unknown-warning-option'
-LINKFLAGS = '--target=x86_64-w64-windows-gnu -mwindows'
+LINKFLAGS = '--target=x86_64-w64-windows-gnu'
 
 VariantDir('build', 'src', duplicate=False)
 env = Environment(
