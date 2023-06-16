@@ -121,7 +121,7 @@ void collider_overlap() {
 		if ( !collided ) continue;
 
 		// Push away if they overlap
-		if (position.value.x < other_position.value.x) velocity.value.x = -push_speed;
-		else velocity.value.x = push_speed;
+		if (position.value.x < other_position.value.x && velocity.value.x >= 0.0) velocity.value.x = -push_speed;
+		else if (velocity.value.x <= 0.0) velocity.value.x = push_speed;
 	}
 }
