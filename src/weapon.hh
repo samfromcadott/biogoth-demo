@@ -65,16 +65,19 @@ public:
 
 class Bite : public Weapon {
 private:
-	unsigned int damage;
+	int damage;
 	float range;
+	entt::entity target;
+	bool has_target = false; // True if owner is currently grabbing target
 
 public:
-	bool active;
+	bool active = false;
+	float timer = 0.0; // Time until next blood suck
 
 	Bite(){}
 	Bite(
 		entt::entity owner,
-		unsigned int damage,
+		int damage,
 		float range
 	);
 

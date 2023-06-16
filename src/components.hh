@@ -72,10 +72,7 @@ struct MeleeAttack {
 };
 
 struct BiteAttack {
-	float distance;
-	float timer; // Time remianing to next drain
-	int damage; // Health loss per second
-	bool active; // Entity is currently biting the target
+	Bite bite;
 };
 
 struct GunAttack {

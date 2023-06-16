@@ -11,11 +11,12 @@
 void death() {
 	auto view = registry.view<const Health, Collider, AnimationState, Enemy, Velocity>();
 	for ( auto [entity, health, collider, animation, enemy, velocity] : view.each() ) {
-		if ( health.now > 0 ) continue;
+		if ( health.now > 0 ) continue; // Skip living characters
 
 		velocity.value.x = move_towards(velocity.value.x, 0.0, 1.0);
 
-		if (animation.state == DIE) continue; // Skip dead enemies
+		// Only do right after death
+		if (!enemy.active) continue;
 
 		collider.enabled = false;
 		enemy.active = false;
@@ -68,52 +69,12 @@ void melee_attack() {
 }
 
 void bite_attack() {
-	auto view = registry.view<BiteAttack, const RayCast, Health, const Position>();
+	// auto view = registry.view<BiteAttack, const RayCast, Health, const Position>();
+	auto view = registry.view<BiteAttack>();
 
-	for ( auto [entity, bite, ray, health, position] : view.each() ) {
-		bite.timer -= GetFrameTime(); // Count down the timer
-
-		// Loop over potential targets
-		auto target_view = registry.view<Position, Velocity, Collider, Health, AnimationState, Enemy>();
-		for ( auto [target, target_position, target_velocity, target_collider, target_health, target_animation, enemy] : target_view.each() ) {
-			// Skip non-interected entities
-			if ( !ray.intersect( target_collider.get_rectangle(target_position.value) ) ) continue;
-			if ( target_health.now <= 0 ) continue; // Skip dead enemies
-
-			// When entity stops biting
-			if (!bite.active) {
-				registry.remove<RayCast>(entity); // Delete the ray cast
-				enemy.active = true; // Enable the enemy
-				target_velocity.value.y -= 3.0; // Stops them from attacking for a bit
-				target_collider.enabled = true;
-				break;
-			}
-
-			// Play the guard scream
-			if( enemy.active ) // Only play audio when first bitten
-				play_sound("guard_bitten", 0.7);
-
-			target_animation.set_state(BITE);
-
-			enemy.active = false; // Disable the enemy
-
-			// Move the target to the biter
-			target_collider.enabled = false;
-			target_position.value.x = position.value.x + (ray.end.x - ray.start.x) / 2;
-			target_position.value.y = position.value.y;
-
-			if (bite.timer <= 0.0) {
-				// Suck blood
-				int damage = std::min(bite.damage, target_health.now);
-				target_health.now -= damage;
-				health.now += damage;
-				health.now = std::min(health.now, health.max); // Clamp health
-
-				bite.timer = 0.1; // Reset timer
-			}
-
-			break; // Only suck blood from one enemy
-		}
+	// for ( auto [entity, bite_attack, ray, health, position] : view.each() ) {
+	for ( auto [entity, bite_attack] : view.each() ) {
+		bite_attack.bite.update();
 	}
 }
 

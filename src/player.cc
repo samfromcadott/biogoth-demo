@@ -114,33 +114,23 @@ void player_attack() {
 void player_bite() {
 	auto view = registry.view<Player, BiteAttack, const Collider, const Position, const Facing, Velocity>();
 
-	for ( auto [entity, player, bite, collider, position, facing, velocity] : view.each() ) {
-		if ( IsKeyPressed(KEY_V) ) {
-			raylib::Vector2 ray_start =
-				position.value + raylib::Vector2((collider.width/2+0.001)*facing.direction, -collider.height/2);
-			raylib::Vector2 ray_end = ray_start + raylib::Vector2(bite.distance) * facing.direction;
-			registry.emplace_or_replace<RayCast>(entity, ray_start, ray_end);
+	for ( auto [entity, player, bite_attack, collider, position, facing, velocity] : view.each() ) {
+		if ( IsKeyPressed(KEY_V) )
+			bite_attack.bite.fire();
 
-			bite.active = true;
-			player.can_move = false;
-			velocity.value.x = 0.0;
-		}
-
-		if ( IsKeyReleased(KEY_V) ) {
-			bite.active = false;
-			player.can_move = true;
-		}
+		if ( IsKeyReleased(KEY_V) )
+			bite_attack.bite.end();
 	}
 }
 
 void player_animate() {
 	auto view = registry.view<const Player, AnimationState, const Velocity, const Collider, const MeleeAttack, const BiteAttack>();
 
-	for ( auto [entity, player, animation, velocity, collider, attack, bite] : view.each() ) {
+	for ( auto [entity, player, animation, velocity, collider, attack, bite_attack] : view.each() ) {
 		if (player_died) animation.set_state(DIE);
 		else if ( attack.timer > 0.0 && !collider.on_floor ) animation.set_state(AIR_ATTACK);
 		else if ( attack.timer > 0.0 ) animation.set_state(ATTACK);
-		else if ( bite.active ) animation.set_state(BITE);
+		else if ( bite_attack.bite.active ) animation.set_state(BITE);
 		else if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
 		else if ( collider.wall_direction != 0 && !collider.on_floor ) animation.set_state(WALL_SLIDE);
 		else if ( !collider.on_floor ) animation.set_state(FALL);
