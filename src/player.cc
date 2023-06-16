@@ -44,7 +44,7 @@ void player_move() {
 void player_jump() {
 	auto view = registry.view<const Player, Position, Velocity, Collider, Gravity, Jump, Facing>();
 	for ( auto [entity, player, position, velocity, collider, gravity, jump, facing] : view.each() ) {
-		if( IsKeyPressed(KEY_SPACE) ) jump.wish_jump = true;
+		if( IsKeyPressed(KEY_SPACE) && player.can_move ) jump.wish_jump = true;
 
 		// Floor jump
 		if ( jump.wish_jump && collider.on_floor ) {
