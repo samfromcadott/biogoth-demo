@@ -16,8 +16,7 @@ void gravity();
 void collider_overlap(); // Pushes colliders apart if they overlap
 
 // Combat
-void melee_attack(); // Handles melee attacks
-void bite_attack();
+void weapon_update(); // Runs the update function for all weapons
 void bullets(); // Updates bullets
 
 // Enemies

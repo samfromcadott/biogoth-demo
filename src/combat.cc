@@ -26,19 +26,11 @@ void death() {
 	}
 }
 
-void melee_attack() {
-	auto view = registry.view<MeleeAttack>();
+void weapon_update() {
+	auto view = registry.view<WeaponSet>();
 
-	for ( auto [entity, melee_attack] : view.each() ) {
-		melee_attack.melee.update();
-	}
-}
-
-void bite_attack() {
-	auto view = registry.view<BiteAttack>();
-
-	for ( auto [entity, bite_attack] : view.each() ) {
-		bite_attack.bite.update();
+	for ( auto [entity, weapon_set] : view.each() ) {
+		for (auto& weapon : weapon_set) weapon->update();
 	}
 }
 

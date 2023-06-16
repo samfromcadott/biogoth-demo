@@ -40,15 +40,14 @@ void make_player(float x, float y, int direction) {
 		0.0f
 	);
 
-	Melee melee(player, 50, 100.0, 0.5);
-	registry.emplace<MeleeAttack>( player, melee);
-
 	registry.emplace<Facing>(player, direction);
 	registry.emplace<Health>(player, 100, 100);
 
-	Bite bite(player, 1, 64.0);
-	registry.emplace<BiteAttack>(player, bite);
-
+	registry.emplace<WeaponSet>(player);
+	registry.get<WeaponSet>(player).resize(2);
+	registry.get<WeaponSet>(player)[0] = new Melee(player, 50, 100.0, 0.5);
+	// registry.get<WeaponSet>(player)[0] = new Gun(player, 1, 20, 0.5, 15.0, 0.5);
+	registry.get<WeaponSet>(player)[1] = new Bite(player, 1, 64.0);
 
 	registry.emplace<Jump>(player, 10.0f, 0.5f, 0.1f, 0.1f);
 }

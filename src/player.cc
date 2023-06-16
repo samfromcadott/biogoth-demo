@@ -93,37 +93,37 @@ void jump_buffer() {
 }
 
 void player_attack() {
-	auto view = registry.view<const Player, MeleeAttack, const Collider, const Position, const Facing>();
+	auto view = registry.view<const Player, WeaponSet, const Collider, const Position, const Facing>();
 
-	for ( auto [entity, player, melee_attack, collider, position, facing] : view.each() ) {
+	for ( auto [entity, player, weapon_set, collider, position, facing] : view.each() ) {
 		if ( !IsKeyDown(KEY_LEFT_CONTROL) ) continue;
-		if (melee_attack.melee.active) continue; // Don't attack if the player is already attacking
+		if (weapon_set[0]->active) continue; // Don't attack if the player is already attacking
 		if (!player.can_move) continue;
 
-		melee_attack.melee.fire();
+		weapon_set[0]->fire();
 	}
 }
 
 void player_bite() {
-	auto view = registry.view<Player, BiteAttack, const Collider, const Position, const Facing, Velocity>();
+	auto view = registry.view<Player, WeaponSet, const Collider, const Position, const Facing, Velocity>();
 
-	for ( auto [entity, player, bite_attack, collider, position, facing, velocity] : view.each() ) {
+	for ( auto [entity, player, weapon_set, collider, position, facing, velocity] : view.each() ) {
 		if ( IsKeyPressed(KEY_V) )
-			bite_attack.bite.fire();
+			weapon_set[1]->fire();
 
 		if ( IsKeyReleased(KEY_V) )
-			bite_attack.bite.end();
+			weapon_set[1]->end();
 	}
 }
 
 void player_animate() {
-	auto view = registry.view<const Player, AnimationState, const Velocity, const Collider, const MeleeAttack, const BiteAttack>();
+	auto view = registry.view<const Player, AnimationState, const Velocity, const Collider, const WeaponSet>();
 
-	for ( auto [entity, player, animation, velocity, collider, melee_attack, bite_attack] : view.each() ) {
+	for ( auto [entity, player, animation, velocity, collider, weapon_set] : view.each() ) {
 		if (player_died) animation.set_state(DIE);
-		else if ( melee_attack.melee.active && !collider.on_floor ) animation.set_state(AIR_ATTACK);
-		else if ( melee_attack.melee.active ) animation.set_state(ATTACK);
-		else if ( bite_attack.bite.active ) animation.set_state(BITE);
+		else if ( weapon_set[0]->active && !collider.on_floor ) animation.set_state(AIR_ATTACK);
+		else if ( weapon_set[0]->active ) animation.set_state(ATTACK);
+		else if ( weapon_set[1]->active ) animation.set_state(BITE);
 		else if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
 		else if ( collider.wall_direction != 0 && !collider.on_floor ) animation.set_state(WALL_SLIDE);
 		else if ( !collider.on_floor ) animation.set_state(FALL);

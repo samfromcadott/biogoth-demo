@@ -112,8 +112,7 @@ void game_update() {
 	enemy_think();
 
 	// Combat
-	melee_attack();
-	bite_attack();
+	weapon_update();
 	bullets();
 
 	// Physics

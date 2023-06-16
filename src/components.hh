@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <raylib/raylib-cpp.hpp>
 
 #include "sprite.hh"
@@ -74,6 +75,8 @@ struct BiteAttack {
 struct GunAttack {
 	Gun gun;
 };
+
+typedef std::vector<Weapon*> WeaponSet;
 
 struct RayCast {
 	raylib::Vector2 start, end;
