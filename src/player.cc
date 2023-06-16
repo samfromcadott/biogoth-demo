@@ -95,19 +95,12 @@ void jump_buffer() {
 void player_attack() {
 	auto view = registry.view<const Player, MeleeAttack, const Collider, const Position, const Facing>();
 
-	for ( auto [entity, player, attack, collider, position, facing] : view.each() ) {
+	for ( auto [entity, player, melee_attack, collider, position, facing] : view.each() ) {
 		if ( !IsKeyDown(KEY_LEFT_CONTROL) ) continue;
-		if (attack.active || attack.timer > 0.0) continue; // Don't attack if the player is already attacking
+		if (melee_attack.melee.active) continue; // Don't attack if the player is already attacking
 		if (!player.can_move) continue;
 
-		raylib::Vector2 ray_start = position.value + raylib::Vector2((collider.width/2+0.001)*facing.direction, -collider.height/2);
-		raylib::Vector2 ray_end = ray_start + raylib::Vector2(attack.distance) * facing.direction;
-		registry.emplace_or_replace<RayCast>(entity, ray_start, ray_end);
-
-		attack.active = true;
-		attack.timer = attack.rate;
-
-		play_sound("sword_swing", 0.6 + random_spread() * 0.1, 1.0 + random_spread() * 0.2);
+		melee_attack.melee.fire();
 	}
 }
 
@@ -126,10 +119,10 @@ void player_bite() {
 void player_animate() {
 	auto view = registry.view<const Player, AnimationState, const Velocity, const Collider, const MeleeAttack, const BiteAttack>();
 
-	for ( auto [entity, player, animation, velocity, collider, attack, bite_attack] : view.each() ) {
+	for ( auto [entity, player, animation, velocity, collider, melee_attack, bite_attack] : view.each() ) {
 		if (player_died) animation.set_state(DIE);
-		else if ( attack.timer > 0.0 && !collider.on_floor ) animation.set_state(AIR_ATTACK);
-		else if ( attack.timer > 0.0 ) animation.set_state(ATTACK);
+		else if ( melee_attack.melee.active && !collider.on_floor ) animation.set_state(AIR_ATTACK);
+		else if ( melee_attack.melee.active ) animation.set_state(ATTACK);
 		else if ( bite_attack.bite.active ) animation.set_state(BITE);
 		else if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
 		else if ( collider.wall_direction != 0 && !collider.on_floor ) animation.set_state(WALL_SLIDE);

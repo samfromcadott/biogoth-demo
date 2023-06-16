@@ -39,7 +39,10 @@ void make_player(float x, float y, int direction) {
 		&sprite_list["vampire"],
 		0.0f
 	);
-	registry.emplace<MeleeAttack>( player, 100.0f, 50, 0.5f, 0.0f, false);
+
+	Melee melee(player, 50, 100.0, 0.5);
+	registry.emplace<MeleeAttack>( player, melee);
+
 	registry.emplace<Facing>(player, direction);
 	registry.emplace<Health>(player, 100, 100);
 

@@ -7,7 +7,8 @@ protected:
 	entt::entity owner;
 
 public:
-	bool active;
+	bool active = false;
+	float timer = 0.0;
 
 	virtual void fire() = 0;
 	virtual void update() = 0;
@@ -23,9 +24,6 @@ private:
 	float rate;		// Time between shots
 
 public:
-	bool active;
-	float timer = 0.0;	// Time remaining until next shot
-
 	Gun(){}
 	Gun(
 		entt::entity owner,
@@ -48,8 +46,6 @@ private:
 	float rate; // Time between attacks
 
 public:
-	bool active;
-
 	Melee(){}
 	Melee(
 		entt::entity owner,
@@ -71,9 +67,6 @@ private:
 	bool has_target = false; // True if owner is currently grabbing target
 
 public:
-	bool active = false;
-	float timer = 0.0; // Time until next blood suck
-
 	Bite(){}
 	Bite(
 		entt::entity owner,
