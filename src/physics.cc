@@ -32,16 +32,18 @@ void move_collide() {
 		collider.wall_direction = 0;
 
 		// Round corners
-		TileCoord left_side = tilemap.world_to_tile( {
-			position.value.x - collider.width/2 + 0.0001f, position.value.y - collider.height - 0.0001f
-		} );
-		TileCoord right_side = tilemap.world_to_tile( {
-			position.value.x + collider.width/2 - 0.0001f, position.value.y - collider.height - 0.0001f
-		} );
+		const float e = 0.1;
+
+		TileCoord left_side = tilemap.world_to_tile(
+			position.value.x - collider.width/2 + e, position.value.y - collider.height - e
+		);
+		TileCoord right_side = tilemap.world_to_tile(
+			position.value.x + collider.width/2 - e, position.value.y - collider.height - e
+		);
 
 		// Upper corner collision
-		bool left_collide = tilemap(left_side) != 0;
-		bool right_collide = tilemap(right_side) != 0;
+		bool left_collide = tilemap(left_side) != empty_tile;
+		bool right_collide = tilemap(right_side) != empty_tile;
 
 		// Slide around corner
 		const float corner_push = 3;
