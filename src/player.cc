@@ -6,6 +6,7 @@
 #include "components.hh"
 #include "util.hh"
 #include "audio.hh"
+#include "controls.hh"
 
 using namespace raylib;
 
@@ -17,8 +18,8 @@ void player_move() {
 
 		int dx = 0; // Input direction
 
-		if ( IsKeyDown(KEY_RIGHT) )  dx = +1;
-		if ( IsKeyDown(KEY_LEFT) ) dx = -1;
+		if ( command_down(COMMAND_RIGHT) )  dx = +1;
+		if ( command_down(COMMAND_LEFT) ) dx = -1;
 		if ( dx != 0 ) facing.direction = dx;
 
 		float wish_speed = player.max_speed * dx;
@@ -44,7 +45,7 @@ void player_move() {
 void player_jump() {
 	auto view = registry.view<const Player, Position, Velocity, Collider, Gravity, Jump, Facing>();
 	for ( auto [entity, player, position, velocity, collider, gravity, jump, facing] : view.each() ) {
-		if( IsKeyPressed(KEY_SPACE) && player.can_move ) jump.wish_jump = true;
+		if( command_pressed(COMMAND_JUMP) && player.can_move ) jump.wish_jump = true;
 
 		// Floor jump
 		if ( jump.wish_jump && collider.on_floor ) {
@@ -53,7 +54,7 @@ void player_jump() {
 		}
 
 		// Reset gravity scale when going down or on jump release
-		if ( IsKeyReleased(KEY_SPACE) || velocity.value.y > 0.0 ) {
+		if ( command_released(COMMAND_JUMP) || velocity.value.y > 0.0 ) {
 			gravity.scale = 1.0;
 		}
 
@@ -85,7 +86,7 @@ void jump_buffer() {
 		if (jump.buffer_timer <= 0) jump.wish_jump = false;
 
 		// Check for key press
-		if ( !IsKeyPressed(KEY_SPACE) ) continue;
+		if ( !command_pressed(COMMAND_JUMP) ) continue;
 		if ( collider.wall_direction != 0 || collider.on_floor ) continue; // Don't buffer when the player can jump
 		jump.buffer_timer = jump.buffer_length; // Set the timer
 		jump.wish_jump = true;
@@ -96,7 +97,7 @@ void player_attack() {
 	auto view = registry.view<const Player, WeaponSet, const Collider, const Position, const Facing>();
 
 	for ( auto [entity, player, weapon_set, collider, position, facing] : view.each() ) {
-		if ( !IsKeyDown(KEY_LEFT_CONTROL) ) continue;
+		if ( !command_down(COMMAND_ATTACK) ) continue;
 		if (weapon_set[0]->active) continue; // Don't attack if the player is already attacking
 		if (!player.can_move) continue;
 
@@ -108,10 +109,10 @@ void player_bite() {
 	auto view = registry.view<Player, WeaponSet, const Collider, const Position, const Facing, Velocity>();
 
 	for ( auto [entity, player, weapon_set, collider, position, facing, velocity] : view.each() ) {
-		if ( IsKeyPressed(KEY_V) )
+		if ( command_pressed(COMMAND_BITE) )
 			weapon_set[1]->fire();
 
-		if ( IsKeyReleased(KEY_V) )
+		if ( command_released(COMMAND_BITE) )
 			weapon_set[1]->end();
 	}
 }
