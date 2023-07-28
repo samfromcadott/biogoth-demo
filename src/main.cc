@@ -9,6 +9,7 @@
 #include "sprite.hh"
 #include "audio.hh"
 #include "timer.hh"
+#include "controls.hh"
 
 using namespace raylib;
 
@@ -37,6 +38,8 @@ int main() {
 	Window window(screen_width, screen_height, "HEMOGLOBIN - MVP");
 
 	SetTargetFPS(60);
+
+	load_control_config();
 
 	// Load sprites
 	sprite_list["guard"] = Sprite("guard");

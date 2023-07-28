@@ -1,31 +1,64 @@
+#include <string>
+#include <iostream>
 #include <raylib.h>
+#include <toml.hpp>
+
+#define MAGIC_ENUM_RANGE_MIN 0
+#define MAGIC_ENUM_RANGE_MAX 1024
+#include <magic_enum.hpp>
 
 #include "controls.hh"
 
-// This will be moved to a config file later
-const int input_map[8][2] = {
-	{KEY_NULL, GAMEPAD_BUTTON_UNKNOWN},
+int input_map[COMMAND_COUNT][2];
+const int KEYBOARD = 0;
+const int CONTROLLER = 1;
 
-	// Directions
-	{KEY_UP, GAMEPAD_BUTTON_LEFT_FACE_UP},
-	{KEY_DOWN, GAMEPAD_BUTTON_LEFT_FACE_DOWN},
-	{KEY_LEFT, GAMEPAD_BUTTON_LEFT_FACE_LEFT},
-	{KEY_RIGHT, GAMEPAD_BUTTON_LEFT_FACE_RIGHT},
+void load_control_config() {
+	std::cout << "Loading config.cfg" << '\n';
+	const auto data = toml::parse("config.cfg");
 
-	// Actions
-	{KEY_SPACE, GAMEPAD_BUTTON_RIGHT_FACE_DOWN},
-	{KEY_LEFT_CONTROL, GAMEPAD_BUTTON_RIGHT_FACE_RIGHT},
-	{KEY_V, GAMEPAD_BUTTON_RIGHT_FACE_UP},
-};
+	const auto& keyboard = toml::find(data, "Keyboard");
+	const auto& controller = toml::find(data, "Controller");
+
+	// Load config for keyboard
+	for (int command = COMMAND_NONE + 1; command < COMMAND_COUNT; command++) {
+		// Get the string of command enum
+		auto command_name = std::string{ magic_enum::enum_name( Command(command) ) };
+
+		// Check if the command is defined in the file
+		if ( !keyboard.contains( command_name ) ) continue;
+
+		// Get the key defing for this command
+		std::string key_name = toml::find<std::string>( keyboard, command_name );
+
+		KeyboardKey key = magic_enum::enum_cast<KeyboardKey>(key_name).value_or(KEY_NULL);
+		input_map[command][KEYBOARD] = key;
+	}
+
+	// Repeat for the controller
+	for (int command = COMMAND_NONE + 1; command < COMMAND_COUNT; command++) {
+		auto command_name = std::string{ magic_enum::enum_name( Command(command) ) };
+
+		if ( !controller.contains( command_name ) ) continue;
+
+		std::string button_name = toml::find<std::string>( controller, command_name );
+
+		GamepadButton button = magic_enum::enum_cast<GamepadButton>(button_name).value_or(GAMEPAD_BUTTON_UNKNOWN);
+		input_map[command][CONTROLLER] = button;
+	}
+}
 
 bool command_down(const Command command) {
-	return IsKeyDown( input_map[command][0] ) || IsGamepadButtonDown( 0, input_map[command][1] );
+	return IsKeyDown( input_map[command][KEYBOARD] ) ||
+		IsGamepadButtonDown( 0, input_map[command][CONTROLLER] );
 }
 
 bool command_pressed(const Command command) {
-	return IsKeyPressed( input_map[command][0] ) || IsGamepadButtonPressed( 0, input_map[command][1] );
+	return IsKeyPressed( input_map[command][KEYBOARD] ) ||
+		IsGamepadButtonPressed( 0, input_map[command][CONTROLLER] );
 }
 
 bool command_released(const Command command) {
-	return IsKeyReleased( input_map[command][0] ) || IsGamepadButtonReleased( 0, input_map[command][1] );
+	return IsKeyReleased( input_map[command][KEYBOARD] ) ||
+		IsGamepadButtonReleased( 0, input_map[command][CONTROLLER] );
 }

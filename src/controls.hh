@@ -13,7 +13,11 @@ enum Command {
 	COMMAND_JUMP,
 	COMMAND_ATTACK,
 	COMMAND_BITE,
+
+	COMMAND_COUNT
 };
+
+void load_control_config();
 
 bool command_down(const Command command);
 bool command_pressed(const Command command);
