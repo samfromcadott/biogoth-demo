@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include <raylib/raylib-cpp.hpp>
+#include <raylib-cpp.hpp>
 
 #include "globals.hh"
 #include "components.hh"

@@ -1,0 +1,6 @@
+[submodule "submodule/raylib-cpp"]
+	path = submodule/raylib-cpp
+	url = https://github.com/RobLoach/raylib-cpp
+[submodule "submodule/tileson"]
+	path = submodule/tileson
+	url = https://github.com/SSBMTonberry/tileson

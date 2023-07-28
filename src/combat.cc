@@ -1,6 +1,6 @@
 #include <iostream>
 #include <algorithm>
-#include <raylib/raylib-cpp.hpp>
+#include <raylib-cpp.hpp>
 
 #include "systems.hh"
 #include "globals.hh"

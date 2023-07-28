@@ -1,5 +1,5 @@
 #include <iostream>
-#include <raylib/raylib-cpp.hpp>
+#include <raylib-cpp.hpp>
 
 #include "audio.hh"
 #include "globals.hh"

@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 #include <memory>
-#include <raylib/raylib-cpp.hpp>
+#include <raylib-cpp.hpp>
 
 enum Action {
 	IDLE,

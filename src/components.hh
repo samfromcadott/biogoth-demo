@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <raylib/raylib-cpp.hpp>
+#include <raylib-cpp.hpp>
 
 #include "sprite.hh"
 #include "weapon.hh"
