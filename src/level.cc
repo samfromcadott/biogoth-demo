@@ -28,7 +28,13 @@ void make_enemy(float x, float y, int direction) {
 
 void make_player(float x, float y, int direction) {
 	const auto player = registry.create();
-	registry.emplace<Player>(player);
+
+	// Testing loading data from a file
+	const auto data = toml::parse("assets/entities/player.toml");
+	const Player player_data = toml::find<Player>(data, "Player");
+	registry.emplace<Player>(player, player_data);
+
+
 	registry.emplace<Gravity>(player);
 	registry.emplace<Position>( player, raylib::Vector2(x, y) );
 	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );

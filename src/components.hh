@@ -2,19 +2,22 @@
 
 #include <vector>
 #include <raylib-cpp.hpp>
+#include <toml.hpp>
 
 #include "sprite.hh"
 #include "weapon.hh"
 
 struct Player { // Tags an object as player
-	float max_speed = 10.0;
-	float ground_acceleration = 9.0;
-	float air_acceleration = 3.0;
-	float ground_deceleration = 20.0;
-	float air_deceleration = 0.5;
-	float ground_turn_speed = 20.0;
-	float air_turn_speed = 15.0;
-	bool can_move = true;
+	float max_speed;
+	float ground_acceleration;
+	float air_acceleration;
+	float ground_deceleration;
+	float air_deceleration;
+	float ground_turn_speed;
+	float air_turn_speed;
+	bool can_move;
+
+	void from_toml(const toml::value& v);
 };
 
 struct Enemy {
@@ -22,22 +25,32 @@ struct Enemy {
 	float attack_range; // Distance they will attack player
 	float max_speed;
 	bool active;
+
+	void from_toml(const toml::value& v);
 };
 
 struct Gravity { // Makes an object affected by gravity
 	float scale = 1.0;
+
+	void from_toml(const toml::value& v);
 };
 
 struct Position {
 	raylib::Vector2 value;
+
+	void from_toml(const toml::value& v);
 };
 
 struct Velocity {
 	raylib::Vector2 value;
+
+	void from_toml(const toml::value& v);
 };
 
 struct Facing {
 	int direction;
+
+	void from_toml(const toml::value& v);
 };
 
 struct Collider {
@@ -54,26 +67,38 @@ struct Collider {
 			height
 		);
 	}
+
+	void from_toml(const toml::value& v);
 };
 
 struct Health {
 	int now, max;
+
+	void from_toml(const toml::value& v);
 };
 
 struct DebugColor {
 	raylib::Color color;
+
+	void from_toml(const toml::value& v);
 };
 
 struct MeleeAttack {
 	Melee melee;
+
+	void from_toml(const toml::value& v);
 };
 
 struct BiteAttack {
 	Bite bite;
+
+	void from_toml(const toml::value& v);
 };
 
 struct GunAttack {
 	Gun gun;
+
+	void from_toml(const toml::value& v);
 };
 
 typedef std::vector<Weapon*> WeaponSet;
@@ -97,10 +122,14 @@ struct RayCast {
 
 		return left_intersect || right_intersect;
 	}
+
+	void from_toml(const toml::value& v);
 };
 
 struct Bullet {
 	int damage;
+
+	void from_toml(const toml::value& v);
 };
 
 
@@ -113,6 +142,8 @@ struct Jump {
 	float buffer_timer = 0; // Current buffer time
 	bool can_jump = false;
 	bool wish_jump = false;
+
+	void from_toml(const toml::value& v);
 };
 
 struct AnimationState {
@@ -126,4 +157,6 @@ struct AnimationState {
 		state = new_state;
 		timer = 0;
 	}
+
+	void from_toml(const toml::value& v);
 };
