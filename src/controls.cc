@@ -3,6 +3,7 @@
 #include <raylib.h>
 #include <toml.hpp>
 
+// The default range for Magic Enum is [-128, 128]. Keys outside that range aren't read correctly
 #define MAGIC_ENUM_RANGE_MIN 0
 #define MAGIC_ENUM_RANGE_MAX 1024
 #include <magic_enum.hpp>

@@ -1,0 +1,10 @@
+{
+	"name": "hemoglobin",
+	"version-string": "0.0.1",
+	"dependencies": [
+		"entt",
+		"magic-enum",
+		"raylib",
+		"toml"
+	]
+}
