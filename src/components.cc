@@ -49,7 +49,7 @@ void Position::from_toml(const toml::value& v) {
 }
 
 void Velocity::from_toml(const toml::value& v) {
-	raylib::Vector2 value;
+	value = Vector2 {0,0};
 }
 
 void Facing::from_toml(const toml::value& v) {

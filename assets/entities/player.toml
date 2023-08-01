@@ -22,3 +22,8 @@ width = 64
 height = 128
 
 [Facing]
+
+[Velocity]
+
+[Gravity]
+scale = 1.0
