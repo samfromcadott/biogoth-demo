@@ -28,9 +28,8 @@ void make_enemy(float x, float y, int direction) {
 
 void make_player(float x, float y, int direction) {
 	const auto player = registry.create();
-
-	// Testing loading data from a file
 	const auto data = toml::parse("assets/entities/player.toml");
+
 	const Player player_data = toml::find<Player>(data, "Player");
 	registry.emplace<Player>(player, player_data);
 
@@ -55,5 +54,6 @@ void make_player(float x, float y, int direction) {
 	// registry.get<WeaponSet>(player)[0] = new Gun(player, 1, 20, 0.5, 15.0, 0.5);
 	registry.get<WeaponSet>(player)[1] = new Bite(player, 1, 64.0);
 
-	registry.emplace<Jump>(player, 10.0f, 0.5f, 0.1f, 0.1f);
+	const Jump jump_data = toml::find<Jump>(data, "Jump");
+	registry.emplace<Jump>(player, jump_data);
 }

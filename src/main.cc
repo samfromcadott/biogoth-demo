@@ -10,6 +10,7 @@
 #include "audio.hh"
 #include "timer.hh"
 #include "controls.hh"
+#include "entities.hh"
 
 using namespace raylib;
 
@@ -57,7 +58,12 @@ int main() {
 	title_font = raylib::Font("assets/graphics/fonts/UnifrakturCook-Bold.ttf", 128);
 	normal_font = raylib::Font("assets/graphics/fonts/PermanentMarker-Regular.ttf", 128);
 
+	// Load entity definitions
+	load_entities();
+
 	game_start();
+
+	spawn_entity("player", {256, 1024});
 
 	// Display help message
 	show_help = true;

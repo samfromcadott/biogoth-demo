@@ -2,6 +2,26 @@
 
 #include "components.hh"
 
+std::string component_names[] = {
+	"Player",
+	"Enemy",
+	"Gravity",
+	"Position",
+	"Velocity",
+	"Facing",
+	"Collider",
+	"Health",
+	"DebugColor",
+	"MeleeAttack",
+	"BiteAttack",
+	"GunAttack",
+	"WeaponSet",
+	"RayCast",
+	"Bullet",
+	"Jump",
+	"AnimationState",
+};
+
 void Player::from_toml(const toml::value& v) {
 	max_speed = toml::find<float>(v, "max_speed");
 	ground_acceleration = toml::find<float>(v, "ground_acceleration");
@@ -14,14 +34,14 @@ void Player::from_toml(const toml::value& v) {
 }
 
 void Enemy::from_toml(const toml::value& v) {
-	float aggro_range; // Distance they will charge player
-	float attack_range; // Distance they will attack player
+	float aggro_range;
+	float attack_range;
 	float max_speed;
 	bool active;
 }
 
 void Gravity::from_toml(const toml::value& v) {
-	float scale = 1.0;
+	scale = toml::find<float>(v, "scale");
 }
 
 void Position::from_toml(const toml::value& v) {
@@ -33,18 +53,20 @@ void Velocity::from_toml(const toml::value& v) {
 }
 
 void Facing::from_toml(const toml::value& v) {
-	int direction;
+	direction = +1;
 }
 
 void Collider::from_toml(const toml::value& v) {
-	float width, height;
-	bool on_floor;
-	int wall_direction;
-	bool enabled; // Disabled collision with other entities
+	width = toml::find<int>(v, "width");
+	height = toml::find<int>(v, "height");
+	on_floor = false;
+	wall_direction = 0;
+	enabled = true;
 }
 
 void Health::from_toml(const toml::value& v) {
-	int now, max;
+	max = toml::find<int>(v, "max");
+	now = max;
 }
 
 void DebugColor::from_toml(const toml::value& v) {
@@ -76,18 +98,14 @@ void Bullet::from_toml(const toml::value& v) {
 }
 
 void Jump::from_toml(const toml::value& v) {
-	float speed;
-	float gravity_scale;
-	float coyote_length; // Max time player can jump after leaving floor
-	float buffer_length; // Max time for jump buffer
-	float coyote_timer = 0; // Current coyote time
-	float buffer_timer = 0; // Current buffer time
-	bool can_jump = false;
-	bool wish_jump = false;
+	speed = toml::find<float>(v, "speed");
+	gravity_scale = toml::find<float>(v, "gravity_scale");
+	coyote_length = toml::find<float>(v, "coyote_length");
+	buffer_length = toml::find<float>(v, "buffer_length");
 }
 
 void AnimationState::from_toml(const toml::value& v) {
-	Action state;
-	Sprite* sprite;
-	float timer;
+	state = IDLE;
+	sprite = &sprite_list[ toml::find<std::string>(v, "sprite") ];
+	timer = 0.0f;
 }
