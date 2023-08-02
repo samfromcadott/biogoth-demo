@@ -27,3 +27,17 @@ height = 128
 
 [Gravity]
 scale = 1.0
+
+[Health]
+max = 100
+
+[[WeaponSet]]
+type = "Melee"
+damage = 50
+range = 100.0
+rate = 0.5
+
+[[WeaponSet]]
+type = "Bite"
+damage = 1
+range = 64.0

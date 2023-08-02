@@ -63,8 +63,6 @@ int main() {
 
 	game_start();
 
-	spawn_entity("player", {256, 1024});
-
 	// Display help message
 	show_help = true;
 	help_timer = Timer( 3.0, [](){show_help = false;} ); // Hide help after a few seconds

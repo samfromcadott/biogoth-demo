@@ -38,6 +38,34 @@ void add_component(const entt::entity& entity, const std::string& component_name
 	registry.emplace<Component>(entity, data); // Add the component
 }
 
+void add_weapons(const entt::entity& entity, const std::string& entity_name) {
+	if ( !entity_types[entity_name].contains("WeaponSet") ) return; // Check if the entity should have WeaponSet
+	registry.emplace<WeaponSet>(entity); // Add weapon set
+
+	const auto list = toml::find<toml::array>(entity_types[entity_name], "WeaponSet");
+
+	// Loop through the array
+	for (auto& item : list) {
+		// Read the type of each item
+		const auto& type = toml::find<std::string>(item, "type");
+		std::cout << type << '\n';
+
+		// Convert the weapon to the proper type
+		if (type == "Melee") registry.get<WeaponSet>(entity).push_back( new Melee(
+			entity,
+			toml::find<unsigned int>(item, "damage"),
+			toml::find<float>(item, "range"),
+			toml::find<float>(item, "rate")
+		));
+
+		else if (type == "Bite") registry.get<WeaponSet>(entity).push_back( new Bite(
+			entity,
+			toml::find<unsigned int>(item, "damage"),
+			toml::find<float>(item, "range")
+		));
+	}
+}
+
 void spawn_entity(const std::string name, const raylib::Vector2 position, const int direction) {
 	const auto entity = registry.create();
 
@@ -51,14 +79,12 @@ void spawn_entity(const std::string name, const raylib::Vector2 position, const 
 	add_component<Collider>(entity, "Collider", name);
 	add_component<Health>(entity, "Health", name);
 	add_component<DebugColor>(entity, "DebugColor", name);
-	add_component<MeleeAttack>(entity, "MeleeAttack", name);
-	add_component<BiteAttack>(entity, "BiteAttack", name);
-	add_component<GunAttack>(entity, "GunAttack", name);
-	// add_component<WeaponSet>(entity, "WeaponSet", name);
 	add_component<RayCast>(entity, "RayCast", name);
 	add_component<Bullet>(entity, "Bullet", name);
 	add_component<Jump>(entity, "Jump", name);
 	add_component<AnimationState>(entity, "AnimationState", name);
 
 	registry.emplace_or_replace<Position>(entity, (Position){position});
+
+	add_weapons(entity, name);
 }

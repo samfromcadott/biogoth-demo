@@ -5,6 +5,7 @@
 #include "systems.hh"
 #include "tilemap.hh"
 #include "level.hh"
+#include "entities.hh"
 
 void make_enemy(float x, float y, int direction) {
 	const auto enemy = registry.create();
@@ -27,33 +28,5 @@ void make_enemy(float x, float y, int direction) {
 }
 
 void make_player(float x, float y, int direction) {
-	const auto player = registry.create();
-	const auto data = toml::parse("assets/entities/player.toml");
-
-	const Player player_data = toml::find<Player>(data, "Player");
-	registry.emplace<Player>(player, player_data);
-
-
-	registry.emplace<Gravity>(player);
-	registry.emplace<Position>( player, raylib::Vector2(x, y) );
-	registry.emplace<Velocity>( player, raylib::Vector2(0, 0) );
-	registry.emplace<Collider>( player, 64.0f, 128.0f, false, 0, true );
-	// registry.emplace<DebugColor>( player, raylib::VIOLET);
-	registry.emplace<AnimationState>( player,
-		IDLE,
-		&sprite_list["vampire"],
-		0.0f
-	);
-
-	registry.emplace<Facing>(player, direction);
-	registry.emplace<Health>(player, 100, 100);
-
-	registry.emplace<WeaponSet>(player);
-	registry.get<WeaponSet>(player).resize(2);
-	registry.get<WeaponSet>(player)[0] = new Melee(player, 50, 100.0, 0.5);
-	// registry.get<WeaponSet>(player)[0] = new Gun(player, 1, 20, 0.5, 15.0, 0.5);
-	registry.get<WeaponSet>(player)[1] = new Bite(player, 1, 64.0);
-
-	const Jump jump_data = toml::find<Jump>(data, "Jump");
-	registry.emplace<Jump>(player, jump_data);
+	spawn_entity("player", {x, y});
 }

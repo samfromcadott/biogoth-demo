@@ -45,7 +45,7 @@ void Gravity::from_toml(const toml::value& v) {
 }
 
 void Position::from_toml(const toml::value& v) {
-	raylib::Vector2 value;
+
 }
 
 void Velocity::from_toml(const toml::value& v) {
@@ -72,22 +72,6 @@ void Health::from_toml(const toml::value& v) {
 void DebugColor::from_toml(const toml::value& v) {
 	raylib::Color color;
 }
-
-void MeleeAttack::from_toml(const toml::value& v) {
-	Melee melee;
-}
-
-void BiteAttack::from_toml(const toml::value& v) {
-
-}
-
-void GunAttack::from_toml(const toml::value& v) {
-
-}
-
-// void WeaponSet::from_toml(const toml::value& v) {
-//
-// }
 
 void RayCast::from_toml(const toml::value& v) {
 	raylib::Vector2 start, end;
