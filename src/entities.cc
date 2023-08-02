@@ -63,6 +63,15 @@ void add_weapons(const entt::entity& entity, const std::string& entity_name) {
 			toml::find<unsigned int>(item, "damage"),
 			toml::find<float>(item, "range")
 		));
+
+		else if (type == "Gun") registry.get<WeaponSet>(entity).push_back( new Gun(
+			entity,
+			toml::find<int>(item, "damage"),
+			toml::find<unsigned int>(item, "count"),
+			toml::find<float>(item, "spread"),
+			toml::find<float>(item, "speed"),
+			toml::find<float>(item, "rate")
+		));
 	}
 }
 

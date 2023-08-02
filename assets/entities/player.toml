@@ -37,6 +37,14 @@ damage = 50
 range = 100.0
 rate = 0.5
 
+# [[WeaponSet]]
+# type = "Gun"
+# damage = 10
+# count = 1
+# spread = 0.1
+# speed = 30.0
+# rate = 0.1
+
 [[WeaponSet]]
 type = "Bite"
 damage = 1
