@@ -34,10 +34,10 @@ void Player::from_toml(const toml::value& v) {
 }
 
 void Enemy::from_toml(const toml::value& v) {
-	float aggro_range;
-	float attack_range;
-	float max_speed;
-	bool active;
+	aggro_range = toml::find<float>(v, "aggro_range");
+	attack_range = toml::find<float>(v, "attack_range");
+	max_speed = toml::find<float>(v, "max_speed");
+	active = true;
 }
 
 void Gravity::from_toml(const toml::value& v) {
@@ -71,14 +71,6 @@ void Health::from_toml(const toml::value& v) {
 
 void DebugColor::from_toml(const toml::value& v) {
 	raylib::Color color;
-}
-
-void RayCast::from_toml(const toml::value& v) {
-	raylib::Vector2 start, end;
-}
-
-void Bullet::from_toml(const toml::value& v) {
-	int damage;
 }
 
 void Jump::from_toml(const toml::value& v) {

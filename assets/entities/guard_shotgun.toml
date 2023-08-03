@@ -1,0 +1,29 @@
+[Enemy]
+aggro_range = 700.0
+attack_range = 400.0
+max_speed = 3.0
+
+[AnimationState]
+sprite = "guard"
+
+[Collider]
+width = 64
+height = 128
+
+[Facing]
+
+[Velocity]
+
+[Gravity]
+scale = 1.0
+
+[Health]
+max = 100
+
+[[WeaponSet]]
+type = "Gun"
+damage = 1
+count = 20
+spread = 0.5
+speed = 15.0
+rate = 0.8333

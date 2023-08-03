@@ -48,7 +48,6 @@ void add_weapons(const entt::entity& entity, const std::string& entity_name) {
 	for (auto& item : list) {
 		// Read the type of each item
 		const auto& type = toml::find<std::string>(item, "type");
-		std::cout << type << '\n';
 
 		// Convert the weapon to the proper type
 		if (type == "Melee") registry.get<WeaponSet>(entity).push_back( new Melee(
@@ -88,8 +87,6 @@ void spawn_entity(const std::string name, const raylib::Vector2 position, const 
 	add_component<Collider>(entity, "Collider", name);
 	add_component<Health>(entity, "Health", name);
 	add_component<DebugColor>(entity, "DebugColor", name);
-	add_component<RayCast>(entity, "RayCast", name);
-	add_component<Bullet>(entity, "Bullet", name);
 	add_component<Jump>(entity, "Jump", name);
 	add_component<AnimationState>(entity, "AnimationState", name);
 
