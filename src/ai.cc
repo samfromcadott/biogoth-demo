@@ -40,11 +40,9 @@ void enemy_think() {
 
 	const TileCoord player_coord = tilemap.world_to_tile(player_position.x, player_position.y-player_height);
 
-	auto view = registry.view<const Enemy, Velocity, const Position, Facing, GunAttack, const Collider, AnimationState>();
-	for ( auto [entity, enemy, velocity, position, facing, gun_attack, collider, animation] : view.each() ) {
+	auto view = registry.view<const Enemy, Velocity, const Position, Facing, WeaponSet, const Collider, AnimationState>();
+	for ( auto [entity, enemy, velocity, position, facing, weapon_set, collider, animation] : view.each() ) {
 		if ( !enemy.active ) continue;
-		// gun.timer -= GetFrameTime();
-		gun_attack.gun.update();
 
 		// Check if the entity is in the air
 		if (!collider.on_floor) {
@@ -90,8 +88,8 @@ void enemy_think() {
 
 		animation.set_state(ATTACK);
 		velocity.value.x = 0.0;
-		if (gun_attack.gun.timer > 0.0) continue;
+		if (weapon_set[0]->timer > 0.0) continue;
 
-		gun_attack.gun.fire();
+		weapon_set[0]->fire();
 	}
 }

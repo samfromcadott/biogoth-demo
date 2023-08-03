@@ -23,8 +23,8 @@ void make_enemy(float x, float y, int direction) {
 	registry.emplace<Facing>(enemy, direction);
 	registry.emplace<Enemy>(enemy, 700.0f, 400.0f, 3.0f, true);
 
-	Gun gun(enemy, 1, 20, 0.5, 15.0, 0.8333);
-	registry.emplace<GunAttack>(enemy, gun);
+	registry.emplace<WeaponSet>(enemy);
+	registry.get<WeaponSet>(enemy).push_back( new Gun(enemy, 1, 20, 0.5, 15.0, 0.8333) );
 }
 
 void make_player(float x, float y, int direction) {
