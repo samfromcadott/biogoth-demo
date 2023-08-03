@@ -49,3 +49,6 @@ rate = 0.5
 type = "Bite"
 damage = 1
 range = 64.0
+
+# [DebugColor]
+# color = [135, 60, 190, 255]

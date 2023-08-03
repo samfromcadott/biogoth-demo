@@ -70,7 +70,14 @@ void Health::from_toml(const toml::value& v) {
 }
 
 void DebugColor::from_toml(const toml::value& v) {
-	raylib::Color color;
+	auto c = toml::find< std::vector<unsigned char> >(v, "color");
+
+	color = Color {
+		c[0],
+		c[1],
+		c[2],
+		c[3]
+	};
 }
 
 void Jump::from_toml(const toml::value& v) {
