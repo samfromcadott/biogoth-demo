@@ -31,6 +31,7 @@ void render_colliders();
 void render_bullets();
 void render_collider_sprites();
 void render_game(raylib::Window& window);
+void animate_character();
 
 // UI Elements
 void health_bar();

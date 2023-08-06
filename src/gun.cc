@@ -24,6 +24,8 @@ Gun::Gun(
 }
 
 void Gun::fire() {
+	active = true;
+
 	auto& position = *registry.try_get<Position>(owner);
 	auto& collider = *registry.try_get<Collider>(owner);
 	auto& facing = *registry.try_get<Facing>(owner);
@@ -51,8 +53,9 @@ void Gun::fire() {
 
 void Gun::update() {
 	timer -= GetFrameTime();
+	if (timer <= 0.0) end();
 }
 
 void Gun::end() {
-
+	active = false;
 }

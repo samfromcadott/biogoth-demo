@@ -9,6 +9,7 @@ protected:
 public:
 	bool active = false;
 	float timer = 0.0;
+	Action action = ATTACK;
 
 	virtual void fire() = 0;
 	virtual void update() = 0;
@@ -67,6 +68,8 @@ private:
 	bool has_target = false; // True if owner is currently grabbing target
 
 public:
+	Action action = BITE;
+
 	Bite(){}
 	Bite(
 		entt::entity owner,
