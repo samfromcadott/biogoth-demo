@@ -45,17 +45,12 @@ void enemy_think() {
 		if ( !enemy.active ) continue;
 
 		// Check if the entity is in the air
-		if (!collider.on_floor) {
-			animation.set_state(FALL); // Play the fall animation when in the air
-			continue;
-		}
+		if (!collider.on_floor) continue;
 
 		// Check for line of sight to the player
 		TileCoord entity_coord = tilemap.world_to_tile(position.value.x, position.value.y-collider.height);
 		if ( !line_of_sight(entity_coord, player_coord) ) {
 			velocity.value.x = move_towards(velocity.value.x, 0.0, acceleration);
-			animation.set_state(IDLE); // Go to the idle state
-
 			continue;
 		}
 
@@ -77,16 +72,12 @@ void enemy_think() {
 			velocity.value.x = 0;
 
 		// If the player if in attack_range and the GunAttack timer <= 0, stop moving and attack them
-		if ( distance > enemy.attack_range ) {
-			animation.set_state(WALK); // When moving play the walk animation
-			continue;
-		}
+		if ( distance > enemy.attack_range ) continue;
 
 		// Firing gun
 		velocity.value.x = move_towards(velocity.value.x, 0.0, acceleration);
 		if ( abs(velocity.value.x) > acceleration * 2.0 ) continue; // Wait until stopped to shoot
 
-		animation.set_state(ATTACK);
 		velocity.value.x = 0.0;
 		if (weapon_set[0]->timer > 0.0) continue;
 

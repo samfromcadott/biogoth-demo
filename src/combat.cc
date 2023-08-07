@@ -20,7 +20,6 @@ void death() {
 
 		collider.enabled = false;
 		enemy.active = false;
-		animation.set_state(DIE);
 
 		play_sound("guard_death", 0.4 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);
 	}
