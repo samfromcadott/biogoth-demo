@@ -5,7 +5,7 @@
         {
          "id":3,
          "image":"..\/graphics\/backgrounds\/background.png",
-         "name":"Image Layer 1",
+         "name":"Background",
          "opacity":1,
          "parallaxx":0.5,
          "parallaxy":0,

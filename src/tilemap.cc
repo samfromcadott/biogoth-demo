@@ -2,6 +2,7 @@
 #include <iostream>
 #include <tileson.hpp>
 
+#include "globals.hh"
 #include "tilemap.hh"
 #include "level.hh"
 
@@ -14,12 +15,19 @@ Tilemap::Tilemap(const std::string filename) {
 	if (map->getStatus() != tson::ParseStatus::OK) return;
 
 	// Loop over layers
-	for ( const auto& layer : map->getLayers() ) {
-		if ( layer.getName() == "Main" ) {
-			layers.push_back( MapLayer(layer) );
-		}
+	auto file_layers = map->getLayers();
+	for (auto layer = file_layers.begin(); layer != file_layers.end(); ++layer) {
+		std::cout << layer->getName() << "\t" << layer->getId() << "\n";
 
-		main_layer = 0;
+		// Check if the map is a tile or image map
+		if ( layer->getType() != tson::LayerType::TileLayer && layer->getType() != tson::LayerType::ImageLayer )
+			continue;
+
+		layers.push_back( MapLayer(*layer) ); // Add the layer to the map
+
+		// If the layer is named "Main" then set its index as the main layer
+		if ( layer->getName() == "Main" )
+			main_layer = std::distance( file_layers.begin(), layer );
 	}
 
 	width = layers[main_layer].width;
@@ -36,6 +44,8 @@ Tilemap::Tilemap(const std::string filename) {
 		if (type == "Player") make_player(position.x, position.y, +1);
 		else if (type == "Enemy") make_enemy(position.x, position.y, +1);
 	}
+
+	std::cout << "Tilemap constructed" << '\n';
 }
 
 int Tilemap::tile_index(const int x, const int y) const {
@@ -116,10 +126,18 @@ void MapLayer::draw_tile() const {
 }
 
 void MapLayer::draw_image() const {
-
+	DrawTexture(texture, camera.target.x, camera.target.y, WHITE);
 }
 
 MapLayer::MapLayer(const tson::Layer& layer) {
+	if ( layer.getType() == tson::LayerType::ImageLayer ) {
+		std::cout << "This is an image layer" << '\n';
+		type = LayerType::IMAGE;
+		// this->texture = LoadTexture( layer.getImage().c_str() );
+		this->texture = LoadTexture("assets/graphics/backgrounds/background.png");
+		return;
+	}
+
 	type = LayerType::TILE;
 
 	// Set the size
