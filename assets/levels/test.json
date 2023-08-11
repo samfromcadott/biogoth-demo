@@ -6,6 +6,8 @@
          "id":3,
          "image":"..\/graphics\/backgrounds\/background.png",
          "name":"Background",
+         "offsetx":-960,
+         "offsety":-540,
          "opacity":1,
          "parallaxx":0,
          "parallaxy":0,
