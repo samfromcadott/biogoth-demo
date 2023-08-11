@@ -126,7 +126,11 @@ void MapLayer::draw_tile() const {
 }
 
 void MapLayer::draw_image() const {
-	DrawTexture(texture, parallax.x * camera.target.x, parallax.y * camera.target.y, WHITE);
+	DrawTexture(
+		texture,
+		(1.0 - parallax.x) * camera.target.x, (1.0 - parallax.y) * camera.target.y,
+		WHITE
+	);
 }
 
 MapLayer::MapLayer(const tson::Layer& layer) {
