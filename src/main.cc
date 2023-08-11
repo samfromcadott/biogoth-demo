@@ -18,7 +18,7 @@ int screen_width = 1280;
 int screen_height = 720;
 
 entt::registry registry;
-Tilemap tilemap(40, 40);
+Tilemap tilemap;
 raylib::Camera2D camera( raylib::Vector2(screen_width/2, screen_height/2), raylib::Vector2(0.0, 0.0) );
 entt::entity player; // Reference to the player character entity
 
