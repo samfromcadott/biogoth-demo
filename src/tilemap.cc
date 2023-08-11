@@ -126,10 +126,13 @@ void MapLayer::draw_tile() const {
 }
 
 void MapLayer::draw_image() const {
-	DrawTexture(texture, camera.target.x, camera.target.y, WHITE);
+	DrawTexture(texture, parallax.x * camera.target.x, parallax.y * camera.target.y, WHITE);
 }
 
 MapLayer::MapLayer(const tson::Layer& layer) {
+	parallax.x = layer.getParallax().x;
+	parallax.y = layer.getParallax().y;
+
 	if ( layer.getType() == tson::LayerType::ImageLayer ) {
 		std::cout << "This is an image layer" << '\n';
 		type = LayerType::IMAGE;
