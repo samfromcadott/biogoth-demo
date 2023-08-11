@@ -89,8 +89,6 @@ void Bite::end() {
 
 	auto& velocity = *registry.try_get<Velocity>(target);
 	auto& collider = *registry.try_get<Collider>(target);
-	auto& facing = *registry.try_get<Facing>(target);
-	auto& target_health = *registry.try_get<Health>(target);
 
 	active = false;
 	has_target = false;
