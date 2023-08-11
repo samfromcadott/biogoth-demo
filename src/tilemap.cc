@@ -114,10 +114,17 @@ void MapLayer::draw_tile() const {
 		const Tile& t = tiles[ tile_index(x, y) ];
 		if (t == empty_tile) continue;
 
+		Rectangle dest = {
+			(parallax.x * camera.target.x) + (x * tile_size),
+			(parallax.y * camera.target.y) + (y * tile_size),
+			float(tile_size),
+			float(tile_size)
+		};
+
 		DrawTexturePro(
 			texture,
 			rects[t],
-			{ float(x*tile_size), float(y*tile_size), float(tile_size), float(tile_size) },
+			dest,
 			{0.0, 0.0},
 			0.0,
 			WHITE
@@ -128,14 +135,14 @@ void MapLayer::draw_tile() const {
 void MapLayer::draw_image() const {
 	DrawTexture(
 		texture,
-		(1.0 - parallax.x) * camera.target.x, (1.0 - parallax.y) * camera.target.y,
+		parallax.x * camera.target.x, parallax.y * camera.target.y,
 		WHITE
 	);
 }
 
 MapLayer::MapLayer(const tson::Layer& layer) {
-	parallax.x = layer.getParallax().x;
-	parallax.y = layer.getParallax().y;
+	parallax.x = 1.0 - layer.getParallax().x;
+	parallax.y = 1.0 - layer.getParallax().y;
 
 	if ( layer.getType() == tson::LayerType::ImageLayer ) {
 		std::cout << "This is an image layer" << '\n';
