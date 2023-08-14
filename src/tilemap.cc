@@ -133,17 +133,38 @@ void MapLayer::draw_tile() const {
 }
 
 void MapLayer::draw_image() const {
-	DrawTexture(
+	Vector2 origin = {
+		camera.target.x - float(GetScreenWidth() / 2),
+		camera.target.y - float(GetScreenHeight() / 2)
+	};
+
+	Rectangle source = {
+		offset.x + (parallax.x * origin.x),
+		offset.y + (parallax.y * origin.y),
+		(float)GetScreenWidth(),
+		(float)GetScreenHeight()
+	};
+
+	Rectangle dest = {
+		origin.x,
+		origin.y,
+		(float)GetScreenWidth(),
+		(float)GetScreenHeight()
+	};
+
+	DrawTexturePro(
 		texture,
-		offset.x + (parallax.x * camera.target.x),
-		offset.y + (parallax.y * camera.target.y),
+		source,
+		dest,
+		(Vector2) { 0, 0 },
+		0,
 		WHITE
 	);
 }
 
 MapLayer::MapLayer(const tson::Layer& layer) {
-	parallax.x = 1.0 - layer.getParallax().x;
-	parallax.y = 1.0 - layer.getParallax().y;
+	parallax.x = layer.getParallax().x;
+	parallax.y = layer.getParallax().y;
 
 	offset.x = layer.getOffset().x;
 	offset.y = layer.getOffset().y;
@@ -153,10 +174,15 @@ MapLayer::MapLayer(const tson::Layer& layer) {
 		type = LayerType::IMAGE;
 		// this->texture = LoadTexture( layer.getImage().c_str() );
 		this->texture = LoadTexture("assets/graphics/backgrounds/background.png");
+		std::cout << "Parallax: " << parallax.x << " " << parallax.y << '\n';
 		return;
 	}
 
 	type = LayerType::TILE;
+
+	// Invert parallax for tile layers
+	parallax.x = 1.0 - layer.getParallax().x;
+	parallax.y = 1.0 - layer.getParallax().y;
 
 	// Set the size
 	width = layer.getSize().x;
