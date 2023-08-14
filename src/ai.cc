@@ -45,7 +45,10 @@ void enemy_think() {
 		if ( !enemy.active ) continue;
 
 		// Check if the entity is in the air
-		if (!collider.on_floor) continue;
+		if (!collider.on_floor) {
+			weapon_set[0]->end();
+			continue;
+		}
 
 		// Check for line of sight to the player
 		TileCoord entity_coord = tilemap.world_to_tile(position.value.x, position.value.y-collider.height);

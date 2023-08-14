@@ -53,7 +53,7 @@ void Gun::fire() {
 
 void Gun::update() {
 	timer -= GetFrameTime();
-	if (timer <= 0.0) end();
+	if (timer <= 0.0 && active) end();
 }
 
 void Gun::end() {
