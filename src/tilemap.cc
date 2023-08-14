@@ -4,7 +4,7 @@
 
 #include "globals.hh"
 #include "tilemap.hh"
-#include "level.hh"
+#include "entities.hh"
 
 Tilemap::Tilemap(const std::string filename) {
 	// FileData map_file_data = File::open(filename);
@@ -41,8 +41,7 @@ Tilemap::Tilemap(const std::string filename) {
 		tson::Vector2i position = object.getPosition();
 		std::string type = object.getType();
 
-		if (type == "Player") make_player(position.x, position.y, +1);
-		else if (type == "Enemy") make_enemy(position.x, position.y, +1);
+		spawn_entity(type, {(float)position.x, (float)position.y});
 	}
 
 	std::cout << "Tilemap constructed" << '\n';

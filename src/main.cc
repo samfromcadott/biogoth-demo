@@ -5,7 +5,6 @@
 #include "components.hh"
 #include "systems.hh"
 #include "tilemap.hh"
-#include "level.hh"
 #include "sprite.hh"
 #include "audio.hh"
 #include "timer.hh"
