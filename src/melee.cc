@@ -55,9 +55,10 @@ void Melee::fire() {
 
 void Melee::update() {
 	timer -= GetFrameTime();
-	if (timer <= 0.0) end();
+	if (timer <= 0.0 && active) end();
 }
 
 void Melee::end() {
 	active = false;
+	std::cout << "end melee" << '\n';
 }

@@ -68,8 +68,6 @@ private:
 	bool has_target = false; // True if owner is currently grabbing target
 
 public:
-	Action action = BITE;
-
 	Bite(){}
 	Bite(
 		entt::entity owner,

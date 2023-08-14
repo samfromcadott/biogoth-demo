@@ -9,7 +9,7 @@ Weapon* get_active_weapon(entt::entity entity) {
 	if ( !registry.any_of<WeaponSet>(entity) ) return nullptr;
 
 	for ( auto weapon : registry.get<WeaponSet>(entity) )
-		if (weapon->active > 0.0) return weapon;
+		if (weapon->active) return weapon;
 
 	return nullptr;
 }
@@ -21,9 +21,8 @@ void animate_character() {
 		Weapon* weapon = get_active_weapon(entity);
 
 		if (health.now <= 0) animation.set_state(DIE);
-		else if ( weapon && weapon->active && !collider.on_floor && weapon->action == ATTACK ) animation.set_state(AIR_ATTACK);
-		else if ( weapon && weapon->active ) animation.set_state(weapon->action);
-		// else if ( bite.active ) animation.set_state(BITE);
+		else if ( weapon && !collider.on_floor && weapon->action == ATTACK ) animation.set_state(AIR_ATTACK);
+		else if ( weapon ) animation.set_state(weapon->action);
 		else if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
 		else if ( collider.wall_direction != 0 && !collider.on_floor ) animation.set_state(WALL_SLIDE);
 		else if ( !collider.on_floor ) animation.set_state(FALL);

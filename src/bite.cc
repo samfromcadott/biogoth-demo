@@ -11,6 +11,7 @@ Bite::Bite(entt::entity owner, int damage, float range) {
 	this->owner = owner;
 	this->damage = damage;
 	this->range = range;
+	this->action = BITE;
 }
 
 void Bite::fire() {
