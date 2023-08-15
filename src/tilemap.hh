@@ -21,7 +21,7 @@ class MapLayer {
 private:
 	LayerType type;
 	std::vector<Tile> tiles;
-	Vector2 parallax, offset;
+	raylib::Vector2 parallax, offset, scroll_speed;
 	Texture2D texture;
 	bool reapeat_x, reapeat_y;
 	std::vector<Rectangle> rects; // Vector of drawing rects
@@ -34,8 +34,8 @@ public:
 	int tile_size = 32;
 
 	MapLayer() = default;
-	MapLayer(const std::string filename, const tson::Layer& layer);
-	void draw() const;
+	MapLayer(const std::string filename, tson::Layer& layer);
+	void draw();
 
 	int tile_index(const int x, const int y) const;
 	int tile_index(const TileCoord t) const;
@@ -57,7 +57,7 @@ public:
 	int tile_index(const int x, const int y) const;
 	int tile_index(const TileCoord t) const;
 	TileCoord tile_coord(const int i) const;
-	void draw() const;
+	void draw();
 
 	TileCoord world_to_tile(const Vector2 position) const; // Gets the tile coordinate from world coordinate
 	TileCoord world_to_tile(float x, float y) const;

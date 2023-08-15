@@ -1,6 +1,7 @@
 #include <cmath>
 #include <iostream>
 #include <tileson.hpp>
+#include <raylib-cpp.hpp>
 
 #include "globals.hh"
 #include "tilemap.hh"
@@ -55,7 +56,7 @@ TileCoord Tilemap::tile_coord(const int i) const {
 	return {i%width, i/width};
 }
 
-void Tilemap::draw() const {
+void Tilemap::draw() {
 	for (auto& layer : layers) layer.draw();
 }
 
@@ -157,7 +158,7 @@ void MapLayer::draw_image() const {
 	);
 }
 
-MapLayer::MapLayer(const std::string filename, const tson::Layer& layer) {
+MapLayer::MapLayer(const std::string filename, tson::Layer& layer) {
 	auto map_path = filename.substr( 0, filename.find_last_of("\\/")+1 );
 
 	parallax.x = layer.getParallax().x;
@@ -165,6 +166,9 @@ MapLayer::MapLayer(const std::string filename, const tson::Layer& layer) {
 
 	offset.x = layer.getOffset().x;
 	offset.y = layer.getOffset().y;
+
+	scroll_speed.x = layer.get<float>("Scroll Speed X");
+	scroll_speed.y = layer.get<float>("Scroll Speed Y");
 
 	if ( layer.getType() == tson::LayerType::ImageLayer ) {
 		type = LayerType::IMAGE;
@@ -218,7 +222,9 @@ MapLayer::MapLayer(const std::string filename, const tson::Layer& layer) {
 	}
 }
 
-void MapLayer::draw() const {
+void MapLayer::draw() {
+	offset += scroll_speed * GetFrameTime();
+
 	if (type == LayerType::TILE) draw_tile();
 	else if (type == LayerType::IMAGE) draw_image();
 }
