@@ -21,7 +21,7 @@ Tilemap::Tilemap(const std::string filename) {
 		if ( layer->getType() != tson::LayerType::TileLayer && layer->getType() != tson::LayerType::ImageLayer )
 			continue;
 
-		layers.push_back( MapLayer(*layer) ); // Add the layer to the map
+		layers.push_back( MapLayer(filename, *layer) ); // Add the layer to the map
 
 		// If the layer is named "Main" then set its index as the main layer
 		if ( layer->getName() == "Main" )
@@ -157,7 +157,9 @@ void MapLayer::draw_image() const {
 	);
 }
 
-MapLayer::MapLayer(const tson::Layer& layer) {
+MapLayer::MapLayer(const std::string filename, const tson::Layer& layer) {
+	auto map_path = filename.substr( 0, filename.find_last_of("\\/")+1 );
+
 	parallax.x = layer.getParallax().x;
 	parallax.y = layer.getParallax().y;
 
@@ -166,8 +168,7 @@ MapLayer::MapLayer(const tson::Layer& layer) {
 
 	if ( layer.getType() == tson::LayerType::ImageLayer ) {
 		type = LayerType::IMAGE;
-		// this->texture = LoadTexture( layer.getImage().c_str() );
-		this->texture = LoadTexture("assets/graphics/backgrounds/background.png");
+		this->texture = LoadTexture( ( map_path + layer.getImage() ).c_str() );
 		return;
 	}
 
@@ -185,13 +186,20 @@ MapLayer::MapLayer(const tson::Layer& layer) {
 	// Setup the rectangle vector
 	rects.resize(19);
 
-	// Load the texture
-	this->texture = LoadTexture("assets/graphics/tilesets/bricks.png");
-
 	// Loop through tiles
+	bool image_loaded = false;
+
 	std::map<std::tuple<int, int>, tson::Tile*> tile_data = layer.getTileData();
 	for (const auto& [id, tile] : tile_data) {
 		if (tile == nullptr) continue;
+
+		// Load the tileset texture
+		if (!image_loaded) {
+			auto texture_path = map_path + tile->getTileset()->getImage().generic_string();
+			this->texture = LoadTexture( texture_path.c_str() );
+			image_loaded = true;
+		}
+
 		Tile new_tile = tile->getGid();
 
 		// Get tile position

@@ -34,7 +34,7 @@ public:
 	int tile_size = 32;
 
 	MapLayer() = default;
-	MapLayer(const tson::Layer& layer);
+	MapLayer(const std::string filename, const tson::Layer& layer);
 	void draw() const;
 
 	int tile_index(const int x, const int y) const;
