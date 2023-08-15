@@ -60,5 +60,4 @@ void Melee::update() {
 
 void Melee::end() {
 	active = false;
-	std::cout << "end melee" << '\n';
 }

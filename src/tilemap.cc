@@ -17,8 +17,6 @@ Tilemap::Tilemap(const std::string filename) {
 	// Loop over layers
 	auto file_layers = map->getLayers();
 	for (auto layer = file_layers.begin(); layer != file_layers.end(); ++layer) {
-		std::cout << layer->getName() << "\t" << layer->getId() << "\n";
-
 		// Check if the map is a tile or image map
 		if ( layer->getType() != tson::LayerType::TileLayer && layer->getType() != tson::LayerType::ImageLayer )
 			continue;
@@ -43,8 +41,6 @@ Tilemap::Tilemap(const std::string filename) {
 
 		spawn_entity(type, {(float)position.x, (float)position.y});
 	}
-
-	std::cout << "Tilemap constructed" << '\n';
 }
 
 int Tilemap::tile_index(const int x, const int y) const {
@@ -169,11 +165,9 @@ MapLayer::MapLayer(const tson::Layer& layer) {
 	offset.y = layer.getOffset().y;
 
 	if ( layer.getType() == tson::LayerType::ImageLayer ) {
-		std::cout << "This is an image layer" << '\n';
 		type = LayerType::IMAGE;
 		// this->texture = LoadTexture( layer.getImage().c_str() );
 		this->texture = LoadTexture("assets/graphics/backgrounds/background.png");
-		std::cout << "Parallax: " << parallax.x << " " << parallax.y << '\n';
 		return;
 	}
 
