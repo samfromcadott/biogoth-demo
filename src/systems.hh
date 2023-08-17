@@ -11,6 +11,7 @@ void player_bite(); // Checks if player is biting
 void player_animate();
 
 // Physics
+void character_movement();
 void move_collide(); // Moves a body and applies collisions
 void gravity();
 void collider_overlap(); // Pushes colliders apart if they overlap

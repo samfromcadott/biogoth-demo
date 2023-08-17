@@ -80,6 +80,8 @@ void spawn_entity(const std::string name, const raylib::Vector2 position, const 
 	// Add components to the entity
 	add_component<Player>(entity, "Player", name);
 	add_component<Enemy>(entity, "Enemy", name);
+	add_component<Character>(entity, "Character", name);
+	add_component<Movement>(entity, "Movement", name);
 	add_component<Gravity>(entity, "Gravity", name);
 	add_component<Position>(entity, "Position", name);
 	add_component<Velocity>(entity, "Velocity", name);

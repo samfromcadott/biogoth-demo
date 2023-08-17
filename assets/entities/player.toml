@@ -1,12 +1,16 @@
 [Player]
+can_move = true
+
+[Character]
+
+[Movement]
 max_speed = 10.0
 ground_acceleration = 9.0
-air_acceleration = 3.0
+air_acceleration = 7.0
 ground_deceleration = 20.0
 air_deceleration = 0.5
 ground_turn_speed = 20.0
 air_turn_speed = 15.0
-can_move = true
 
 [Jump]
 speed = 10.0

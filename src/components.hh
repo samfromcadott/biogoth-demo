@@ -6,15 +6,9 @@
 
 #include "sprite.hh"
 #include "weapon.hh"
+#include "brain.hh"
 
 struct Player { // Tags an object as player
-	float max_speed;
-	float ground_acceleration;
-	float air_acceleration;
-	float ground_deceleration;
-	float air_deceleration;
-	float ground_turn_speed;
-	float air_turn_speed;
 	bool can_move;
 
 	void from_toml(const toml::value& v);
@@ -25,6 +19,29 @@ struct Enemy {
 	float attack_range; // Distance they will attack player
 	float max_speed;
 	bool active;
+
+	void from_toml(const toml::value& v);
+};
+
+struct Character {
+	bool active;
+	Brain* brain;
+	uint8_t team;
+
+	void from_toml(const toml::value& v);
+};
+
+struct Movement {
+	raylib::Vector2 direction;
+
+	float max_speed;
+	float ground_acceleration;
+	float air_acceleration;
+	float ground_deceleration;
+	float air_deceleration;
+	float ground_turn_speed;
+	float air_turn_speed;
+	bool can_move;
 
 	void from_toml(const toml::value& v);
 };

@@ -11,34 +11,19 @@
 using namespace raylib;
 
 void player_move() {
-	auto view = registry.view<const Player, Velocity, const Collider, Facing>();
+	auto view = registry.view<const Player, Movement, const Collider, Facing>();
 
-	for ( auto [entity, player, velocity, collider, facing] : view.each() ) {
+	for ( auto [entity, player, movement, collider, facing] : view.each() ) {
 		if (!player.can_move) continue;
 
 		int dx = 0; // Input direction
+		movement.direction.x = 0;
 
 		if ( command_down(COMMAND_RIGHT) )  dx = +1;
 		if ( command_down(COMMAND_LEFT) ) dx = -1;
 		if ( dx != 0 ) facing.direction = dx;
 
-		float wish_speed = player.max_speed * dx;
-
-		float acceleration = collider.on_floor ? player.ground_acceleration : player.air_acceleration;
-		float deceleration = collider.on_floor ? player.ground_deceleration : player.air_deceleration;
-		float turn_speed = collider.on_floor ? player.ground_turn_speed : player.air_turn_speed;
-		float speed_change;
-
-		if ( dx != 0 ) {
-			// If the sign of dx and velocity.x are inequal the player is trying to change direction
-			if ( sign(dx) != sign(velocity.value.x) ) speed_change = turn_speed;
-			else speed_change = acceleration; // Continuing in same direction
-		} else {
-			speed_change = deceleration; // Decelerate if no input
-		}
-
-		// Move velocity towards target velocity
-		velocity.value.x = move_towards( velocity.value.x, wish_speed, speed_change * GetFrameTime() );
+		movement.direction.x = dx;
 	}
 }
 

@@ -5,6 +5,30 @@
 #include "globals.hh"
 #include "components.hh"
 #include "systems.hh"
+#include "util.hh"
+
+void character_movement() {
+	auto view = registry.view<Character, Movement, Collider, Velocity>();
+	for ( auto [entity, character, movement, collider, velocity] : view.each() ) {
+		if (!movement.can_move) continue;
+
+		float wish_speed = movement.max_speed * movement.direction.x;
+
+		float acceleration = collider.on_floor? movement.ground_acceleration : movement.air_acceleration;
+		float deceleration = collider.on_floor? movement.ground_deceleration : movement.air_deceleration;
+		float turn_speed = collider.on_floor? movement.ground_turn_speed : movement.air_turn_speed;
+
+		float speed_change;
+
+		if ( movement.direction.x != 0 )
+			speed_change = sign(movement.direction.x) != sign(velocity.value.x)? turn_speed : acceleration;
+		else
+			speed_change = deceleration; // Decelerate if no input
+
+		// Move velocity towards target velocity
+		velocity.value.x = move_towards( velocity.value.x, wish_speed, speed_change * GetFrameTime() );
+	}
+}
 
 // Checks if a collider is overlapping a non-empty tile
 bool tile_overlap(const Position& position, const Collider& collider) {

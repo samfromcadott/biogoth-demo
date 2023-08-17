@@ -33,9 +33,9 @@ void Bite::fire() {
 
 		if ( target_health.now <= 0 ) continue; // Skip dead enemies
 
-		// Disable the player
-		if ( registry.any_of<Player>(owner) )
-			registry.get<Player>(owner).can_move = false;
+		// Disable movement
+		if ( registry.any_of<Movement>(owner) )
+			registry.get<Movement>(owner).can_move = false;
 
 		velocity.value.x = 0.0;
 
@@ -82,9 +82,9 @@ void Bite::update() {
 }
 
 void Bite::end() {
-	// Reenable the player
-	if ( registry.any_of<Player>(owner) )
-		registry.get<Player>(owner).can_move = true;
+	// Reenable movementr
+	if ( registry.any_of<Movement>(owner) )
+		registry.get<Movement>(owner).can_move = true;
 
 	if (!has_target) return;
 

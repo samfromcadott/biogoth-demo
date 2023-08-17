@@ -123,6 +123,7 @@ void game_update() {
 	bullets();
 
 	// Physics
+	character_movement();
 	gravity();
 	collider_overlap();
 	move_collide();

@@ -2,34 +2,7 @@
 
 #include "components.hh"
 
-std::string component_names[] = {
-	"Player",
-	"Enemy",
-	"Gravity",
-	"Position",
-	"Velocity",
-	"Facing",
-	"Collider",
-	"Health",
-	"DebugColor",
-	"MeleeAttack",
-	"BiteAttack",
-	"GunAttack",
-	"WeaponSet",
-	"RayCast",
-	"Bullet",
-	"Jump",
-	"AnimationState",
-};
-
 void Player::from_toml(const toml::value& v) {
-	max_speed = toml::find<float>(v, "max_speed");
-	ground_acceleration = toml::find<float>(v, "ground_acceleration");
-	air_acceleration = toml::find<float>(v, "air_acceleration");
-	ground_deceleration = toml::find<float>(v, "ground_deceleration");
-	air_deceleration = toml::find<float>(v, "air_deceleration");
-	ground_turn_speed = toml::find<float>(v, "ground_turn_speed");
-	air_turn_speed = toml::find<float>(v, "air_turn_speed");
 	can_move = toml::find<bool>(v, "can_move");
 }
 
@@ -38,6 +11,25 @@ void Enemy::from_toml(const toml::value& v) {
 	attack_range = toml::find<float>(v, "attack_range");
 	max_speed = toml::find<float>(v, "max_speed");
 	active = true;
+}
+
+void Character::from_toml(const toml::value& v) {
+	active = true;
+	brain = nullptr;
+	team = 0;
+}
+
+void Movement::from_toml(const toml::value& v) {
+	direction = (Vector2){0,0};
+
+	max_speed = toml::find<float>(v, "max_speed");
+	ground_acceleration = toml::find<float>(v, "ground_acceleration");
+	air_acceleration = toml::find<float>(v, "air_acceleration");
+	ground_deceleration = toml::find<float>(v, "ground_deceleration");
+	air_deceleration = toml::find<float>(v, "air_deceleration");
+	ground_turn_speed = toml::find<float>(v, "ground_turn_speed");
+	air_turn_speed = toml::find<float>(v, "air_turn_speed");
+	can_move = true;
 }
 
 void Gravity::from_toml(const toml::value& v) {
