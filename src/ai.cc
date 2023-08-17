@@ -28,7 +28,6 @@ bool line_of_sight(const TileCoord a, const TileCoord b) {
 void enemy_think() {
 	raylib::Vector2 player_position;
 	float player_height;
-	float acceleration = 1.0;
 
 	// Find player position
 	auto player_view = registry.view<const Player, const Position, const Collider>();
@@ -40,8 +39,8 @@ void enemy_think() {
 
 	const TileCoord player_coord = tilemap.world_to_tile(player_position.x, player_position.y-player_height);
 
-	auto view = registry.view<const Enemy, Velocity, const Position, Facing, WeaponSet, const Collider, AnimationState>();
-	for ( auto [entity, enemy, velocity, position, facing, weapon_set, collider, animation] : view.each() ) {
+	auto view = registry.view<const Enemy, const Velocity, Movement, const Position, Facing, WeaponSet, const Collider>();
+	for ( auto [entity, enemy, velocity, movement, position, facing, weapon_set, collider] : view.each() ) {
 		if ( !enemy.active ) continue;
 
 		// Check if the entity is in the air
@@ -53,7 +52,7 @@ void enemy_think() {
 		// Check for line of sight to the player
 		TileCoord entity_coord = tilemap.world_to_tile(position.value.x, position.value.y-collider.height);
 		if ( !line_of_sight(entity_coord, player_coord) ) {
-			velocity.value.x = move_towards(velocity.value.x, 0.0, acceleration);
+			movement.direction.x = 0;
 			continue;
 		}
 
@@ -64,7 +63,7 @@ void enemy_think() {
 		// If the player is in aggro_range, set facing and velocity to move toward them
 		if ( distance > enemy.aggro_range ) continue;
 
-		velocity.value.x = move_towards(velocity.value.x, enemy.max_speed * direction, acceleration);
+		movement.direction.x = direction;
 		facing.direction = direction;
 
 		// Check if the entity is on a ledge
@@ -72,16 +71,16 @@ void enemy_think() {
 
 		// Don't walk off a ledge if the player is above
 		if ( tilemap(next_tile) == empty_tile && player_position.y < position.value.y )
-			velocity.value.x = 0;
+			// velocity.value.x = 0;
+			movement.direction.x = 0;
 
 		// If the player if in attack_range and the GunAttack timer <= 0, stop moving and attack them
 		if ( distance > enemy.attack_range ) continue;
 
 		// Firing gun
-		velocity.value.x = move_towards(velocity.value.x, 0.0, acceleration);
-		if ( abs(velocity.value.x) > acceleration * 2.0 ) continue; // Wait until stopped to shoot
+		movement.direction.x = 0;
+		if ( abs(velocity.value.x) > 2.0 ) continue; // Wait until stopped to shoot
 
-		velocity.value.x = 0.0;
 		if (weapon_set[0]->timer > 0.0) continue;
 
 		weapon_set[0]->fire();

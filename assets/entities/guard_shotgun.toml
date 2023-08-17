@@ -3,12 +3,23 @@ aggro_range = 700.0
 attack_range = 400.0
 max_speed = 3.0
 
+[Character]
+
 [AnimationState]
 sprite = "guard"
 
 [Collider]
 width = 64
 height = 128
+
+[Movement]
+max_speed = 3.0
+ground_acceleration = 9.0
+air_acceleration = 7.0
+ground_deceleration = 20.0
+air_deceleration = 0.5
+ground_turn_speed = 20.0
+air_turn_speed = 15.0
 
 [Facing]
 
