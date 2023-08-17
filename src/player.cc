@@ -101,18 +101,3 @@ void player_bite() {
 			weapon_set[1]->end();
 	}
 }
-
-void player_animate() {
-	auto view = registry.view<const Player, AnimationState, const Velocity, const Collider, const WeaponSet>();
-
-	for ( auto [entity, player, animation, velocity, collider, weapon_set] : view.each() ) {
-		if (player_died) animation.set_state(DIE);
-		else if ( weapon_set[0]->active && !collider.on_floor ) animation.set_state(AIR_ATTACK);
-		else if ( weapon_set[0]->active ) animation.set_state(ATTACK);
-		else if ( weapon_set[1]->active ) animation.set_state(BITE);
-		else if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
-		else if ( collider.wall_direction != 0 && !collider.on_floor ) animation.set_state(WALL_SLIDE);
-		else if ( !collider.on_floor ) animation.set_state(FALL);
-		else animation.set_state(IDLE);
-	}
-}

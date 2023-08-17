@@ -112,7 +112,6 @@ void game_update() {
 		death_timer.update();
 	}
 
-	// player_animate();
 	animate_character();
 
 	// Enemy actions
