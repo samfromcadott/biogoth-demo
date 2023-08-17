@@ -71,7 +71,6 @@ void enemy_think() {
 
 		// Don't walk off a ledge if the player is above
 		if ( tilemap(next_tile) == empty_tile && player_position.y < position.value.y )
-			// velocity.value.x = 0;
 			movement.direction.x = 0;
 
 		// If the player if in attack_range and the GunAttack timer <= 0, stop moving and attack them
