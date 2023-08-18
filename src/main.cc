@@ -101,7 +101,7 @@ void game_update() {
 	// Player actions
 	if ( registry.get<Health>(player).now > 0 ) { // Check is the player is alive
 		// player_move();
-		player_jump();
+		// player_jump();
 		jump_buffer();
 		// player_attack();
 		// player_bite();

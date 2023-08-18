@@ -20,37 +20,44 @@ void PlayerBrain::move() {
 }
 
 void PlayerBrain::jump() {
-	// if( command_pressed(COMMAND_JUMP) && player.can_move ) jump.wish_jump = true;
-	//
-	// // Floor jump
-	// if ( jump.wish_jump && collider.on_floor ) {
-	// 	velocity.value.y -= jump.speed;
-	// 	gravity.scale = jump.gravity_scale;
-	// }
-	//
-	// // Reset gravity scale when going down or on jump release
-	// if ( command_released(COMMAND_JUMP) || velocity.value.y > 0.0 ) {
-	// 	gravity.scale = 1.0;
-	// }
-	//
-	// // Find if the player is touching a wall
-	// collider.wall_direction = 0;
-	//
-	// TileCoord left_side = tilemap.world_to_tile( position.value.x - collider.width/2 - 4, position.value.y - 1 );
-	// TileCoord right_side = tilemap.world_to_tile( position.value.x + collider.width/2 + 4, position.value.y - 1 );
-	//
-	// if ( tilemap(left_side) != empty_tile ) collider.wall_direction = -1;
-	// if ( tilemap(right_side) != empty_tile ) collider.wall_direction = +1;
-	//
-	// if ( collider.wall_direction != 0 && !collider.on_floor ) facing.direction = -collider.wall_direction;
-	//
-	// // Wall jump
-	// if ( jump.wish_jump && collider.wall_direction != 0 && !collider.on_floor ) {
-	// 	velocity.value.y = -1.0;
-	// 	velocity.value.x = -collider.wall_direction * 2.0;
-	// 	velocity.value = velocity.value.Normalize() * jump.speed;
-	// 	gravity.scale = jump.gravity_scale;
-	// }
+	auto& jump = *registry.try_get<Jump>(owner);
+	auto& collider = *registry.try_get<Collider>(owner);
+	auto& position = *registry.try_get<Position>(owner);
+	auto& velocity = *registry.try_get<Velocity>(owner);
+	auto& facing = *registry.try_get<Facing>(owner);
+	auto& gravity = *registry.try_get<Gravity>(owner);
+
+	if ( command_pressed(COMMAND_JUMP) ) jump.wish_jump = true;
+
+	// Floor jump
+	if ( jump.wish_jump && collider.on_floor ) {
+		velocity.value.y -= jump.speed;
+		gravity.scale = jump.gravity_scale;
+	}
+
+	// Reset gravity scale when going down or on jump release
+	if ( command_released(COMMAND_JUMP) || velocity.value.y > 0.0 ) {
+		gravity.scale = 1.0;
+	}
+
+	// Find if the player is touching a wall
+	collider.wall_direction = 0;
+
+	TileCoord left_side = tilemap.world_to_tile( position.value.x - collider.width/2 - 4, position.value.y - 1 );
+	TileCoord right_side = tilemap.world_to_tile( position.value.x + collider.width/2 + 4, position.value.y - 1 );
+
+	if ( tilemap(left_side) != empty_tile ) collider.wall_direction = -1;
+	if ( tilemap(right_side) != empty_tile ) collider.wall_direction = +1;
+
+	if ( collider.wall_direction != 0 && !collider.on_floor ) facing.direction = -collider.wall_direction;
+
+	// Wall jump
+	if ( jump.wish_jump && collider.wall_direction != 0 && !collider.on_floor ) {
+		velocity.value.y = -1.0;
+		velocity.value.x = -collider.wall_direction * 2.0;
+		velocity.value = velocity.value.Normalize() * jump.speed;
+		gravity.scale = jump.gravity_scale;
+	}
 }
 
 void PlayerBrain::attack() {
