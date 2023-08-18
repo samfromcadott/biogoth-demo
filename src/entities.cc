@@ -83,6 +83,7 @@ void add_brain(const entt::entity& entity, const std::string& entity_name) {
 	const auto type = toml::find<std::string>(brain_data, "type");
 
 	if (type == "player") registry.get<Character>(entity).brain = new PlayerBrain(entity);
+	else if (type == "guard") registry.get<Character>(entity).brain = new GuardBrain(entity);
 }
 
 void spawn_entity(const std::string name, const raylib::Vector2 position, const int direction) {

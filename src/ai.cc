@@ -85,3 +85,64 @@ void enemy_think() {
 		weapon_set[0]->fire();
 	}
 }
+
+Vector2 GuardBrain::find_player() {
+	auto player_view = registry.view<const Player, const Position, const Collider>();
+	for ( auto [entity, player, position, collider] : player_view.each() ) {
+		Vector2 player_position = position.value;
+		player_position.y -= collider.height;
+		return player_position;
+	}
+}
+
+void GuardBrain::think() {
+	auto& weapon_set = *registry.try_get<WeaponSet>(owner);
+	auto& movement = *registry.try_get<Movement>(owner);
+	auto& collider = *registry.try_get<Collider>(owner);
+	auto& position = *registry.try_get<Position>(owner);
+	auto& velocity = *registry.try_get<Velocity>(owner);
+	auto& facing = *registry.try_get<Facing>(owner);
+
+	// Check if the entity is in the air
+	if (!collider.on_floor) {
+		weapon_set[0]->end();
+		return;
+	}
+
+	// Check for line of sight to the player
+	Vector2 player_position = find_player();
+	TileCoord player_coord = tilemap.world_to_tile(player_position);
+	TileCoord entity_coord = tilemap.world_to_tile(position.value.x, position.value.y-collider.height);
+	if ( !line_of_sight(entity_coord, player_coord) ) {
+		movement.direction.x = 0;
+		return;
+	}
+
+	// Get the distance and direction of the player
+	float distance = abs( player_position.x - position.value.x );
+	int direction = sign( player_position.x - position.value.x );
+
+	// If the player is in aggro_range, set facing and velocity to move toward them
+	if ( distance > aggro_range ) return;
+
+	movement.direction.x = direction;
+	facing.direction = direction;
+
+	// Check if the entity is on a ledge
+	const TileCoord next_tile = tilemap.world_to_tile( position.value.x+(direction*(collider.width+3)/2), position.value.y+1 );
+
+	// Don't walk off a ledge if the player is above
+	if ( tilemap(next_tile) == empty_tile && player_position.y < position.value.y )
+		movement.direction.x = 0;
+
+	// If the player if in attack_range and the GunAttack timer <= 0, stop moving and attack them
+	if ( distance > attack_range ) return;
+
+	// Firing gun
+	movement.direction.x = 0;
+	if ( abs(velocity.value.x) > 2.0 ) return; // Wait until stopped to shoot
+
+	if (weapon_set[0]->timer > 0.0) return;
+
+	weapon_set[0]->fire();
+}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <entt/entt.hpp>
+#include <raylib-cpp.hpp>
 
 class Brain {
 protected:
@@ -25,9 +26,16 @@ public:
 };
 
 class GuardBrain : public Brain {
+private:
+	Vector2 find_player();
+	float aggro_range = 700.0;
+	float attack_range = 400.0;
+
 public:
 	void think();
 
-	GuardBrain(entt::entity owner);
-	virtual ~GuardBrain();
+	GuardBrain(entt::entity owner) {
+		this->owner = owner;
+	}
+	virtual ~GuardBrain(){}
 };

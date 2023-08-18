@@ -115,7 +115,7 @@ void game_update() {
 	character_think();
 
 	// Enemy actions
-	enemy_think();
+	// enemy_think();
 
 	animate_character();
 
