@@ -23,6 +23,7 @@ void bullets(); // Updates bullets
 void enemy_think();
 
 // General
+void character_think();
 void death();
 void camera_update();
 

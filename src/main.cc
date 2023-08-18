@@ -100,11 +100,11 @@ void game_start() {
 void game_update() {
 	// Player actions
 	if ( registry.get<Health>(player).now > 0 ) { // Check is the player is alive
-		player_move();
+		// player_move();
 		player_jump();
 		jump_buffer();
-		player_attack();
-		player_bite();
+		// player_attack();
+		// player_bite();
 	} else if ( !player_died ) {
 		player_died = true;
 		death_timer = Timer( 1.0, &game_start ); // Restart if the player is dead
@@ -112,10 +112,12 @@ void game_update() {
 		death_timer.update();
 	}
 
-	animate_character();
+	character_think();
 
 	// Enemy actions
 	enemy_think();
+
+	animate_character();
 
 	// Combat
 	weapon_update();

@@ -4,6 +4,7 @@ attack_range = 400.0
 max_speed = 3.0
 
 [Character]
+brain = {type = "guard"}
 
 [AnimationState]
 sprite = "guard"

@@ -74,6 +74,17 @@ void add_weapons(const entt::entity& entity, const std::string& entity_name) {
 	}
 }
 
+void add_brain(const entt::entity& entity, const std::string& entity_name) {
+	if ( !entity_types[entity_name].contains("Character") ) return; // Check if the entity is a character
+
+	const auto& character_data = toml::find(entity_types[entity_name], "Character");
+	const auto& brain_data = toml::find(character_data, "brain");
+
+	const auto type = toml::find<std::string>(brain_data, "type");
+
+	if (type == "player") registry.get<Character>(entity).brain = new PlayerBrain(entity);
+}
+
 void spawn_entity(const std::string name, const raylib::Vector2 position, const int direction) {
 	const auto entity = registry.create();
 
@@ -95,4 +106,5 @@ void spawn_entity(const std::string name, const raylib::Vector2 position, const 
 	registry.emplace_or_replace<Position>(entity, (Position){position});
 
 	add_weapons(entity, name);
+	add_brain(entity, name);
 }
