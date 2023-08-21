@@ -5,6 +5,11 @@
 #include <raylib-cpp.hpp>
 #include <toml.hpp>
 
+// The default range for Magic Enum is [-128, 128]. Keys outside that range aren't read correctly
+#define MAGIC_ENUM_RANGE_MIN 0
+#define MAGIC_ENUM_RANGE_MAX 1024
+#include <magic_enum.hpp>
+
 #include "globals.hh"
 #include "entities.hh"
 #include "components.hh"
@@ -80,6 +85,21 @@ void add_weapon_map(const entt::entity& entity, const std::string& entity_name) 
 
 	const auto map = toml::find(entity_types[entity_name], "WeaponMap");
 	const auto list = toml::find<toml::array>(map, "map");
+
+	for (auto& item : list) {
+		// Load the file data into a tuple
+		const auto input_data  = toml::get< std::tuple<std::string, std::string, int> >(item);
+
+		// Convert the tuple to a WeaponInput
+		AttackModifier modifier = magic_enum::enum_cast<AttackModifier>( std::get<0>(input_data) ).value_or(AttackModifier::NONE);
+		AirState air_state = magic_enum::enum_cast<AirState>( std::get<1>(input_data) ).value_or(AirState::ON_FLOOR);
+		size_t index = std::get<2>(input_data);
+
+		WeaponInput input = {modifier, air_state};
+
+		// Put the input in the WeaponMap
+		registry.get<WeaponMap>(entity)[input] = index;
+	}
 }
 
 void add_brain(const entt::entity& entity, const std::string& entity_name) {
