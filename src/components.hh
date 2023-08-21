@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <tuple>
 #include <raylib-cpp.hpp>
 #include <toml.hpp>
 
@@ -177,3 +178,19 @@ struct AnimationState {
 
 	void from_toml(const toml::value& v);
 };
+
+// Alternate attack system
+enum class AttackModifier {
+	NONE,
+	UP,
+	DOWN,
+	SIDE,
+};
+
+enum class AirState {
+	ON_FLOOR,
+	IN_AIR,
+};
+
+typedef std::tuple<AttackModifier, AirState> WeaponInput;
+typedef std::map<WeaponInput, size_t> WeaponMap;

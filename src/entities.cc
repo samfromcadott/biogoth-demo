@@ -74,6 +74,14 @@ void add_weapons(const entt::entity& entity, const std::string& entity_name) {
 	}
 }
 
+void add_weapon_map(const entt::entity& entity, const std::string& entity_name) {
+	if ( !entity_types[entity_name].contains("WeaponMap") ) return; // Check if the entity should have WeaponMap
+	registry.emplace<WeaponMap>(entity); // Add weapon map
+
+	const auto map = toml::find(entity_types[entity_name], "WeaponMap");
+	const auto list = toml::find<toml::array>(map, "map");
+}
+
 void add_brain(const entt::entity& entity, const std::string& entity_name) {
 	if ( !entity_types[entity_name].contains("Character") ) return; // Check if the entity is a character
 
@@ -108,4 +116,5 @@ void spawn_entity(const std::string name, const raylib::Vector2 position, const 
 
 	add_weapons(entity, name);
 	add_brain(entity, name);
+	add_weapon_map(entity, name);
 }

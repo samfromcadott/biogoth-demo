@@ -62,12 +62,27 @@ void PlayerBrain::jump() {
 
 void PlayerBrain::attack() {
 	auto& weapon_set = *registry.try_get<WeaponSet>(owner);
+	auto& weapon_map = *registry.try_get<WeaponMap>(owner);
+	auto& collider = *registry.try_get<Collider>(owner);
 
 	if ( !command_down(COMMAND_ATTACK) ) return;
 	if (weapon_set[0]->active) return; // Don't attack if the player is already attacking
 	// if (!player.can_move) return;
 
-	weapon_set[0]->fire();
+	// Check input direction
+	AttackModifier modifier = AttackModifier::NONE;
+	if ( command_down(COMMAND_LEFT) || command_down(COMMAND_RIGHT) ) modifier = AttackModifier::SIDE;
+	else if ( command_down(COMMAND_UP) ) modifier = AttackModifier::UP;
+	else if ( command_down(COMMAND_DOWN) ) modifier = AttackModifier::DOWN;
+
+	// Determine air state
+	AirState air_state = collider.on_floor? AirState::ON_FLOOR : AirState::IN_AIR;
+
+	// Get the index of the weapon
+	WeaponInput input = {modifier, air_state};
+	size_t index = weapon_map.count(input)? weapon_map[input] : weapon_map[{AttackModifier::NONE, AirState::ON_FLOOR}];
+
+	weapon_set[index]->fire();
 }
 
 void PlayerBrain::bite() {

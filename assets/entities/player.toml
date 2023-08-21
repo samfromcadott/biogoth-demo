@@ -57,3 +57,8 @@ range = 64.0
 
 # [DebugColor]
 # color = [135, 60, 190, 255]
+
+[WeaponMap]
+map = [
+	["NONE", "ON_FLOOR", 0]
+]
