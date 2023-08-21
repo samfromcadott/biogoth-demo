@@ -61,5 +61,5 @@ range = 64.0
 [WeaponMap]
 map = [
 	["NONE", "ON_FLOOR", 0]
-	# ["UP", "ON_FLOOR", 2]
+	# ,["UP", "ON_FLOOR", 2]
 ]

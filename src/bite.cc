@@ -25,8 +25,8 @@ void Bite::fire() {
 	ray.end = ray.start + raylib::Vector2(range) * facing.direction;
 
 	// Loop over potential targets
-	auto target_view = registry.view<Position, Velocity, Collider, Health, AnimationState>();
-	for ( auto [target, target_position, target_velocity, target_collider, target_health, target_animation] : target_view.each() ) {
+	auto target_view = registry.view<Position, Character, Velocity, Collider, Health, AnimationState>();
+	for ( auto [target, target_position, character, target_velocity, target_collider, target_health, target_animation] : target_view.each() ) {
 		// Skip non-interected entities
 		if (!target_collider.enabled) continue;
 		if ( !ray.intersect( target_collider.get_rectangle(target_position.value) ) ) continue;
@@ -44,9 +44,8 @@ void Bite::fire() {
 
 		target_animation.set_state(BITE);
 
-		// Disable the enemy
-		if ( registry.any_of<Enemy>(target) )
-			registry.get<Enemy>(target).active = false;
+		// Disable the character
+		character.active = false;
 
 		// Move the target to the biter
 		target_collider.enabled = false;
@@ -94,9 +93,9 @@ void Bite::end() {
 	active = false;
 	has_target = false;
 
-	// Enable the enemy
-	if ( registry.any_of<Enemy>(target) )
-		registry.get<Enemy>(target).active = true;
+	// Enable the target
+	if ( registry.any_of<Character>(target) )
+		registry.get<Character>(target).active = true;
 
 
 	velocity.value.y -= 3.0; // Stops them from attacking for a bit
