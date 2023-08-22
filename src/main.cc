@@ -74,6 +74,7 @@ int main() {
 	particle_system.color_end = raylib::Color(0, 255, 255, 255);
 	particle_system.size_start = 5;
 	particle_system.size_end = 0;
+	particle_system.loop = true;
 	particle_system.start();
 
 	const auto particle_entity = registry.create();
