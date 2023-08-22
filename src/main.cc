@@ -69,12 +69,14 @@ int main() {
 	particle_system.speed_start = 80.0;
 	particle_system.speed_end = 10.0;
 	particle_system.length = 10.0;
-	particle_system.position = raylib::Vector2(160, 1184);
+	particle_system.position = raylib::Vector2(160, 1536);
 	particle_system.color_start = raylib::Color(255, 0, 0, 255);
 	particle_system.color_end = raylib::Color(0, 255, 255, 255);
 	particle_system.size_start = 5;
 	particle_system.size_end = 0;
 	particle_system.loop = true;
+	particle_system.spread = raylib::Vector2(0.5, 0.5);
+	particle_system.direction = raylib::Vector2(0.0, -1.0);
 	particle_system.start();
 
 	const auto particle_entity = registry.create();

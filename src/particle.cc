@@ -8,7 +8,7 @@
 
 void ParticleSystem::start(Particle& particle) {
 	particle.position = position;
-	particle.velocity = raylib::Vector2( random_spread(), random_spread() ).Normalize() * speed_start;
+	particle.velocity = ( direction + raylib::Vector2(random_spread(), random_spread()) * spread).Normalize() * speed_start;
 	particle.age = ( float( rand() ) / float(RAND_MAX) ) * length; // Randomize age
 }
 

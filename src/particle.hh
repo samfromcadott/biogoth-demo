@@ -16,6 +16,9 @@ private:
 
 public:
 	raylib::Vector2 position; // Emitter position
+	raylib::Vector2 direction; // Direction particles are emmited
+	raylib::Vector2 spread; // Randomization of direction
+
 	float length; // Time from particle birth to death
 	float gravity_scale;
 	int count;
