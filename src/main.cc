@@ -66,7 +66,9 @@ int main() {
 	// Particle test
 	ParticleSystem particle_system;
 	particle_system.count = 200;
-	particle_system.speed_start = 50.0;
+	particle_system.speed_start = 1.0;
+	particle_system.speed_end = 200.0;
+	particle_system.length = 5.0;
 	particle_system.position = raylib::Vector2(160, 1184);
 	particle_system.start();
 
