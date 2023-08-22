@@ -17,6 +17,7 @@ void render_game(raylib::Window& window) {
 		render_colliders();
 		render_collider_sprites();
 		render_bullets();
+		render_particles();
 
 	camera.EndMode();
 

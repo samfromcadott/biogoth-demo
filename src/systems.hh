@@ -26,6 +26,7 @@ void enemy_think();
 void character_think();
 void death();
 void camera_update();
+void particle_update();
 
 // Render
 void render_colliders();
@@ -33,6 +34,7 @@ void render_bullets();
 void render_collider_sprites();
 void render_game(raylib::Window& window);
 void animate_character();
+void render_particles();
 
 // UI Elements
 void health_bar();

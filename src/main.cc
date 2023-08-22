@@ -10,6 +10,7 @@
 #include "timer.hh"
 #include "controls.hh"
 #include "entities.hh"
+#include "particle.hh"
 
 using namespace raylib;
 
@@ -61,6 +62,16 @@ int main() {
 	load_entities();
 
 	game_start();
+
+	// Particle test
+	ParticleSystem particle_system;
+	particle_system.count = 200;
+	particle_system.speed_start = 50.0;
+	particle_system.position = raylib::Vector2(160, 1184);
+	particle_system.start();
+
+	const auto particle_entity = registry.create();
+	registry.emplace<ParticleSystem>(particle_entity, particle_system);
 
 	// Display help message
 	show_help = true;
@@ -118,6 +129,7 @@ void game_update() {
 	// enemy_think();
 
 	animate_character();
+	particle_update();
 
 	// Combat
 	weapon_update();

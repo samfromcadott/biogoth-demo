@@ -19,3 +19,10 @@ float move_towards(float n, float t, float d) {
 float random_spread() {
 	return (float)GetRandomValue(-100, 100) / 100.0;
 }
+
+// Cubic ease in from a to b
+float ease(float t, float a, float b) {
+	float u = t*t*t;
+
+	return u * (b - a) + a;
+}
