@@ -31,8 +31,8 @@ public:
 	std::array<int, ACTION_COUNT> offset; // Offset of each action
 	unsigned int width, height; // Size of sprite
 
-	void render(float x, float y, const Action action, float timer, int direction, float rotation=0.0);
-	void render(raylib::Vector2 position, const Action action, float timer, int direction, float rotation=0.0);
+	void render(float x, float y, const Action action, float timer, int direction, float rotation=0.0, float scale=1.0, Color color=WHITE);
+	void render(raylib::Vector2 position, const Action action, float timer, int direction, float rotation=0.0, float scale=1.0, Color color=WHITE);
 
 	void unload(); // Deletes the texture
 

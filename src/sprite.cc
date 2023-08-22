@@ -44,7 +44,7 @@ Sprite::Sprite(std::string filename) {
 	}
 }
 
-void Sprite::render(float x, float y, const Action action, float timer, int direction, float rotation) {
+void Sprite::render(float x, float y, const Action action, float timer, int direction, float rotation, float scale, Color color) {
 	// Use direction_offset if the sprite is facing left
 	int off = 0;
 	if (direction == -1) off = direction_offset;
@@ -54,15 +54,15 @@ void Sprite::render(float x, float y, const Action action, float timer, int dire
 	float ry = (offset[action] + off) * height;
 
 	Rectangle source = {rx, ry, float(width), float(height)};
-	Rectangle dest = {float(x), float(y), float(width), float(height)};
-	Vector2 origin = { float(width/2), float(height/2) };
+	Rectangle dest = {float(x), float(y), float(width)*scale, float(height)*scale};
+	Vector2 origin = { float(width/2)*scale, float(height/2)*scale };
 
 	// texture.Draw(source, dest, origin, rotation);
-	DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
+	DrawTexturePro(texture, source, dest, origin, rotation, color);
 }
 
-void Sprite::render(raylib::Vector2 position, const Action action, float timer, int direction, float rotation) {
-	render(position.x, position.y, action, timer, direction, rotation);
+void Sprite::render(raylib::Vector2 position, const Action action, float timer, int direction, float rotation, float scale, Color color) {
+	render(position.x, position.y, action, timer, direction, rotation, scale, color);
 }
 
 void Sprite::unload() {

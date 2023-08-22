@@ -45,6 +45,7 @@ int main() {
 	// Load sprites
 	sprite_list["guard"] = Sprite("guard");
 	sprite_list["vampire"] = Sprite("vampire");
+	sprite_list["sprite_test"] = Sprite("sprite_test");
 
 	// Load sounds
 	InitAudioDevice();
@@ -72,13 +73,14 @@ int main() {
 	particle_system.position = raylib::Vector2(160, 1536);
 	particle_system.color_start = raylib::Color(255, 0, 0, 255);
 	particle_system.color_end = raylib::Color(0, 255, 255, 255);
-	particle_system.size_start = 5;
+	particle_system.size_start = 0.2;
 	particle_system.size_end = 0;
 	particle_system.loop = true;
-	particle_system.spread = raylib::Vector2(0.1, 0.1);
+	particle_system.spread = raylib::Vector2(0.1, 2.0);
 	particle_system.direction = raylib::Vector2(1.0, 0.0);
 	particle_system.gravity_scale = 1.0;
 	particle_system.collision = true;
+	particle_system.sprite = &sprite_list["sprite_test"];
 	particle_system.start();
 
 	const auto particle_entity = registry.create();

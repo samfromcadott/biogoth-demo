@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include <entt/entt.hpp>
 
 #include "globals.hh"
@@ -46,6 +47,7 @@ void ParticleSystem::draw() {
 	for (auto& particle : particles) {
 		// Update size and color
 		float size = ease(particle.age/length, size_start, size_end);
+		float rotation = atan2(particle.velocity.y, particle.velocity.x) * (180/PI);
 		Color color = {
 			(unsigned char)ease(particle.age/length, color_start.r, color_end.r),
 			(unsigned char)ease(particle.age/length, color_start.g, color_end.g),
@@ -53,7 +55,8 @@ void ParticleSystem::draw() {
 			(unsigned char)ease(particle.age/length, color_start.a, color_end.a)
 		};
 
-		DrawCircle(particle.position.x, particle.position.y, size, color);
+		if (sprite) sprite->render(particle.position, IDLE, particle.age, +1, rotation, size, color); // Draw sprite
+		else DrawCircle(particle.position.x, particle.position.y, size, color);
 	}
 }
 

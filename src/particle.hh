@@ -3,6 +3,8 @@
 #include <vector>
 #include <raylib-cpp.hpp>
 
+#include "sprite.hh"
+
 class ParticleSystem {
 private:
 	struct Particle {
@@ -24,6 +26,7 @@ public:
 	int count;
 	bool loop;
 	bool collision;
+	Sprite* sprite = nullptr;
 
 	float size_start, size_end;
 	float speed_start, speed_end;
