@@ -31,6 +31,9 @@ void ParticleSystem::update() {
 		// Update velocity
 		float speed = ease(particle.age/length, speed_start, speed_end);
 		particle.velocity = particle.velocity.Normalize() * speed;
+
+		// Apply gravity
+		particle.velocity.y += G * particle.age * gravity_scale * GetFrameTime();
 	}
 }
 
