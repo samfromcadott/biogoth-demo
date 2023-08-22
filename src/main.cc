@@ -66,10 +66,14 @@ int main() {
 	// Particle test
 	ParticleSystem particle_system;
 	particle_system.count = 200;
-	particle_system.speed_start = 1.0;
-	particle_system.speed_end = 200.0;
-	particle_system.length = 5.0;
+	particle_system.speed_start = 80.0;
+	particle_system.speed_end = 10.0;
+	particle_system.length = 10.0;
 	particle_system.position = raylib::Vector2(160, 1184);
+	particle_system.color_start = raylib::Color(255, 0, 0, 255);
+	particle_system.color_end = raylib::Color(0, 255, 255, 255);
+	particle_system.size_start = 5;
+	particle_system.size_end = 0;
 	particle_system.start();
 
 	const auto particle_entity = registry.create();
