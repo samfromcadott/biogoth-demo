@@ -22,6 +22,11 @@ void ParticleSystem::start() {
 
 void ParticleSystem::update() {
 	for (auto& particle : particles) {
+		// Tilemap collision
+		if ( collision && tilemap( tilemap.world_to_tile(particle.position) ) != 0 )
+			particle.age = length + 1;
+
+		// Restart particles
 		if (loop && particle.age > length) start(particle);
 
 		// Update position and age

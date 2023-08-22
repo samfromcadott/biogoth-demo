@@ -23,6 +23,7 @@ public:
 	float gravity_scale;
 	int count;
 	bool loop;
+	bool collision;
 
 	float size_start, size_end;
 	float speed_start, speed_end;

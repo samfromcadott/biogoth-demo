@@ -75,9 +75,10 @@ int main() {
 	particle_system.size_start = 5;
 	particle_system.size_end = 0;
 	particle_system.loop = true;
-	particle_system.spread = raylib::Vector2(0.1, 1.0);
-	particle_system.direction = raylib::Vector2(0.0, -1.0);
+	particle_system.spread = raylib::Vector2(0.1, 0.1);
+	particle_system.direction = raylib::Vector2(1.0, 0.0);
 	particle_system.gravity_scale = 1.0;
+	particle_system.collision = true;
 	particle_system.start();
 
 	const auto particle_entity = registry.create();
