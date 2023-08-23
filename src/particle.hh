@@ -8,7 +8,7 @@
 class ParticleSystem {
 private:
 	struct Particle {
-		raylib::Vector2 position, velocity;
+		raylib::Vector2 position, direction;
 		float age;
 	};
 

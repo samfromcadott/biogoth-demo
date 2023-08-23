@@ -9,7 +9,7 @@
 
 void ParticleSystem::start(Particle& particle) {
 	particle.position = position;
-	particle.velocity = ( direction + raylib::Vector2(random_spread(), random_spread()) * spread).Normalize() * speed_start;
+	particle.direction = ( direction + raylib::Vector2(random_spread(), random_spread()) * spread).Normalize();
 	particle.age = ( float( rand() ) / float(RAND_MAX) ) * length; // Randomize age
 }
 
@@ -30,16 +30,18 @@ void ParticleSystem::update() {
 		// Restart particles
 		if (loop && particle.age > length) start(particle);
 
-		// Update position and age
-		particle.position += particle.velocity * GetFrameTime();
-		particle.age += GetFrameTime();
-
 		// Update velocity
 		float speed = ease(particle.age/length, speed_start, speed_end);
-		particle.velocity = particle.velocity.Normalize() * speed;
+		raylib::Vector2 velocity = particle.direction * speed;
 
 		// Apply gravity
-		particle.velocity.y += G * particle.age * gravity_scale * GetFrameTime();
+		velocity.y += G * particle.age * gravity_scale * GetFrameTime();
+
+		// Update position and age
+		particle.position += velocity * GetFrameTime();
+		particle.direction = velocity.Normalize();
+		particle.age += GetFrameTime();
+
 	}
 }
 
@@ -47,7 +49,7 @@ void ParticleSystem::draw() {
 	for (auto& particle : particles) {
 		// Update size and color
 		float size = ease(particle.age/length, size_start, size_end);
-		float rotation = atan2(particle.velocity.y, particle.velocity.x) * (180/PI);
+		float rotation = atan2(particle.direction.y, particle.direction.x) * (180/PI);
 		Color color = {
 			(unsigned char)ease(particle.age/length, color_start.r, color_end.r),
 			(unsigned char)ease(particle.age/length, color_start.g, color_end.g),
