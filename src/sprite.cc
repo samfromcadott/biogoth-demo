@@ -6,7 +6,11 @@
 std::map< std::string, Sprite > sprite_list;
 
 Sprite::Sprite(std::string filename) {
-	// texture = raylib::Texture("assets/graphics/sprites/" + filename + ".png");
+	// Initialize length and offset
+	length.fill(1);
+	offset.fill(0);
+
+	// Load the texture
 	texture = LoadTexture( &("assets/graphics/sprites/" + filename + ".png")[0] );
 	const auto data  = toml::parse("assets/graphics/sprites/" + filename + ".toml");
 
