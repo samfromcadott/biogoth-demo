@@ -101,23 +101,23 @@ struct DebugColor {
 	void from_toml(const toml::value& v);
 };
 
-struct MeleeAttack {
-	Melee melee;
-
-	void from_toml(const toml::value& v);
-};
-
-struct BiteAttack {
-	Bite bite;
-
-	void from_toml(const toml::value& v);
-};
-
-struct GunAttack {
-	Gun gun;
-
-	void from_toml(const toml::value& v);
-};
+// struct MeleeAttack {
+// 	Melee melee;
+//
+// 	void from_toml(const toml::value& v);
+// };
+//
+// struct BiteAttack {
+// 	Bite bite;
+//
+// 	void from_toml(const toml::value& v);
+// };
+//
+// struct GunAttack {
+// 	Gun gun;
+//
+// 	void from_toml(const toml::value& v);
+// };
 
 typedef std::vector<Weapon*> WeaponSet;
 
