@@ -93,6 +93,8 @@ Vector2 GuardBrain::find_player() {
 		player_position.y -= collider.height;
 		return player_position;
 	}
+
+	return {-1000000, -1000000};
 }
 
 void GuardBrain::think() {
