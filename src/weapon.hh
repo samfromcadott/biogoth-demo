@@ -45,6 +45,7 @@ private:
 	unsigned int damage;
 	float range;
 	float rate; // Time between attacks
+	float push;
 
 public:
 	Melee(){}
@@ -52,7 +53,8 @@ public:
 		entt::entity owner,
 		unsigned int damage,
 		float range,
-		float rate
+		float rate,
+		float push
 	);
 
 	void fire();

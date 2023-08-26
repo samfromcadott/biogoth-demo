@@ -11,12 +11,14 @@ Melee::Melee(
 	entt::entity owner,
 	unsigned int damage,
 	float range,
-	float rate
+	float rate,
+	float push
 ) {
 	this->owner = owner;
 	this->damage = damage;
 	this->range = range;
 	this->rate = rate;
+	this->push = push;
 }
 
 void Melee::fire() {
@@ -45,8 +47,7 @@ void Melee::fire() {
 		target_health.now -= damage;
 
 		// Push the enemy back
-		target_velocity.value.x -= sign(ray.start.x - ray.end.x) * (damage / 8.0);
-		target_velocity.value.y -= 2.0;
+		target_velocity.value -= (ray.start - ray.end).Normalize() * push;
 
 		// Play the sound effect
 		play_sound("sword_hit", 0.7 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);

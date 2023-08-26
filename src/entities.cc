@@ -59,7 +59,8 @@ void add_weapons(const entt::entity& entity, const std::string& entity_name) {
 			entity,
 			toml::find<unsigned int>(item, "damage"),
 			toml::find<float>(item, "range"),
-			toml::find<float>(item, "rate")
+			toml::find<float>(item, "rate"),
+			toml::find<float>(item, "push")
 		));
 
 		else if (type == "Bite") registry.get<WeaponSet>(entity).push_back( new Bite(

@@ -41,6 +41,7 @@ type = "Melee"
 damage = 50
 range = 100.0
 rate = 0.5
+push = 8.0
 
 [[WeaponSet]]
 type = "Bite"
