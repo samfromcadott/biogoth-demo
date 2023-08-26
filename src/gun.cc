@@ -7,20 +7,13 @@
 #include "weapon.hh"
 #include "util.hh"
 
-Gun::Gun(
-	entt::entity owner,
-	int damage,
-	unsigned int count,
-	float spread,
-	float speed,
-	float rate
-) {
+Gun::Gun(entt::entity owner, toml::value data) {
 	this->owner = owner;
-	this->damage = damage;
-	this->count = count;
-	this->spread = spread;
-	this->speed = speed;
-	this->rate = rate;
+	this->damage = toml::find<int>(data, "damage");
+	this->count = toml::find<unsigned int>(data, "count");
+	this->spread = toml::find<float>(data, "spread");
+	this->speed = toml::find<float>(data, "speed");
+	this->rate = toml::find<float>(data, "rate");
 }
 
 void Gun::fire() {

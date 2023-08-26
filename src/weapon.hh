@@ -1,6 +1,7 @@
 #pragma once
 
 #include <entt/entt.hpp>
+#include <toml.hpp>
 
 class Weapon {
 protected:
@@ -26,14 +27,7 @@ private:
 
 public:
 	Gun(){}
-	Gun(
-		entt::entity owner,
-		int damage,
-		unsigned int count,
-		float spread,
-		float speed,
-		float rate
-	);
+	Gun(entt::entity owner, toml::value data);
 
 	void fire();
 	void update();
@@ -49,13 +43,7 @@ private:
 
 public:
 	Melee(){}
-	Melee(
-		entt::entity owner,
-		unsigned int damage,
-		float range,
-		float rate,
-		float push
-	);
+	Melee(entt::entity owner, toml::value data);
 
 	void fire();
 	void update();
@@ -71,11 +59,7 @@ private:
 
 public:
 	Bite(){}
-	Bite(
-		entt::entity owner,
-		int damage,
-		float range
-	);
+	Bite(entt::entity owner, toml::value data);
 
 	void fire();
 	void update();

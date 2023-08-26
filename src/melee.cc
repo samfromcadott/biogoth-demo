@@ -7,18 +7,12 @@
 #include "weapon.hh"
 #include "util.hh"
 
-Melee::Melee(
-	entt::entity owner,
-	unsigned int damage,
-	float range,
-	float rate,
-	float push
-) {
+Melee::Melee(entt::entity owner, toml::value data) {
 	this->owner = owner;
-	this->damage = damage;
-	this->range = range;
-	this->rate = rate;
-	this->push = push;
+	this->damage = toml::find<unsigned int>(data, "damage");
+	this->range = toml::find<float>(data, "range");
+	this->rate = toml::find<float>(data, "rate");
+	this->push = toml::find<float>(data, "push");
 }
 
 void Melee::fire() {

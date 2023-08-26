@@ -7,10 +7,10 @@
 #include "weapon.hh"
 #include "util.hh"
 
-Bite::Bite(entt::entity owner, int damage, float range) {
+Bite::Bite(entt::entity owner, toml::value data) {
 	this->owner = owner;
-	this->damage = damage;
-	this->range = range;
+	this->damage = toml::find<unsigned int>(data, "damage");
+	this->range = toml::find<float>(data, "range");
 	this->action = BITE;
 }
 

@@ -55,28 +55,9 @@ void add_weapons(const entt::entity& entity, const std::string& entity_name) {
 		const auto& type = toml::find<std::string>(item, "type");
 
 		// Convert the weapon to the proper type
-		if (type == "Melee") registry.get<WeaponSet>(entity).push_back( new Melee(
-			entity,
-			toml::find<unsigned int>(item, "damage"),
-			toml::find<float>(item, "range"),
-			toml::find<float>(item, "rate"),
-			toml::find<float>(item, "push")
-		));
-
-		else if (type == "Bite") registry.get<WeaponSet>(entity).push_back( new Bite(
-			entity,
-			toml::find<unsigned int>(item, "damage"),
-			toml::find<float>(item, "range")
-		));
-
-		else if (type == "Gun") registry.get<WeaponSet>(entity).push_back( new Gun(
-			entity,
-			toml::find<int>(item, "damage"),
-			toml::find<unsigned int>(item, "count"),
-			toml::find<float>(item, "spread"),
-			toml::find<float>(item, "speed"),
-			toml::find<float>(item, "rate")
-		));
+		if (type == "Melee") registry.get<WeaponSet>(entity).push_back( new Melee(entity, item) );
+		else if (type == "Bite") registry.get<WeaponSet>(entity).push_back( new Bite(entity, item) );
+		else if (type == "Gun") registry.get<WeaponSet>(entity).push_back( new Gun(entity, item) );
 	}
 }
 
