@@ -66,8 +66,7 @@ void PlayerBrain::attack() {
 	auto& collider = *registry.try_get<Collider>(owner);
 
 	if ( !command_down(COMMAND_ATTACK) ) return;
-	if (weapon_set[0]->active) return; // Don't attack if the player is already attacking
-	// if (!player.can_move) return;
+	for (auto weapon : weapon_set) if (weapon->active) return;  // Don't attack if the player is already attacking
 
 	// Check input direction
 	AttackModifier modifier = AttackModifier::NONE;
@@ -89,10 +88,10 @@ void PlayerBrain::bite() {
 	auto& weapon_set = *registry.try_get<WeaponSet>(owner);
 
 	if ( command_pressed(COMMAND_BITE) )
-		weapon_set[1]->fire();
+		weapon_set[0]->fire();
 
 	if ( command_released(COMMAND_BITE) )
-		weapon_set[1]->end();
+		weapon_set[0]->end();
 }
 
 void PlayerBrain::think() {

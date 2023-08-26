@@ -36,17 +36,24 @@ scale = 1.0
 [Health]
 max = 100
 
-[[WeaponSet]]
+[[WeaponSet]] # Bite
+type = "Bite"
+damage = 1
+range = 64.0
+
+[[WeaponSet]] # Normal attack
 type = "Melee"
 damage = 50
 range = 100.0
 rate = 0.5
-push = 8.0
+push = 6.0
 
-[[WeaponSet]]
-type = "Bite"
-damage = 1
-range = 64.0
+[[WeaponSet]] # Ground kick
+type = "Melee"
+damage = 5
+range = 100.0
+rate = 0.5
+push = 12.0
 
 # [[WeaponSet]]
 # type = "Gun"
@@ -61,6 +68,6 @@ range = 64.0
 
 [WeaponMap]
 map = [
-	["NONE", "ON_FLOOR", 0]
-	# ,["UP", "ON_FLOOR", 2]
+	["NONE", "ON_FLOOR", 1]
+	,["UP", "ON_FLOOR", 2]
 ]

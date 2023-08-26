@@ -146,8 +146,7 @@ struct RayCast {
 
 struct Bullet {
 	int damage;
-
-	void from_toml(const toml::value& v);
+	Sprite* sprite = nullptr;
 };
 
 
