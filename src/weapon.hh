@@ -40,6 +40,7 @@ private:
 	float range;
 	float rate; // Time between attacks
 	float push;
+	bool can_cancel;
 
 public:
 	Melee(){}

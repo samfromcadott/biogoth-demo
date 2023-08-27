@@ -13,12 +13,14 @@ Melee::Melee(entt::entity owner, toml::value data) {
 	this->range = toml::find<float>(data, "range");
 	this->rate = toml::find<float>(data, "rate");
 	this->push = toml::find<float>(data, "push");
+	this->can_cancel = toml::find<bool>(data, "can_cancel");
 }
 
 void Melee::fire() {
 	auto& position = *registry.try_get<Position>(owner);
 	auto& collider = *registry.try_get<Collider>(owner);
 	auto& facing = *registry.try_get<Facing>(owner);
+	auto& character = *registry.try_get<Character>(owner);
 
 	RayCast ray;
 	ray.start = position.value + raylib::Vector2( (collider.width/2+0.001)*facing.direction, -collider.height/2 );
@@ -28,6 +30,8 @@ void Melee::fire() {
 
 	active = true;
 	timer = rate;
+
+	if (!can_cancel) character.active = false; // Disable input/thinking when using an attack that can't be canceled
 
 	// Look for targets
 	auto target_view = registry.view<const Position, const Collider, Velocity, Health>();
@@ -55,4 +59,7 @@ void Melee::update() {
 
 void Melee::end() {
 	active = false;
+
+	auto& character = *registry.try_get<Character>(owner);
+	if (!can_cancel) character.active = true; // Disable input/thinking when using an attack that can't be canceled
 }

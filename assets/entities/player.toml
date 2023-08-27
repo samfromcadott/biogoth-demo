@@ -43,10 +43,11 @@ range = 64.0
 
 [[WeaponSet]] # Normal attack
 type = "Melee"
-damage = 50
+damage = 40
 range = 100.0
 rate = 0.5
 push = 6.0
+can_cancel = true
 
 [[WeaponSet]] # Ground kick
 type = "Melee"
@@ -54,6 +55,15 @@ damage = 5
 range = 100.0
 rate = 0.5
 push = 12.0
+can_cancel = true
+
+[[WeaponSet]] # Ground heavy
+type = "Melee"
+damage = 80
+range = 150.0
+rate = 1.0
+push = 8.0
+can_cancel = false
 
 # [[WeaponSet]]
 # type = "Gun"
@@ -70,4 +80,5 @@ push = 12.0
 map = [
 	["NONE", "ON_FLOOR", 1]
 	,["UP", "ON_FLOOR", 2]
+	,["DOWN", "ON_FLOOR", 3]
 ]
