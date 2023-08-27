@@ -127,9 +127,9 @@ void gravity() {
 }
 
 void collider_overlap() {
-	const float push_speed = 1.0;
+	const float push_speed = 8.0;
 
-	auto view = registry.view<Velocity, const Position, const Collider>();
+	auto view = registry.view<Velocity, Position, const Collider>();
 	for ( auto entity : view )
 	for ( auto other : view ) {
 		if (entity == other) continue; // Skip self
@@ -147,7 +147,7 @@ void collider_overlap() {
 		if ( !collided ) continue;
 
 		// Push away if they overlap
-		if (position.value.x < other_position.value.x && velocity.value.x >= 0.0) velocity.value.x = -push_speed;
-		else if (velocity.value.x <= 0.0) velocity.value.x = push_speed;
+		if (position.value.x < other_position.value.x) position.value.x += -push_speed;
+		else position.value.x += push_speed;
 	}
 }
