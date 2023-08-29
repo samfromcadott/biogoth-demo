@@ -92,13 +92,13 @@ can_cancel = true
 # push = 12.0
 # can_cancel = true
 #
-# [[WeaponSet]] # Ground heavy
-# type = "Melee"
-# damage = 80
-# range = 150.0
-# rate = 1.0
-# push = 8.0
-# can_cancel = false
+[[WeaponSet]] # Air heavy
+type = "Charge"
+min_damage = 20
+max_damage = 200
+max_speed = 30.0
+range = 100.0
+direction = [0.0, 1.0]
 
 [[WeaponSet]] # Air block
 type = "Shield"
@@ -118,5 +118,7 @@ map = [
 	,["SIDE", "ON_FLOOR", 4]
 
 	,["NONE", "IN_AIR", 5]
-	,["SIDE", "IN_AIR", 6]
+	# ,["UP", "IN_AIR", 2]
+	,["DOWN", "IN_AIR", 6]
+	,["SIDE", "IN_AIR", 7]
 ]

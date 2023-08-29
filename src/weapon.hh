@@ -26,7 +26,7 @@ private:
 	float rate;		// Time between shots
 
 public:
-	Gun(){}
+	Gun() = default;
 	Gun(entt::entity owner, toml::value data);
 
 	void fire();
@@ -43,7 +43,7 @@ private:
 	bool can_cancel;
 
 public:
-	Melee(){}
+	Melee() = default;
 	Melee(entt::entity owner, toml::value data);
 
 	void fire();
@@ -59,7 +59,7 @@ private:
 	bool has_target = false; // True if owner is currently grabbing target
 
 public:
-	Bite(){}
+	Bite() = default;
 	Bite(entt::entity owner, toml::value data);
 
 	void fire();
@@ -75,8 +75,26 @@ private:
 	bool deflect; // If true incoming bullets are deflected
 
 public:
-	Shield(){}
+	Shield() = default;
 	Shield(entt::entity owner, toml::value data);
+
+	void fire();
+	void update();
+	void end();
+};
+
+class Charge : public Weapon {
+private:
+	int min_damage, max_damage;
+	float max_speed;
+	float range;
+	raylib::Vector2 direction;
+
+	bool done = false;
+
+public:
+	Charge() = default;
+	Charge(entt::entity owner, toml::value data);
 
 	void fire();
 	void update();

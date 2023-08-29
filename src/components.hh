@@ -137,8 +137,20 @@ struct RayCast {
 			raylib::Vector2( collider.GetX()+collider.GetWidth(),  collider.GetY()+collider.GetHeight() ),
 			NULL
 		);
+		bool top_intersect = CheckCollisionLines(
+			start, end,
+			raylib::Vector2( collider.GetX(),  collider.GetY() ),
+			raylib::Vector2( collider.GetX()+collider.GetWidth(),  collider.GetY() ),
+			NULL
+		);
+		bool bottom_intersect = CheckCollisionLines(
+			start, end,
+			raylib::Vector2( collider.GetX(),  collider.GetY()+collider.GetHeight() ),
+			raylib::Vector2( collider.GetX()+collider.GetWidth(),  collider.GetY()+collider.GetHeight() ),
+			NULL
+		);
 
-		return left_intersect || right_intersect;
+		return left_intersect || right_intersect || top_intersect || bottom_intersect;
 	}
 
 	void from_toml(const toml::value& v);
