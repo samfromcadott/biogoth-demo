@@ -58,6 +58,7 @@ void add_weapons(const entt::entity& entity, const std::string& entity_name) {
 		if (type == "Melee") registry.get<WeaponSet>(entity).push_back( new Melee(entity, item) );
 		else if (type == "Bite") registry.get<WeaponSet>(entity).push_back( new Bite(entity, item) );
 		else if (type == "Gun") registry.get<WeaponSet>(entity).push_back( new Gun(entity, item) );
+		else if (type == "Shield") registry.get<WeaponSet>(entity).push_back( new Shield(entity, item) );
 	}
 }
 

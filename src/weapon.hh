@@ -66,3 +66,19 @@ public:
 	void update();
 	void end();
 };
+
+class Shield : public Weapon {
+private:
+	float width;
+	float rate;
+	float length; // Amount of time the shield is active
+	bool deflect; // If true incoming bullets are deflected
+
+public:
+	Shield(){}
+	Shield(entt::entity owner, toml::value data);
+
+	void fire();
+	void update();
+	void end();
+};

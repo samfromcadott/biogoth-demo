@@ -65,13 +65,12 @@ rate = 1.0
 push = 8.0
 can_cancel = false
 
-# [[WeaponSet]]
-# type = "Gun"
-# damage = 10
-# count = 1
-# spread = 0.1
-# speed = 30.0
-# rate = 0.1
+[[WeaponSet]] # Ground block
+type = "Shield"
+width = 32.0
+rate = 0.5
+length = 0.4
+deflect = true
 
 # [DebugColor]
 # color = [135, 60, 190, 255]
@@ -81,4 +80,5 @@ map = [
 	["NONE", "ON_FLOOR", 1]
 	,["UP", "ON_FLOOR", 2]
 	,["DOWN", "ON_FLOOR", 3]
+	,["SIDE", "ON_FLOOR", 4]
 ]
