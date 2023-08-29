@@ -41,6 +41,8 @@ type = "Bite"
 damage = 1
 range = 64.0
 
+# Ground attacks
+
 [[WeaponSet]] # Normal attack
 type = "Melee"
 damage = 40
@@ -72,6 +74,39 @@ rate = 0.5
 length = 0.4
 deflect = true
 
+# Air attacks
+
+[[WeaponSet]] # Normal air attack
+type = "Melee"
+damage = 40
+range = 100.0
+rate = 0.5
+push = 6.0
+can_cancel = true
+
+# [[WeaponSet]] # Ground kick
+# type = "Melee"
+# damage = 5
+# range = 100.0
+# rate = 0.5
+# push = 12.0
+# can_cancel = true
+#
+# [[WeaponSet]] # Ground heavy
+# type = "Melee"
+# damage = 80
+# range = 150.0
+# rate = 1.0
+# push = 8.0
+# can_cancel = false
+
+[[WeaponSet]] # Air block
+type = "Shield"
+width = 32.0
+rate = 0.5
+length = 0.4
+deflect = true
+
 # [DebugColor]
 # color = [135, 60, 190, 255]
 
@@ -81,4 +116,7 @@ map = [
 	,["UP", "ON_FLOOR", 2]
 	,["DOWN", "ON_FLOOR", 3]
 	,["SIDE", "ON_FLOOR", 4]
+
+	,["NONE", "IN_AIR", 5]
+	,["SIDE", "IN_AIR", 6]
 ]
