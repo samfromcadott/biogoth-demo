@@ -88,6 +88,7 @@ private:
 	int min_damage, max_damage;
 	float max_speed;
 	float range;
+	float push;
 	raylib::Vector2 direction;
 
 	bool done = false;

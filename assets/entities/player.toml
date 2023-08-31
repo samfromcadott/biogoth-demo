@@ -71,7 +71,7 @@ can_cancel = false
 type = "Shield"
 width = 32.0
 rate = 0.5
-length = 0.4
+length = 0.5
 deflect = true
 
 # Air attacks
@@ -84,27 +84,29 @@ rate = 0.5
 push = 6.0
 can_cancel = true
 
-# [[WeaponSet]] # Ground kick
-# type = "Melee"
-# damage = 5
-# range = 100.0
-# rate = 0.5
-# push = 12.0
-# can_cancel = true
-#
+[[WeaponSet]] # Drop kick
+type = "Charge"
+min_damage = 10
+max_damage = 80
+max_speed = 10.0
+range = 100.0
+push = 16.0
+direction = [1.0, 0.0]
+
 [[WeaponSet]] # Air heavy
 type = "Charge"
 min_damage = 20
 max_damage = 200
 max_speed = 30.0
 range = 100.0
+push = 0.0
 direction = [0.0, 1.0]
 
 [[WeaponSet]] # Air block
 type = "Shield"
 width = 32.0
 rate = 0.5
-length = 0.4
+length = 0.5
 deflect = true
 
 # [DebugColor]
@@ -118,7 +120,7 @@ map = [
 	,["SIDE", "ON_FLOOR", 4]
 
 	,["NONE", "IN_AIR", 5]
-	# ,["UP", "IN_AIR", 2]
-	,["DOWN", "IN_AIR", 6]
-	,["SIDE", "IN_AIR", 7]
+	,["UP", "IN_AIR", 6]
+	,["DOWN", "IN_AIR", 7]
+	,["SIDE", "IN_AIR", 8]
 ]

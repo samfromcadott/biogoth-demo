@@ -35,7 +35,7 @@ max = 100
 [[WeaponSet]]
 type = "Gun"
 damage = 1
-count = 20
+count = 8
 spread = 0.5
 speed = 15.0
 rate = 0.8333
