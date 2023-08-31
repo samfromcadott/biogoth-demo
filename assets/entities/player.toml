@@ -71,7 +71,7 @@ can_cancel = false
 type = "Shield"
 width = 32.0
 rate = 0.5
-length = 0.5
+length = 0.4
 deflect = true
 
 # Air attacks
@@ -106,7 +106,7 @@ direction = [0.0, 1.0]
 type = "Shield"
 width = 32.0
 rate = 0.5
-length = 0.5
+length = 0.4
 deflect = true
 
 # [DebugColor]

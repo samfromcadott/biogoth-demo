@@ -25,7 +25,7 @@ void Shield::update() {
 
 	timer -= GetFrameTime();
 	if (timer <= 0.0) end();
-	if (timer < length) return; // Don't do anything pass the blocking window
+	if (timer > length) return; // Don't do anything pass the blocking window
 
 	auto& position = *registry.try_get<Position>(owner);
 	auto& collider = *registry.try_get<Collider>(owner);
