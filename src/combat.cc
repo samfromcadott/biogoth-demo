@@ -13,6 +13,12 @@ void death() {
 	for ( auto [entity, health, collider, animation, character, movement] : view.each() ) {
 		if ( health.now > 0 ) continue; // Skip living characters
 
+		// Remove stun from stunned characters
+		if ( registry.any_of<Stun>(entity) ) {
+			registry.remove<Stun>(entity);
+			character.active = true;
+		}
+
 		// Only do right after death
 		if (!character.active) continue;
 
