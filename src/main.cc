@@ -136,6 +136,7 @@ void game_update() {
 		death_timer.update();
 	}
 
+	stun();
 	character_think();
 
 	// Enemy actions

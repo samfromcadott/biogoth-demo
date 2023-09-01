@@ -23,10 +23,13 @@ void bullets(); // Updates bullets
 void enemy_think();
 
 // General
-void character_think();
-void death();
 void camera_update();
 void particle_update();
+
+// Characters
+void character_think();
+void death();
+void stun();
 
 // Render
 void render_colliders();

@@ -16,3 +16,12 @@ void character_think() {
 		character.brain->think();
 	}
 }
+
+void stun() {
+	for ( auto [entity, character, stun] : registry.view<Character, Stun>().each() ) {
+		stun.timer -= GetFrameTime();
+		character.active = stun.timer > 0.0? false : true;
+
+		if (stun.timer <= 0.0) registry.remove<Stun>(entity);
+	}
+}
