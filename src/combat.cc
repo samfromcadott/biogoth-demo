@@ -9,17 +9,16 @@
 #include "util.hh"
 
 void death() {
-	auto view = registry.view<const Health, Collider, AnimationState, Character, Velocity>();
-	for ( auto [entity, health, collider, animation, character, velocity] : view.each() ) {
+	auto view = registry.view<const Health, Collider, AnimationState, Character, Movement>();
+	for ( auto [entity, health, collider, animation, character, movement] : view.each() ) {
 		if ( health.now > 0 ) continue; // Skip living characters
-
-		velocity.value.x = move_towards(velocity.value.x, 0.0, 1.0);
 
 		// Only do right after death
 		if (!character.active) continue;
 
 		collider.enabled = false;
 		character.active = false;
+		movement.direction.x = 0;
 
 		play_sound("guard_death", 0.4 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);
 	}
