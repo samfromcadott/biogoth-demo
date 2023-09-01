@@ -94,8 +94,9 @@ void Bite::end() {
 	has_target = false;
 
 	// Enable the target
-	if ( registry.any_of<Character>(target) )
-		registry.get<Character>(target).active = true;
+	// if ( registry.any_of<Character>(target) )
+	// 	registry.get<Character>(target).active = true;
+	registry.emplace_or_replace<Stun>(target, 1.0f);
 
 
 	velocity.value.y -= 3.0; // Stops them from attacking for a bit
