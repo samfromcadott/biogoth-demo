@@ -142,9 +142,6 @@ void game_update() {
 	stun();
 	character_think();
 
-	// Enemy actions
-	// enemy_think();
-
 	animate_character();
 	particle_update();
 
