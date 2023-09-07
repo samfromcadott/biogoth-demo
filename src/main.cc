@@ -119,6 +119,9 @@ void game_start() {
 	// Reset the camera
 	camera.target = registry.get<const Position>(player).value;
 	player_died = false;
+
+	// Start the music
+	set_music("assets/audio/music/theme.mp3");
 }
 
 void game_update() {
@@ -156,6 +159,9 @@ void game_update() {
 	move_collide();
 
 	death();
+
+	// Audio
+	play_music();
 
 	if ( IsKeyPressed(KEY_R) ) game_start(); // Voluntary reset
 
