@@ -17,6 +17,9 @@ void Character::from_toml(const toml::value& v) {
 	active = true;
 	brain = nullptr;
 	team = 0;
+
+	death_sound = toml::find_or<std::string>(v, "death_sound", "");
+	bite_sound = toml::find_or<std::string>(v, "bite_sound", "");
 }
 
 void Movement::from_toml(const toml::value& v) {

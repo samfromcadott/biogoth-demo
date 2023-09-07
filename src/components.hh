@@ -28,6 +28,8 @@ struct Character {
 	bool active;
 	Brain* brain;
 	uint8_t team;
+	std::string death_sound;
+	std::string bite_sound;
 
 	void from_toml(const toml::value& v);
 };

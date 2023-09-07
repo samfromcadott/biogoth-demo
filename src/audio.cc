@@ -8,6 +8,8 @@ void load_sound(std::string name) {
 }
 
 void play_sound(std::string name, float volume, float pitch) {
+	if ( !sound_list.count(name) ) return; // Exit if there is no sound with that name
+
 	sound_list[name].SetVolume(volume);
 	sound_list[name].SetPitch(pitch);
 	sound_list[name].Play();
