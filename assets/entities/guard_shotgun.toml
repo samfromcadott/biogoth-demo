@@ -6,6 +6,7 @@ max_speed = 3.0
 [Character]
 brain = {type = "guard"}
 death_sound = "guard_death"
+bite_sound = "guard_bitten"
 
 [AnimationState]
 sprite = "guard"

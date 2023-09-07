@@ -40,7 +40,7 @@ void Bite::fire() {
 		velocity.value.x = 0.0;
 
 		// Play the guard scream
-		play_sound("guard_bitten", 0.7);
+		play_sound(character.bite_sound, 0.7);
 
 		target_animation.set_state(BITE);
 
