@@ -46,6 +46,7 @@ int main() {
 	sprite_list["guard"] = Sprite("guard");
 	sprite_list["vampire"] = Sprite("vampire");
 	sprite_list["sprite_test"] = Sprite("sprite_test");
+	sprite_list["bullet"] = Sprite("bullet");
 
 	// Load sounds
 	InitAudioDevice();

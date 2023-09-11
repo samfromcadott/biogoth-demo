@@ -37,7 +37,7 @@ void Gun::fire() {
 		const auto bullet = registry.create();
 		registry.emplace<Position>( bullet, bullet_start );
 		registry.emplace<Velocity>( bullet, v );
-		registry.emplace<Bullet>( bullet, damage );
+		registry.emplace<Bullet>( bullet, damage, &sprite_list["bullet"] );
 	}
 
 	timer = rate;

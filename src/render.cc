@@ -37,9 +37,15 @@ void render_colliders() {
 }
 
 void render_bullets() {
-	auto view = registry.view<const Position, const Bullet>();
-	for ( auto [entity, position, bullet] : view.each() ) {
-		DrawCircleV(position.value, 4, ORANGE);
+	auto view = registry.view<const Position, const Bullet, const Velocity>();
+	for ( auto [entity, position, bullet, velocity] : view.each() ) {
+		float rotation = atan2(velocity.value.y, velocity.value.x) * (180/PI);
+
+		// Render the bullet sprite
+		if (bullet.sprite)
+			bullet.sprite->render(position.value, IDLE, 0.0, +1, rotation);
+		else
+			DrawCircleV(position.value, 4, ORANGE);
 	}
 }
 
