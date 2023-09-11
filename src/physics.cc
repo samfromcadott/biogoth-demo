@@ -30,9 +30,10 @@ void character_movement() {
 	}
 }
 
-// Checks if a collider is overlapping a non-empty tile
-bool tile_overlap(const Position& position, const Collider& collider) {
+// Finds the direction a collision comes from
+raylib::Vector2 overlap_direction(const Position& position, const Collider& collider) {
 	const float e = 0.1; // Ensures next tile isn't counted
+	raylib::Vector2 direction(0, 0);
 
 	int start_x = (position.value.x - collider.width/2) / tilemap.tile_size;
 	int end_x = (position.value.x - e + collider.width/2) / tilemap.tile_size;
@@ -43,15 +44,22 @@ bool tile_overlap(const Position& position, const Collider& collider) {
 	for (int y=start_y; y<=end_y; y++) {
 		if ( !tilemap.tile_in_map(x, y) ) continue; // If the coordinate is out of bounds go to the next one
 		if ( tilemap(x, y) == empty_tile ) continue;
-		if ( tilemap(x, y) != empty_tile ) return true;
+
+		if (x == start_x) direction.x = -1;
+		else if (x == end_x) direction.x = +1;
+
+		if (y == start_y) direction.y = -1;
+		else if (y == end_y) direction.y = +1;
 	}
 
-	return false; // Return false if no solid tiles were found
+	return direction; // Return false if no solid tiles were found
 }
 
 void move_collide() {
 	auto view = registry.view<Position, Velocity, Collider>();
 	for ( auto [entity, position, velocity, collider] : view.each() ) {
+		raylib::Vector2 direction; // Direction the collision comes from
+
 		collider.on_floor = false;
 		collider.wall_direction = 0;
 
@@ -81,15 +89,15 @@ void move_collide() {
 		position.value.x += velocity.value.x;
 
 		// Check for collision
-
-		if ( tile_overlap(position, collider) ) {
+		direction = overlap_direction(position, collider);
+		if ( direction.x != 0 ) {
 			// From left
-			if ( velocity.value.x > 0 || (left_collide && !right_collide) ) {
+			if ( direction.x == +1 ) {
 				position.value.x = floor(position.value.x / tilemap.tile_size) * tilemap.tile_size;
 			}
 
 			// From right
-			else if ( velocity.value.x < 0 || (right_collide && !left_collide) ) {
+			else if ( direction.x == -1 ) {
 				position.value.x = ceil(position.value.x / tilemap.tile_size) * tilemap.tile_size;
 			}
 
@@ -99,16 +107,17 @@ void move_collide() {
 		// Repeat for the other axis
 		position.value.y += velocity.value.y;
 
-		if ( tile_overlap(position, collider) ) {
+		direction = overlap_direction(position, collider);
+		if ( direction.y != 0 ) {
 			// From above
-			if ( velocity.value.y > 0 ) {
+			if ( direction.y == +1 ) {
 				position.value.y = floor(position.value.y / tilemap.tile_size) * tilemap.tile_size;
 				collider.on_floor = true;
 				velocity.value.y = 0.0;
 			}
 
 			// From below
-			else if ( velocity.value.y < 0 ) {
+			if ( direction.y == -1 ) {
 				position.value.y = ceil(position.value.y / tilemap.tile_size) * tilemap.tile_size;
 
 				// Only stop when not at corner
