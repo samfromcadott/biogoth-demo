@@ -21,21 +21,20 @@ void Bite::fire() {
 	auto& facing = *registry.try_get<Facing>(owner);
 
 	RayCast ray;
-	ray.start = position.value + raylib::Vector2( (collider.width/2+0.001)*facing.direction, -collider.height/2 );
+	ray.start = position.value + raylib::Vector2( (collider.width/2+0.5)*facing.direction, -collider.height/2 );
 	ray.end = ray.start + raylib::Vector2(range) * facing.direction;
 
 	// Loop over potential targets
 	auto target_view = registry.view<Position, Character, Velocity, Collider, Health, AnimationState>();
 	for ( auto [target, target_position, character, target_velocity, target_collider, target_health, target_animation] : target_view.each() ) {
-		// Skip non-interected entities
-		if (!target_collider.enabled) continue;
-		if ( !ray.intersect( target_collider.get_rectangle(target_position.value) ) ) continue;
-
+		if (target == owner) continue; // Skip self
+		if (!character.active) continue; // Skip disabled character
+		if (!target_collider.enabled) continue; // Skip disabled colliders
+		if ( !ray.intersect( target_collider.get_rectangle(target_position.value) ) ) continue; // Skip non-interected entities
 		if ( target_health.now <= 0 ) continue; // Skip dead enemies
 
 		// Disable movement
-		if ( registry.any_of<Movement>(owner) )
-			registry.get<Movement>(owner).can_move = false;
+		registry.get<Movement>(owner).can_move = false;
 
 		velocity.value.x = 0.0;
 
@@ -81,16 +80,16 @@ void Bite::update() {
 }
 
 void Bite::end() {
+	active = false;
+
 	// Reenable movementr
-	if ( registry.any_of<Movement>(owner) )
-		registry.get<Movement>(owner).can_move = true;
+	registry.get<Movement>(owner).can_move = true;
 
 	if (!has_target) return;
 
 	auto& velocity = *registry.try_get<Velocity>(target);
 	auto& collider = *registry.try_get<Collider>(target);
 
-	active = false;
 	has_target = false;
 
 	// Enable the target
