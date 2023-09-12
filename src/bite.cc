@@ -93,8 +93,6 @@ void Bite::end() {
 	has_target = false;
 
 	// Enable the target
-	// if ( registry.any_of<Character>(target) )
-	// 	registry.get<Character>(target).active = true;
 	registry.emplace_or_replace<Stun>(target, 1.0f);
 
 
