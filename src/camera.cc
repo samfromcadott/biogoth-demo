@@ -59,6 +59,16 @@ raylib::Vector2 CameraSystem::center_close_characters() {
 	return raylib::Vector2(0, 0);
 }
 
+void CameraSystem::clamp_camera() {
+	const float map_width = tilemap.width * tilemap.tile_size;
+	const float map_height = tilemap.height * tilemap.tile_size;
+
+	if (camera.target.x < camera.offset.x) camera.target.x = camera.offset.x; // Left edge
+	else if (camera.target.x > map_width - camera.offset.x) camera.target.x = map_width - camera.offset.x; // Right edge
+	if (camera.target.y < camera.offset.y) camera.target.y = camera.offset.y; // Top edge
+	else if (camera.target.y > map_height - camera.offset.y) camera.target.y = map_height - camera.offset.y; // Bottom edge
+}
+
 void CameraSystem::init() {
 	camera = raylib::Camera2D( raylib::Vector2(screen_width/2, screen_height/2), {0.0, 0.0} );
 	base = find_player();
@@ -66,8 +76,10 @@ void CameraSystem::init() {
 }
 
 void CameraSystem::update() {
-	base += track_player() + look_ahead();
+	raylib::Vector2 delta = track_player() + look_ahead();
+	base += delta * GetFrameTime();
 	camera.target = base + offset;
+	clamp_camera();
 }
 
 raylib::Camera2D& CameraSystem::get_camera() {

@@ -15,6 +15,7 @@ private:
 	static raylib::Vector2 look_ahead();
 	static std::vector< raylib::Vector2 > find_close_characters();
 	static raylib::Vector2 center_close_characters();
+	static void clamp_camera();
 
 public:
 	static void init();
