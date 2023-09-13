@@ -19,6 +19,10 @@ void play_music() {
 	music.Update();
 }
 
+void stop_music() {
+	music.Stop();
+}
+
 void set_music(const std::string filename) {
 	music = raylib::Music(filename);
 	music.Play();

@@ -164,6 +164,7 @@ void game_update() {
 	play_music();
 
 	if ( IsKeyPressed(KEY_R) ) game_start(); // Voluntary reset
+	if ( IsKeyPressed(KEY_M) ) stop_music();
 
 	// camera_update();
 	CameraSystem::update();
