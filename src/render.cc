@@ -5,10 +5,11 @@
 #include "globals.hh"
 #include "components.hh"
 #include "systems.hh"
+#include "camera.hh"
 
 void render_game(raylib::Window& window) {
 	BeginDrawing();
-	camera.BeginMode();
+	CameraSystem::get_camera().BeginMode();
 
 		window.ClearBackground( raylib::Color(111, 133, 163, 255) );
 
@@ -19,7 +20,7 @@ void render_game(raylib::Window& window) {
 		render_bullets();
 		render_particles();
 
-	camera.EndMode();
+	CameraSystem::get_camera().EndMode();
 
 	// UI
 	health_bar();

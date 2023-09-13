@@ -14,6 +14,7 @@ extern const float G; // Gravity acceleration
 extern int screen_width;
 extern int screen_height;
 
+extern entt::entity player;
 extern bool player_died;
 extern bool show_help;
 

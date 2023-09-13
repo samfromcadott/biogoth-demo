@@ -11,6 +11,7 @@
 #include "controls.hh"
 #include "entities.hh"
 #include "particle.hh"
+#include "camera.hh"
 
 using namespace raylib;
 
@@ -118,7 +119,8 @@ void game_start() {
 	}
 
 	// Reset the camera
-	camera.target = registry.get<const Position>(player).value;
+	// camera.target = registry.get<const Position>(player).value;
+	CameraSystem::init();
 	player_died = false;
 
 	// Start the music
@@ -163,7 +165,8 @@ void game_update() {
 
 	if ( IsKeyPressed(KEY_R) ) game_start(); // Voluntary reset
 
-	camera_update();
+	// camera_update();
+	CameraSystem::update();
 
 	help_timer.update();
 }

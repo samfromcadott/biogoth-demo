@@ -6,6 +6,7 @@
 #include "globals.hh"
 #include "tilemap.hh"
 #include "entities.hh"
+#include "camera.hh"
 
 Tilemap::Tilemap(const std::string filename) {
 	// FileData map_file_data = File::open(filename);
@@ -111,8 +112,8 @@ void MapLayer::draw_tile() const {
 		if (t == empty_tile) continue;
 
 		Rectangle dest = {
-			offset.x + (parallax.x * camera.target.x) + (x * tile_size),
-			offset.y + (parallax.y * camera.target.y) + (y * tile_size),
+			offset.x + (parallax.x * CameraSystem::get_camera().target.x) + (x * tile_size),
+			offset.y + (parallax.y * CameraSystem::get_camera().target.y) + (y * tile_size),
 			float(tile_size),
 			float(tile_size)
 		};
@@ -130,8 +131,8 @@ void MapLayer::draw_tile() const {
 
 void MapLayer::draw_image() const {
 	Vector2 origin = {
-		camera.target.x - float(GetScreenWidth() / 2),
-		camera.target.y - float(GetScreenHeight() / 2)
+		CameraSystem::get_camera().target.x - float(GetScreenWidth() / 2),
+		CameraSystem::get_camera().target.y - float(GetScreenHeight() / 2)
 	};
 
 	Rectangle source = {
