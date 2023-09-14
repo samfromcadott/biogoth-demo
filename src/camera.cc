@@ -46,7 +46,8 @@ raylib::Vector2 CameraSystem::track_player() {
 }
 
 raylib::Vector2 CameraSystem::look_ahead() {
-	return registry.get<Velocity>(player).value;
+	raylib::Vector2 scale(96.0, 32.0);
+	return registry.get<Velocity>(player).value * scale;
 }
 
 std::vector< raylib::Vector2 > CameraSystem::find_close_characters() {
