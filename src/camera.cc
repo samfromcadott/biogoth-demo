@@ -50,13 +50,25 @@ raylib::Vector2 CameraSystem::look_ahead() {
 }
 
 std::vector< raylib::Vector2 > CameraSystem::find_close_characters() {
-	// Find all characters within a certain radius of the player
-	return {};
+	std::vector< raylib::Vector2 > character_list;
+
+	auto view = registry.view<const Character, const Position>();
+	for ( auto [entity, character, position] : view.each() ) {
+		if ( position.value.Distance( find_player() ) < 800.0 )
+			character_list.push_back( position.value );
+	}
+
+	return character_list;
 }
 
+/// Find the average of all characters near the player
 raylib::Vector2 CameraSystem::center_close_characters() {
-	// Find the average of all characters near the player
-	return raylib::Vector2(0, 0);
+	const auto characters = find_close_characters();
+	raylib::Vector2 sum;
+
+	for ( const auto& v : characters ) sum += v;
+
+	return ( sum / characters.size() ) - base;
 }
 
 void CameraSystem::clamp_camera() {
@@ -76,7 +88,7 @@ void CameraSystem::init() {
 }
 
 void CameraSystem::update() {
-	raylib::Vector2 delta = track_player() + look_ahead();
+	raylib::Vector2 delta = track_player() + look_ahead() + center_close_characters();
 	base += delta * GetFrameTime();
 	camera.target = base + offset;
 	clamp_camera();
