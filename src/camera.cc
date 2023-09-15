@@ -6,6 +6,7 @@
 #include "components.hh"
 #include "systems.hh"
 #include "camera.hh"
+#include "util.hh"
 
 void camera_update() {
 	float map_width = tilemap.width * tilemap.tile_size;
@@ -55,7 +56,7 @@ std::vector< raylib::Vector2 > CameraSystem::find_close_characters() {
 
 	auto view = registry.view<const Character, const Position>();
 	for ( auto [entity, character, position] : view.each() ) {
-		if ( position.value.Distance( find_player() ) < 800.0 )
+		if ( position.value.Distance( find_player() ) < close_distance )
 			character_list.push_back( position.value );
 	}
 
@@ -63,8 +64,7 @@ std::vector< raylib::Vector2 > CameraSystem::find_close_characters() {
 }
 
 /// Find the average of all characters near the player
-raylib::Vector2 CameraSystem::center_close_characters() {
-	const auto characters = find_close_characters();
+raylib::Vector2 CameraSystem::center_close_characters(const std::vector< raylib::Vector2 >& characters) {
 	raylib::Vector2 sum;
 
 	for ( const auto& v : characters ) sum += v;
@@ -72,26 +72,66 @@ raylib::Vector2 CameraSystem::center_close_characters() {
 	return ( sum / characters.size() ) - base;
 }
 
+/// Zooms to show all nearby characters
+float CameraSystem::zoom_to_characters(const std::vector< raylib::Vector2 >& characters) {
+	std::vector<float> values_x, values_y;
+
+	for (auto p : characters) {
+		values_x.push_back(p.x);
+		values_y.push_back(p.y);
+	}
+
+	// Get the maximum distance of the characters
+	float min_x = *std::min_element( values_x.begin(), values_x.end() );
+	float min_y = *std::min_element( values_y.begin(), values_y.end() );
+
+	float max_x = *std::max_element( values_x.begin(), values_x.end() );
+	float max_y = *std::max_element( values_y.begin(), values_y.end() );
+
+	float distance = Vector2Distance( {min_x, min_y}, {max_x, max_y} );
+
+	float new_zoom = ease( distance / (close_distance * 2), max_zoom, min_zoom );
+	return new_zoom - zoom;
+}
+
 void CameraSystem::clamp_camera() {
 	const float map_width = tilemap.width * tilemap.tile_size;
 	const float map_height = tilemap.height * tilemap.tile_size;
 
-	if (camera.target.x < camera.offset.x) camera.target.x = camera.offset.x; // Left edge
-	else if (camera.target.x > map_width - camera.offset.x) camera.target.x = map_width - camera.offset.x; // Right edge
-	if (camera.target.y < camera.offset.y) camera.target.y = camera.offset.y; // Top edge
-	else if (camera.target.y > map_height - camera.offset.y) camera.target.y = map_height - camera.offset.y; // Bottom edge
+	float z = 1.0 / zoom;
+
+	if (camera.target.x < camera.offset.x * z)
+		camera.target.x = camera.offset.x * z; // Left edge
+	else if ( camera.target.x > map_width - camera.offset.x * z )
+		camera.target.x = map_width - camera.offset.x * z; // Right edge
+	if (camera.target.y < camera.offset.y * z)
+		camera.target.y = camera.offset.y * z; // Top edge
+	else if ( camera.target.y > map_height - camera.offset.y * z )
+		camera.target.y = map_height - camera.offset.y * z; // Bottom edge
 }
 
 void CameraSystem::init() {
+	zoom = 1.0;
+	max_zoom = 1.0;
+	min_zoom = 0.8;
+	close_distance = 800.0;
+
 	camera = raylib::Camera2D( raylib::Vector2(screen_width/2, screen_height/2), {0.0, 0.0} );
 	base = find_player();
 	offset = raylib::Vector2(0, 0);
 }
 
 void CameraSystem::update() {
-	raylib::Vector2 delta = track_player() + look_ahead() + center_close_characters();
+	const auto characters = find_close_characters();
+
+	raylib::Vector2 delta = track_player() + look_ahead() + center_close_characters(characters);
+	float delta_zoom = zoom_to_characters(characters);
+
 	base += delta * GetFrameTime();
+	zoom += delta_zoom * GetFrameTime();
+
 	camera.target = base + offset;
+	camera.zoom = zoom;
 	clamp_camera();
 }
 
