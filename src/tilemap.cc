@@ -130,9 +130,10 @@ void MapLayer::draw_tile() const {
 }
 
 void MapLayer::draw_image() const {
+	const float z = 1 / CameraSystem::get_camera().zoom;
 	Vector2 origin = {
-		CameraSystem::get_camera().target.x - float(GetScreenWidth() / 2),
-		CameraSystem::get_camera().target.y - float(GetScreenHeight() / 2)
+		CameraSystem::get_camera().target.x - float(GetScreenWidth() / 2) * z,
+		CameraSystem::get_camera().target.y - float(GetScreenHeight() / 2) * z
 	};
 
 	Rectangle source = {
@@ -145,8 +146,8 @@ void MapLayer::draw_image() const {
 	Rectangle dest = {
 		origin.x,
 		origin.y,
-		(float)GetScreenWidth(),
-		(float)GetScreenHeight()
+		(float)GetScreenWidth() * z,
+		(float)GetScreenHeight() * z
 	};
 
 	DrawTexturePro(
