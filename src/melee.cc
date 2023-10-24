@@ -5,6 +5,7 @@
 #include "globals.hh"
 #include "components.hh"
 #include "weapon.hh"
+#include "systems.hh"
 #include "util.hh"
 
 Melee::Melee(entt::entity owner, toml::value data) {
@@ -42,7 +43,8 @@ void Melee::fire() {
 		if (target_health.now <= 0) continue; // Skip dead enemies
 
 		std::cout << "SLASH!" << '\n';
-		target_health.now -= damage;
+		// target_health.now -= damage;
+		deal_damage(target, damage);
 
 		// Push the enemy back
 		target_velocity.value -= (ray.start - ray.end).Normalize() * push;

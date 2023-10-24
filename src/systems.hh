@@ -16,6 +16,7 @@ void gravity();
 void collider_overlap(); // Pushes colliders apart if they overlap
 
 // Combat
+void deal_damage(entt::entity target, int damage); // Not a system
 void weapon_update(); // Runs the update function for all weapons
 void bullets(); // Updates bullets
 
