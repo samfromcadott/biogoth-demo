@@ -30,6 +30,7 @@ void particle_update();
 void character_think();
 void death();
 void stun();
+void death_by_pitfall(); // Kills characters when they fall out of the map
 
 // Render
 void render_colliders();

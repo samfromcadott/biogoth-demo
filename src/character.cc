@@ -25,3 +25,11 @@ void stun() {
 		if (stun.timer <= 0.0) registry.remove<Stun>(entity);
 	}
 }
+
+void death_by_pitfall() {
+	for ( auto [entity, character, position, health, collider] : registry.view<Character, Position, Health, Collider>().each() ) {
+		// Check if the character's whole collider has fallen out of the map
+		if (position.value.y > tilemap.height * tilemap.tile_size + collider.height )
+			health.now = 0;
+	}
+}

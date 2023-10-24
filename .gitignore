@@ -12,3 +12,7 @@ docs
 assets/audio/sfx/*.ogg
 assets/audio/sfx/*/
 vcpkg
+*.dae
+*.fbx
+*.blend1
+*.obj

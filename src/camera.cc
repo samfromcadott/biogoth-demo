@@ -124,7 +124,10 @@ void CameraSystem::init() {
 void CameraSystem::update() {
 	const auto characters = find_close_characters();
 
-	raylib::Vector2 delta = track_player() + look_ahead() + center_close_characters(characters);
+	raylib::Vector2 delta =
+		track_player() * 0.2 +
+		look_ahead() * 0.6 +
+		center_close_characters(characters);
 	float delta_zoom = zoom_to_characters(characters);
 
 	base += delta * GetFrameTime();
