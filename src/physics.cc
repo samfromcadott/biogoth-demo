@@ -74,8 +74,8 @@ void move_collide() {
 		);
 
 		// Upper corner collision
-		bool left_collide = tilemap(left_side) != empty_tile;
-		bool right_collide = tilemap(right_side) != empty_tile;
+		bool left_collide = tilemap.tile_in_map(left_side) && tilemap(left_side) != empty_tile;
+		bool right_collide = tilemap.tile_in_map(right_side) && tilemap(right_side) != empty_tile;
 
 		// Slide around corner
 		const float corner_push = 3;
