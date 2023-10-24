@@ -13,6 +13,15 @@ void ParticleSystem::start(Particle& particle) {
 	particle.age = ( float( rand() ) / float(RAND_MAX) ) * length; // Randomize age
 }
 
+void ParticleSystem::check_if_done() {
+	int finished = 0;
+	for (auto& particle : particles) {
+		if (particle.age > length) finished += 1;
+	}
+
+	if (finished == count) done = true;
+}
+
 void ParticleSystem::start() {
 	particles.resize(count);
 
@@ -41,8 +50,9 @@ void ParticleSystem::update() {
 		particle.position += velocity * GetFrameTime();
 		particle.direction = velocity.Normalize();
 		particle.age += GetFrameTime();
-
 	}
+
+	if (!loop) check_if_done();
 }
 
 void ParticleSystem::draw() {
@@ -65,6 +75,8 @@ void ParticleSystem::draw() {
 void particle_update() {
 	for ( auto [entity, particle_system] : registry.view<ParticleSystem>().each() ) {
 		particle_system.update();
+
+		if (particle_system.done) registry.destroy(entity);
 	}
 }
 

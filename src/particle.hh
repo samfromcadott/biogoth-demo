@@ -15,6 +15,7 @@ private:
 	std::vector<Particle> particles;
 
 	void start(Particle& particle); // Initializes particle
+	void check_if_done(); // Checks if the particle system has finished
 
 public:
 	raylib::Vector2 position; // Emitter position
@@ -26,6 +27,7 @@ public:
 	int count;
 	bool loop;
 	bool collision;
+	bool done = false;
 	Sprite* sprite = nullptr;
 
 	float size_start, size_end;
