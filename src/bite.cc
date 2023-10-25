@@ -21,8 +21,8 @@ void Bite::fire() {
 	auto& facing = *registry.try_get<Facing>(owner);
 
 	RayCast ray;
-	ray.start = position.value + raylib::Vector2( (collider.width/2+0.5)*facing.direction, -collider.height/2 );
-	ray.end = ray.start + raylib::Vector2(range) * facing.direction;
+	ray.start = position.value + vec2( (collider.width/2+0.5)*facing.direction, -collider.height/2 );
+	ray.end = ray.start + vec2(range) * facing.direction;
 
 	// Loop over potential targets
 	auto target_view = registry.view<Position, Character, Velocity, Collider, Health, AnimationState>();

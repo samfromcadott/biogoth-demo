@@ -1,5 +1,6 @@
 #pragma once
 
+#include "typedefs.hh"
 #include "components.hh"
 
 // Player actions

@@ -5,6 +5,7 @@
 #include <raylib-cpp.hpp>
 #include <toml.hpp>
 
+#include "typedefs.hh"
 #include "sprite.hh"
 #include "weapon.hh"
 #include "brain.hh"
@@ -35,7 +36,7 @@ struct Character {
 };
 
 struct Movement {
-	raylib::Vector2 direction;
+	vec2 direction;
 
 	float max_speed;
 	float ground_acceleration;
@@ -56,13 +57,13 @@ struct Gravity { // Makes an object affected by gravity
 };
 
 struct Position {
-	raylib::Vector2 value;
+	vec2 value;
 
 	void from_toml(const toml::value& v);
 };
 
 struct Velocity {
-	raylib::Vector2 value;
+	vec2 value;
 
 	void from_toml(const toml::value& v);
 };
@@ -79,7 +80,7 @@ struct Collider {
 	int wall_direction;
 	bool enabled; // Disabled collision with other entities
 
-	raylib::Rectangle get_rectangle(raylib::Vector2 position) const {
+	raylib::Rectangle get_rectangle(vec2 position) const {
 		return raylib::Rectangle(
 			position.x - width/2,
 			position.y - height,
@@ -98,7 +99,7 @@ struct Health {
 };
 
 struct DebugColor {
-	raylib::Color color;
+	rgba color;
 
 	void from_toml(const toml::value& v);
 };
@@ -106,31 +107,31 @@ struct DebugColor {
 typedef std::vector<Weapon*> WeaponSet;
 
 struct RayCast {
-	raylib::Vector2 start, end;
+	vec2 start, end;
 
 	bool intersect(raylib::Rectangle collider) const {
 		bool left_intersect = CheckCollisionLines(
 			start, end,
-			raylib::Vector2( collider.GetX(),  collider.GetY() ),
-			raylib::Vector2( collider.GetX(),  collider.GetY()+collider.GetHeight() ),
+			vec2( collider.GetX(),  collider.GetY() ),
+			vec2( collider.GetX(),  collider.GetY()+collider.GetHeight() ),
 			NULL
 		);
 		bool right_intersect = CheckCollisionLines(
 			start, end,
-			raylib::Vector2( collider.GetX()+collider.GetWidth(),  collider.GetY() ),
-			raylib::Vector2( collider.GetX()+collider.GetWidth(),  collider.GetY()+collider.GetHeight() ),
+			vec2( collider.GetX()+collider.GetWidth(),  collider.GetY() ),
+			vec2( collider.GetX()+collider.GetWidth(),  collider.GetY()+collider.GetHeight() ),
 			NULL
 		);
 		bool top_intersect = CheckCollisionLines(
 			start, end,
-			raylib::Vector2( collider.GetX(),  collider.GetY() ),
-			raylib::Vector2( collider.GetX()+collider.GetWidth(),  collider.GetY() ),
+			vec2( collider.GetX(),  collider.GetY() ),
+			vec2( collider.GetX()+collider.GetWidth(),  collider.GetY() ),
 			NULL
 		);
 		bool bottom_intersect = CheckCollisionLines(
 			start, end,
-			raylib::Vector2( collider.GetX(),  collider.GetY()+collider.GetHeight() ),
-			raylib::Vector2( collider.GetX()+collider.GetWidth(),  collider.GetY()+collider.GetHeight() ),
+			vec2( collider.GetX(),  collider.GetY()+collider.GetHeight() ),
+			vec2( collider.GetX()+collider.GetWidth(),  collider.GetY()+collider.GetHeight() ),
 			NULL
 		);
 

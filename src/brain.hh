@@ -3,6 +3,8 @@
 #include <entt/entt.hpp>
 #include <raylib-cpp.hpp>
 
+#include "typedefs.hh"
+
 class Brain {
 protected:
 	entt::entity owner;

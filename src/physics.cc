@@ -31,9 +31,9 @@ void character_movement() {
 }
 
 // Finds the direction a collision comes from
-raylib::Vector2 overlap_direction(const Position& position, const Collider& collider) {
+vec2 overlap_direction(const Position& position, const Collider& collider) {
 	const float e = 0.1; // Ensures next tile isn't counted
-	raylib::Vector2 direction(0, 0);
+	vec2 direction(0, 0);
 
 	int start_x = (position.value.x - collider.width/2) / tilemap.tile_size;
 	int end_x = (position.value.x - e + collider.width/2) / tilemap.tile_size;
@@ -58,7 +58,7 @@ raylib::Vector2 overlap_direction(const Position& position, const Collider& coll
 void move_collide() {
 	auto view = registry.view<Position, Velocity, Collider>();
 	for ( auto [entity, position, velocity, collider] : view.each() ) {
-		raylib::Vector2 direction; // Direction the collision comes from
+		vec2 direction; // Direction the collision comes from
 
 		collider.on_floor = false;
 		collider.wall_direction = 0;

@@ -5,6 +5,8 @@
 #include <raylib.h>
 #include <tileson.hpp>
 
+#include "typedefs.hh"
+
 typedef char Tile;
 const Tile empty_tile = 0;
 
@@ -21,7 +23,7 @@ class MapLayer {
 private:
 	LayerType type;
 	std::vector<Tile> tiles;
-	raylib::Vector2 parallax, offset, scroll_speed;
+	vec2 parallax, offset, scroll_speed;
 	Texture2D texture;
 	bool reapeat_x, reapeat_y;
 	std::vector<Rectangle> rects; // Vector of drawing rects

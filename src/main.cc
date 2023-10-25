@@ -1,6 +1,7 @@
 #include <iostream>
 #include <raylib-cpp.hpp>
 
+#include "typedefs.hh"
 #include "globals.hh"
 #include "components.hh"
 #include "systems.hh"
@@ -20,7 +21,7 @@ int screen_height = 720;
 
 entt::registry registry;
 Tilemap tilemap;
-raylib::Camera2D camera( raylib::Vector2(screen_width/2, screen_height/2), raylib::Vector2(0.0, 0.0) );
+raylib::Camera2D camera( vec2(screen_width/2, screen_height/2), vec2(0.0, 0.0) );
 entt::entity player; // Reference to the player character entity
 
 bool player_died;
@@ -72,14 +73,14 @@ int main() {
 	particle_system.speed_start = 80.0;
 	particle_system.speed_end = 10.0;
 	particle_system.length = 10.0;
-	particle_system.position = raylib::Vector2(160, 1536);
-	particle_system.color_start = raylib::Color(255, 0, 0, 255);
-	particle_system.color_end = raylib::Color(0, 255, 255, 255);
+	particle_system.position = vec2(160, 1536);
+	particle_system.color_start = rgba(255, 0, 0, 255);
+	particle_system.color_end = rgba(0, 255, 255, 255);
 	particle_system.size_start = 5;
 	particle_system.size_end = 0;
 	particle_system.loop = false;
-	particle_system.spread = raylib::Vector2(0.1, 2.0);
-	particle_system.direction = raylib::Vector2(1.0, 0.0);
+	particle_system.spread = vec2(0.1, 2.0);
+	particle_system.direction = vec2(1.0, 0.0);
 	particle_system.gravity_scale = 1.0;
 	particle_system.collision = true;
 	// particle_system.sprite = &sprite_list["sprite_test"];

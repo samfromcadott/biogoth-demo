@@ -3,12 +3,13 @@
 #include <vector>
 #include <raylib-cpp.hpp>
 
+#include "typedefs.hh"
 #include "sprite.hh"
 
 class ParticleSystem {
 private:
 	struct Particle {
-		raylib::Vector2 position, direction;
+		vec2 position, direction;
 		float age;
 	};
 
@@ -18,9 +19,9 @@ private:
 	void check_if_done(); // Checks if the particle system has finished
 
 public:
-	raylib::Vector2 position; // Emitter position
-	raylib::Vector2 direction; // Direction particles are emmited
-	raylib::Vector2 spread; // Randomization of direction
+	vec2 position; // Emitter position
+	vec2 direction; // Direction particles are emmited
+	vec2 spread; // Randomization of direction
 
 	float length; // Time from particle birth to death
 	float gravity_scale;
@@ -32,7 +33,7 @@ public:
 
 	float size_start, size_end;
 	float speed_start, speed_end;
-	raylib::Color color_start, color_end;
+	rgba color_start, color_end;
 
 	void start();
 	void update();

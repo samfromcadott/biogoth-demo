@@ -15,7 +15,6 @@ void deal_damage(entt::entity target, int damage) {
 
 	auto& health = registry.get<Health>(target); // Deal damage
 	health.now -= damage;
-	std::cout << damage << '\n';
 
 	// Check if they have a position and collider
 	if ( !registry.all_of<Position, Collider>(target) ) return;
@@ -30,13 +29,13 @@ void deal_damage(entt::entity target, int damage) {
 	blood_system.speed_end = 100.0;
 	blood_system.length = 2.0;
 	blood_system.position = position - Vector2 {0, height / 2};
-	blood_system.color_start = raylib::Color(255, 0, 0, 255);
-	blood_system.color_end = raylib::Color(255, 0, 0, 255);
+	blood_system.color_start = rgba(255, 0, 0, 255);
+	blood_system.color_end = rgba(255, 0, 0, 255);
 	blood_system.size_start = 3;
 	blood_system.size_end = 0;
 	blood_system.loop = false;
-	blood_system.spread = raylib::Vector2(1.0, 1.0);
-	blood_system.direction = raylib::Vector2(0.0, 0.0);
+	blood_system.spread = vec2(1.0, 1.0);
+	blood_system.direction = vec2(0.0, 0.0);
 	blood_system.gravity_scale = 1.0;
 	blood_system.collision = true;
 	blood_system.start();

@@ -65,7 +65,7 @@ void Sprite::render(float x, float y, const Action action, float timer, int dire
 	DrawTexturePro(texture, source, dest, origin, rotation, color);
 }
 
-void Sprite::render(raylib::Vector2 position, const Action action, float timer, int direction, float rotation, float scale, Color color) {
+void Sprite::render(vec2 position, const Action action, float timer, int direction, float rotation, float scale, Color color) {
 	render(position.x, position.y, action, timer, direction, rotation, scale, color);
 }
 

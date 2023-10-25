@@ -98,7 +98,7 @@ void add_brain(const entt::entity& entity, const std::string& entity_name) {
 	else if (type == "guard") registry.get<Character>(entity).brain = new GuardBrain(entity);
 }
 
-void spawn_entity(const std::string name, const raylib::Vector2 position, const int direction) {
+void spawn_entity(const std::string name, const vec2 position, const int direction) {
 	const auto entity = registry.create();
 
 	// Add components to the entity

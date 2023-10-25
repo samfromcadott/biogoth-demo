@@ -11,7 +11,7 @@ void render_game(raylib::Window& window) {
 	BeginDrawing();
 	CameraSystem::get_camera().BeginMode();
 
-		window.ClearBackground( raylib::Color(111, 133, 163, 255) );
+		window.ClearBackground( rgba(111, 133, 163, 255) );
 
 		tilemap.draw();
 

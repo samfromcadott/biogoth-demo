@@ -23,12 +23,12 @@ void Gun::fire() {
 	auto& collider = *registry.try_get<Collider>(owner);
 	auto& facing = *registry.try_get<Facing>(owner);
 
-	raylib::Vector2 bullet_start =
-		position.value + raylib::Vector2((collider.width/2+0.001)*facing.direction, -collider.height/2);
+	vec2 bullet_start =
+		position.value + vec2((collider.width/2+0.001)*facing.direction, -collider.height/2);
 
 	// Create bullets
 	for (int i = 0; i < count; i++) {
-		raylib::Vector2 v;
+		vec2 v;
 		v.x = facing.direction;
 		v.y = spread * random_spread();
 		v = v.Normalize();

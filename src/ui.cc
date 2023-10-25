@@ -6,7 +6,7 @@
 #include "globals.hh"
 #include "components.hh"
 
-const raylib::Vector2 bar_origin(32, 550);
+const vec2 bar_origin(32, 550);
 const float max_height = 150;
 const float bar_width = 32;
 const float bar_speed = 2.0;
@@ -31,7 +31,7 @@ void help_text() {
 	const int name_size = 32;
 	const int help_size = 64;
 
-	DrawRectangle( 0, 0, screen_width, screen_height, raylib::Color(0, 0, 0, 127) );
+	DrawRectangle( 0, 0, screen_width, screen_height, rgba(0, 0, 0, 127) );
 
 	title_font.DrawText("HEMOGLOBIN - MVP", margin_left, margin_top, title_size, raylib::WHITE);
 	normal_font.DrawText("Sam Jackson", margin_left, margin_top+title_size+4, name_size, raylib::WHITE);
@@ -46,6 +46,6 @@ void help_text() {
 }
 
 void death_text() {
-	DrawRectangle( 0, 0, screen_width, screen_height, raylib::Color(0, 0, 0, 127) );
+	DrawRectangle( 0, 0, screen_width, screen_height, rgba(0, 0, 0, 127) );
 	title_font.DrawText("YOU DIED", 256, screen_height/2, 128, raylib::WHITE);
 }

@@ -26,8 +26,8 @@ bool line_of_sight(const TileCoord a, const TileCoord b) {
 }
 
 Vector2 GuardBrain::find_player() {
-	raylib::Vector2 closest = {-1000000, -1000000};
-	const raylib::Vector2 owner_position = registry.try_get<Position>(owner)->value;
+	vec2 closest = {-1000000, -1000000};
+	const vec2 owner_position = registry.try_get<Position>(owner)->value;
 	const int owner_team = registry.try_get<Character>(owner)->team;
 	float closest_dist = 1000000;
 
@@ -36,7 +36,7 @@ Vector2 GuardBrain::find_player() {
 		if (enemy == owner) continue; // Skip self
 		if (character.team == owner_team) continue; // Skip allies
 
-		raylib::Vector2 location = position.value;
+		vec2 location = position.value;
 		location.y -= collider.height; // Find the enemy's head
 
 		// If this enemy is closer than the last closest set it as closest

@@ -9,7 +9,7 @@
 
 void ParticleSystem::start(Particle& particle) {
 	particle.position = position;
-	particle.direction = ( direction + raylib::Vector2(random_spread(), random_spread()) * spread).Normalize();
+	particle.direction = ( direction + vec2(random_spread(), random_spread()) * spread).Normalize();
 	particle.age = ( float( rand() ) / float(RAND_MAX) ) * length; // Randomize age
 }
 
@@ -41,7 +41,7 @@ void ParticleSystem::update() {
 
 		// Update velocity
 		float speed = ease(particle.age/length, speed_start, speed_end);
-		raylib::Vector2 velocity = particle.direction * speed;
+		vec2 velocity = particle.direction * speed;
 
 		// Apply gravity
 		velocity.y += G * particle.age * gravity_scale * GetFrameTime();

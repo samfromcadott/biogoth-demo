@@ -24,8 +24,8 @@ void Melee::fire() {
 	auto& character = *registry.try_get<Character>(owner);
 
 	RayCast ray;
-	ray.start = position.value + raylib::Vector2( (collider.width/2+0.001)*facing.direction, -collider.height/2 );
-	ray.end = ray.start + raylib::Vector2(range) * facing.direction;
+	ray.start = position.value + vec2( (collider.width/2+0.001)*facing.direction, -collider.height/2 );
+	ray.end = ray.start + vec2(range) * facing.direction;
 
 	play_sound("sword_swing", 0.6 + random_spread() * 0.1, 1.0 + random_spread() * 0.2);
 

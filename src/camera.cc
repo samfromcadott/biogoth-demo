@@ -24,8 +24,8 @@ void camera_update() {
 			position.value.y > camera.target.y + screen_height/4
 		) sy = 1.0;
 
-		raylib::Vector2 look_ahead(96.0, 32.0);
-		raylib::Vector2 target = position.value + (velocity.value * look_ahead); // Look ahead
+		vec2 look_ahead(96.0, 32.0);
+		vec2 target = position.value + (velocity.value * look_ahead); // Look ahead
 
 		camera.target.x += (target.x - camera.target.x) * sx * GetFrameTime();
 		camera.target.y += (target.y - camera.target.y) * sy * GetFrameTime();
@@ -38,21 +38,21 @@ void camera_update() {
 	}
 }
 
-raylib::Vector2 CameraSystem::find_player() {
+vec2 CameraSystem::find_player() {
 	return registry.get<Position>(player).value;
 }
 
-raylib::Vector2 CameraSystem::track_player() {
+vec2 CameraSystem::track_player() {
 	return find_player() - base;
 }
 
-raylib::Vector2 CameraSystem::look_ahead() {
-	raylib::Vector2 scale(96.0, 32.0);
+vec2 CameraSystem::look_ahead() {
+	vec2 scale(96.0, 32.0);
 	return registry.get<Velocity>(player).value * scale;
 }
 
-std::vector< raylib::Vector2 > CameraSystem::find_close_characters() {
-	std::vector< raylib::Vector2 > character_list;
+std::vector< vec2 > CameraSystem::find_close_characters() {
+	std::vector< vec2 > character_list;
 
 	auto view = registry.view<const Character, const Position>();
 	for ( auto [entity, character, position] : view.each() ) {
@@ -64,8 +64,8 @@ std::vector< raylib::Vector2 > CameraSystem::find_close_characters() {
 }
 
 /// Find the average of all characters near the player
-raylib::Vector2 CameraSystem::center_close_characters(const std::vector< raylib::Vector2 >& characters) {
-	raylib::Vector2 sum;
+vec2 CameraSystem::center_close_characters(const std::vector< vec2 >& characters) {
+	vec2 sum;
 
 	for ( const auto& v : characters ) sum += v;
 
@@ -73,7 +73,7 @@ raylib::Vector2 CameraSystem::center_close_characters(const std::vector< raylib:
 }
 
 /// Zooms to show all nearby characters
-float CameraSystem::zoom_to_characters(const std::vector< raylib::Vector2 >& characters) {
+float CameraSystem::zoom_to_characters(const std::vector< vec2 >& characters) {
 	std::vector<float> values_x, values_y;
 
 	for (auto p : characters) {
@@ -116,15 +116,15 @@ void CameraSystem::init() {
 	min_zoom = 0.8;
 	close_distance = 800.0;
 
-	camera = raylib::Camera2D( raylib::Vector2(screen_width/2, screen_height/2), {0.0, 0.0} );
+	camera = raylib::Camera2D( vec2(screen_width/2, screen_height/2), {0.0, 0.0} );
 	base = find_player();
-	offset = raylib::Vector2(0, 0);
+	offset = vec2(0, 0);
 }
 
 void CameraSystem::update() {
 	const auto characters = find_close_characters();
 
-	raylib::Vector2 delta =
+	vec2 delta =
 		track_player() * 0.2 +
 		look_ahead() * 0.6 +
 		center_close_characters(characters);

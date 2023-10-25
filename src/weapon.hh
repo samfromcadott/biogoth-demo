@@ -89,7 +89,7 @@ private:
 	float max_speed;
 	float range;
 	float push;
-	raylib::Vector2 direction;
+	vec2 direction;
 
 	bool done = false;
 

@@ -35,7 +35,7 @@ void Charge::update() {
 	auto& velocity = *registry.try_get<Velocity>(owner);
 
 	RayCast ray;
-	ray.start = position.value + raylib::Vector2( 0, -collider.height/2 );
+	ray.start = position.value + vec2( 0, -collider.height/2 );
 	ray.end = ray.start + direction * range;
 
 	float speed = velocity.value.Length();

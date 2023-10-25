@@ -3,6 +3,7 @@
 #include <entt/entt.hpp>
 #include <raylib-cpp.hpp>
 
+#include "typedefs.hh"
 #include "tilemap.hh"
 
 extern entt::registry registry;
