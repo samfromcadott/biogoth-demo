@@ -7,6 +7,7 @@
 #include "components.hh"
 #include "particle.hh"
 #include "audio.hh"
+#include "camera.hh"
 #include "util.hh"
 
 void deal_damage(entt::entity target, int damage, vec2 direction) {
@@ -21,6 +22,9 @@ void deal_damage(entt::entity target, int damage, vec2 direction) {
 
 	auto position = registry.get<Position>(target).value;
 	auto height = registry.get<Collider>(target).height;
+
+	// Apply screen shake
+	CameraSystem::trauma += float(damage) / 100.0;
 
 	// Spawn blood spray if they do
 	ParticleSystem blood_system;

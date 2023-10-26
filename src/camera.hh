@@ -22,7 +22,7 @@ private:
 	static void clamp_camera();
 
 public:
-	inline static float trauma;
+	inline static float trauma = 0.0;
 
 	static void init();
 	static void update();

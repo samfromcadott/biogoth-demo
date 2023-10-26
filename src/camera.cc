@@ -96,14 +96,15 @@ float CameraSystem::zoom_to_characters(const std::vector< vec2 >& characters) {
 
 /// Calculates camera shake and modifies offset
 void CameraSystem::shake() {
-	const float shake_scale = 16.0;
+	const float shake_scale = 4096.0;
 
-	Clamp(trauma, 0.0, 1.0);
+	trauma = Clamp(trauma, 0.0, 1.0);
 
 	offset.x += pow(trauma, 2) * ((float)rand() / (float)RAND_MAX - 0.5) * shake_scale;
 	offset.y += pow(trauma, 2) * ((float)rand() / (float)RAND_MAX - 0.5) * shake_scale;
 
-	trauma -= 0.1 * GetFrameTime();
+	trauma -= 1.0 * GetFrameTime();
+	offset *= 0.9 * GetFrameTime();
 }
 
 void CameraSystem::clamp_camera() {

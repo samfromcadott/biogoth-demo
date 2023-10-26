@@ -67,8 +67,6 @@ int main() {
 
 	game_start();
 
-	CameraSystem::trauma = 1.0;
-
 	// Display help message
 	show_help = true;
 	help_timer = Timer( 3.0, [](){show_help = false;} ); // Hide help after a few seconds
