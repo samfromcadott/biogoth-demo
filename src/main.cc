@@ -67,28 +67,6 @@ int main() {
 
 	game_start();
 
-	// Particle test
-	ParticleSystem particle_system;
-	particle_system.count = 200;
-	particle_system.speed_start = 80.0;
-	particle_system.speed_end = 10.0;
-	particle_system.length = 10.0;
-	particle_system.position = vec2(160, 1536);
-	particle_system.color_start = rgba(255, 0, 0, 255);
-	particle_system.color_end = rgba(0, 255, 255, 255);
-	particle_system.size_start = 5;
-	particle_system.size_end = 0;
-	particle_system.loop = false;
-	particle_system.spread = vec2(0.1, 2.0);
-	particle_system.direction = vec2(1.0, 0.0);
-	particle_system.gravity_scale = 1.0;
-	particle_system.collision = true;
-	// particle_system.sprite = &sprite_list["sprite_test"];
-	particle_system.start();
-
-	const auto particle_entity = registry.create();
-	registry.emplace<ParticleSystem>(particle_entity, particle_system);
-
 	// Display help message
 	show_help = true;
 	help_timer = Timer( 3.0, [](){show_help = false;} ); // Hide help after a few seconds
