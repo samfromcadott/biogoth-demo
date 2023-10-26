@@ -72,6 +72,7 @@ public:
 
 class Shield : public Weapon {
 private:
+	int damage;
 	float width;
 	float rate;
 	float length; // Amount of time the shield is active
