@@ -26,7 +26,6 @@ void Melee::fire() {
 	auto& facing = *registry.try_get<Facing>(owner);
 	auto& character = *registry.try_get<Character>(owner);
 
-	// RayCast ray;
 	raylib::Rectangle rect;
 	rect.width = width; rect.height = height;
 	rect.x = facing.direction == -1? position.value.x - offset.x - width : position.value.x + offset.x;

@@ -12,11 +12,15 @@ Charge::Charge(entt::entity owner, toml::value data) {
 	this->min_damage = toml::find<int>(data, "min_damage");
 	this->max_damage = toml::find<int>(data, "max_damage");
 	this->max_speed = toml::find<float>(data, "max_speed");
-	this->range = toml::find<float>(data, "range");
+	this->width = toml::find<float>(data, "width");
+	this->height = toml::find<float>(data, "height");
 	this->push = toml::find<float>(data, "push");
 
 	auto direction_data = toml::find< std::vector<float> >(data, "direction");
-	this->direction = Vector2 { direction_data[0], direction_data[1] };
+	this->direction = vec2( direction_data[0], direction_data[1] );
+
+	auto offset_data = toml::find< std::vector<float> >(data, "offset");
+	this->offset = vec2( offset_data[0], offset_data[1] );
 }
 
 void Charge::fire() {
@@ -32,11 +36,13 @@ void Charge::update() {
 
 	auto& position = *registry.try_get<Position>(owner);
 	auto& collider = *registry.try_get<Collider>(owner);
+	auto& facing = *registry.try_get<Facing>(owner);
 	auto& velocity = *registry.try_get<Velocity>(owner);
 
-	RayCast ray;
-	ray.start = position.value + vec2( 0, -collider.height/2 );
-	ray.end = ray.start + direction * range;
+	raylib::Rectangle rect;
+	rect.width = width; rect.height = height;
+	rect.x = facing.direction == -1? position.value.x - offset.x - width : position.value.x + offset.x;
+	rect.y = position.value.y - offset.y;
 
 	float speed = velocity.value.Length();
 	if (speed < 0.1 && collider.on_floor) end();
@@ -47,7 +53,7 @@ void Charge::update() {
 		if (done) return;
 
 		if (!target_collider.enabled) continue;
-		if ( !ray.intersect( target_collider.get_rectangle(target_position.value) ) ) continue;
+		if ( !rect.CheckCollision( target_collider.get_rectangle(target_position.value) ) ) continue;
 		if (target == owner) continue; // Don't harm self
 		if (target_health.now <= 0) continue; // Skip dead enemies
 
@@ -57,7 +63,7 @@ void Charge::update() {
 		target_health.now -= damage;
 
 		// Push the enemy back
-		target_velocity.value += direction.Normalize() * push;
+		target_velocity.value += direction.Normalize() * push * facing.direction;
 
 		// Play the sound effect
 		play_sound("sword_hit", 0.7 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);

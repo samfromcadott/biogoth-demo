@@ -90,7 +90,8 @@ class Charge : public Weapon {
 private:
 	int min_damage, max_damage;
 	float max_speed;
-	float range;
+	vec2 offset;
+	float height, width;
 	float push;
 	vec2 direction;
 
