@@ -3,6 +3,8 @@
 #include <entt/entt.hpp>
 #include <toml.hpp>
 
+#include "typedefs.hh"
+
 class Weapon {
 protected:
 	entt::entity owner;
@@ -37,7 +39,8 @@ public:
 class Melee : public Weapon {
 private:
 	unsigned int damage;
-	float range;
+	vec2 offset;
+	float height, width;
 	float rate; // Time between attacks
 	float push;
 	bool can_cancel;
