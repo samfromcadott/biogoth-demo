@@ -9,7 +9,7 @@
 #include "audio.hh"
 #include "util.hh"
 
-void deal_damage(entt::entity target, int damage) {
+void deal_damage(entt::entity target, int damage, vec2 direction) {
 	// Check if target as a health component
 	if ( !registry.any_of<Health>(target) ) return;
 
@@ -25,18 +25,18 @@ void deal_damage(entt::entity target, int damage) {
 	// Spawn blood spray if they do
 	ParticleSystem blood_system;
 	blood_system.count = damage;
-	blood_system.speed_start = 200.0;
-	blood_system.speed_end = 100.0;
-	blood_system.length = 2.0;
+	blood_system.speed_start = 800.0;
+	blood_system.speed_end = 500.0;
+	blood_system.length = 1.0;
 	blood_system.position = position - Vector2 {0, height / 2};
 	blood_system.color_start = rgba(255, 0, 0, 255);
 	blood_system.color_end = rgba(255, 0, 0, 255);
-	blood_system.size_start = 3;
+	blood_system.size_start = 5;
 	blood_system.size_end = 0;
 	blood_system.loop = false;
-	blood_system.spread = vec2(1.0, 1.0);
-	blood_system.direction = vec2(0.0, 0.0);
-	blood_system.gravity_scale = 1.0;
+	blood_system.spread = vec2(1.0, 0.1);
+	blood_system.direction = direction;
+	blood_system.gravity_scale = 100.0;
 	blood_system.collision = true;
 	blood_system.start();
 

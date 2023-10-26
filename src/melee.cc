@@ -47,10 +47,11 @@ void Melee::fire() {
 		if (target_health.now <= 0) continue; // Skip dead enemies
 
 		std::cout << "SLASH!" << '\n';
-		deal_damage(target, damage);
+		vec2 facing_vector = vec2( facing.direction, 0.0 );
+		deal_damage(target, damage, facing_vector);
 
 		// Push the enemy back
-		target_velocity.value += vec2( facing.direction, 0.0 ) * push;
+		target_velocity.value += facing_vector * push;
 
 		// Play the sound effect
 		play_sound("sword_hit", 0.7 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);
