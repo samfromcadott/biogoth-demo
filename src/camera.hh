@@ -11,7 +11,6 @@ private:
 	inline static float zoom, min_zoom, max_zoom;
 	inline static float close_distance;
 	inline static vec2 base, offset;
-	inline static float trauma;
 
 	static vec2 find_player();
 	static vec2 track_player();
@@ -19,9 +18,12 @@ private:
 	static std::vector< vec2 > find_close_characters();
 	static vec2 center_close_characters(const std::vector< vec2 >& characters);
 	static float zoom_to_characters(const std::vector< vec2 >& characters);
+	static void shake();
 	static void clamp_camera();
 
 public:
+	inline static float trauma;
+
 	static void init();
 	static void update();
 	static raylib::Camera2D& get_camera();

@@ -94,6 +94,18 @@ float CameraSystem::zoom_to_characters(const std::vector< vec2 >& characters) {
 	return new_zoom - zoom;
 }
 
+/// Calculates camera shake and modifies offset
+void CameraSystem::shake() {
+	const float shake_scale = 16.0;
+
+	Clamp(trauma, 0.0, 1.0);
+
+	offset.x += pow(trauma, 2) * ((float)rand() / (float)RAND_MAX - 0.5) * shake_scale;
+	offset.y += pow(trauma, 2) * ((float)rand() / (float)RAND_MAX - 0.5) * shake_scale;
+
+	trauma -= 0.1 * GetFrameTime();
+}
+
 void CameraSystem::clamp_camera() {
 	const float map_width = tilemap.width * tilemap.tile_size;
 	const float map_height = tilemap.height * tilemap.tile_size;
@@ -132,6 +144,8 @@ void CameraSystem::update() {
 
 	base += delta * GetFrameTime();
 	zoom += delta_zoom * GetFrameTime();
+
+	shake();
 
 	camera.target = base + offset;
 	camera.zoom = zoom;
