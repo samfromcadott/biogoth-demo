@@ -28,7 +28,7 @@ void deal_damage(entt::entity target, int damage, vec2 direction) {
 	blood_system.speed_start = 800.0;
 	blood_system.speed_end = 500.0;
 	blood_system.length = 1.0;
-	blood_system.position = position - Vector2 {0, height / 2};
+	blood_system.position = position - vec2(0, height / 2);
 	blood_system.color_start = rgba(255, 0, 0, 255);
 	blood_system.color_end = rgba(255, 0, 0, 255);
 	blood_system.size_start = 5;

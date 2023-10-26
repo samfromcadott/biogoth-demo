@@ -5,6 +5,7 @@
 #include "globals.hh"
 #include "components.hh"
 #include "weapon.hh"
+#include "systems.hh"
 #include "util.hh"
 
 Charge::Charge(entt::entity owner, toml::value data) {
@@ -57,13 +58,15 @@ void Charge::update() {
 		if (target == owner) continue; // Don't harm self
 		if (target_health.now <= 0) continue; // Skip dead enemies
 
+		vec2 facing_vector = vec2( facing.direction, 0.0 );
+
 		// Calculate damage
 		int damage = Remap(speed, 0.0, max_speed, min_damage, max_damage);
 		std::cout << "CHARGE!" <<  " " << damage << '\n';
-		target_health.now -= damage;
+		deal_damage(target, damage, direction * facing_vector);
 
 		// Push the enemy back
-		target_velocity.value += direction.Normalize() * push * facing.direction;
+		target_velocity.value += direction.Normalize() * push * facing_vector;
 
 		// Play the sound effect
 		play_sound("sword_hit", 0.7 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);
