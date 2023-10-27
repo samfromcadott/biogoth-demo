@@ -37,7 +37,7 @@ void help_text() {
 	normal_font.DrawText("Sam Jackson", margin_left, margin_top+title_size+4, name_size, raylib::WHITE);
 
 	normal_font.DrawText(
-		"ARROWS to move\nCTRL to bite\nSPACE to jump\nV to bite",
+		"ARROWS to move\nCTRL to attack\nSPACE to jump\nV to bite",
 		margin_left,
 		margin_top+title_size+name_size+64,
 		help_size,
