@@ -98,7 +98,7 @@ void bullets() {
 
 			if ( !target_collider.enabled ) continue; // Skip disabled colliders
 
-			target_health.now -= bullet.damage;
+			deal_damage(target, bullet.damage, velocity.value);
 			registry.destroy(entity); // Destroy the bullet
 			break; // Stop looping over targets
 		}
