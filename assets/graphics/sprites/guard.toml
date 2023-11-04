@@ -1,13 +1,13 @@
 rate = 12
-width = 128
+width = 150
 height = 128
-direction_offset = 6
+direction_offset = 7
 
 [length]
-IDLE = 22
-WALK = 12
+IDLE = 21
+WALK = 14
 ATTACK = 10
-DIE = 5
+DIE = 43
 FALL = 1
 BITE = 1
 

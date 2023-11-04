@@ -16,3 +16,6 @@ vcpkg
 *.fbx
 *.blend1
 *.obj
+working/rendered
+*.kra
+krita
