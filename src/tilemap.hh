@@ -27,6 +27,7 @@ private:
 	Texture2D texture;
 	bool reapeat_x, reapeat_y;
 	std::vector<Rectangle> rects; // Vector of drawing rects
+	rgba tint = WHITE;
 
 	void draw_tile() const;
 	void draw_image() const;

@@ -124,7 +124,7 @@ void MapLayer::draw_tile() const {
 			dest,
 			{0.0, 0.0},
 			0.0,
-			WHITE
+			tint
 		);
 	}
 }
@@ -156,7 +156,7 @@ void MapLayer::draw_image() const {
 		dest,
 		(Vector2) { 0, 0 },
 		0,
-		WHITE
+		tint
 	);
 }
 
@@ -171,6 +171,10 @@ MapLayer::MapLayer(const std::string filename, tson::Layer& layer) {
 
 	scroll_speed.x = layer.get<float>("Scroll Speed X");
 	scroll_speed.y = layer.get<float>("Scroll Speed Y");
+
+	auto file_tint = layer.getTintColor();
+	if ( file_tint != tson::Colori(0, 0, 0, 255) ) // Don't set tint if it is black
+		tint = rgba(file_tint.r, file_tint.g, file_tint.b, file_tint.a);
 
 	if ( layer.getType() == tson::LayerType::ImageLayer ) {
 		type = LayerType::IMAGE;
