@@ -42,6 +42,7 @@ count = 8
 spread = 0.5
 speed = 15.0
 rate = 0.8333
+offset = [32.0, -96.0]
 
 # [DebugColor]
 # color = [0, 158, 47, 255]

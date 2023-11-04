@@ -22,6 +22,7 @@ public:
 class Gun : public Weapon {
 private:
 	int damage;		// Damage of each bullet
+	vec2 offset;		// Loction bullets spawn
 	unsigned int count;	// Number of bullets fired at once
 	float spread;		// Spread when bullets are fired
 	float speed;		// Speed of each bullet

@@ -14,6 +14,9 @@ Gun::Gun(entt::entity owner, toml::value data) {
 	this->spread = toml::find<float>(data, "spread");
 	this->speed = toml::find<float>(data, "speed");
 	this->rate = toml::find<float>(data, "rate");
+
+	auto offset_data = toml::find< std::vector<float> >(data, "offset");
+	this->offset = vec2( offset_data[0], offset_data[1] );
 }
 
 void Gun::fire() {
@@ -23,8 +26,7 @@ void Gun::fire() {
 	auto& collider = *registry.try_get<Collider>(owner);
 	auto& facing = *registry.try_get<Facing>(owner);
 
-	vec2 bullet_start =
-		position.value + vec2((collider.width/2+0.001)*facing.direction, -collider.height/2);
+	vec2 bullet_start = position.value + offset * vec2(facing.direction, 1.0);
 
 	// Create bullets
 	for (int i = 0; i < count; i++) {
