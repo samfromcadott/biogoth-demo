@@ -35,13 +35,14 @@ void deal_damage(entt::entity target, int damage, vec2 direction) {
 	blood_system.position = position - vec2(0, height / 2);
 	blood_system.color_start = rgba(255, 0, 0, 255);
 	blood_system.color_end = rgba(255, 0, 0, 255);
-	blood_system.size_start = 5;
-	blood_system.size_end = 0;
+	blood_system.size_start = 1.0;
+	blood_system.size_end = 0.1;
 	blood_system.loop = false;
 	blood_system.spread = vec2(1.0, 0.1);
 	blood_system.direction = direction;
 	blood_system.gravity_scale = 100.0;
 	blood_system.collision = true;
+	blood_system.sprite = &sprite_list["blood"];
 	blood_system.start();
 
 	const auto blood_entity = registry.create();

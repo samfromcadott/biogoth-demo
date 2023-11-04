@@ -57,6 +57,8 @@ void ParticleSystem::update() {
 
 void ParticleSystem::draw() {
 	for (auto& particle : particles) {
+		if (particle.age > length) continue; // Skip dead particles
+
 		// Update size and color
 		float size = ease(particle.age/length, size_start, size_end);
 		float rotation = atan2(particle.direction.y, particle.direction.x) * (180/PI);

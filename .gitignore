@@ -19,3 +19,4 @@ vcpkg
 working/rendered
 *.kra
 krita
+*.png~

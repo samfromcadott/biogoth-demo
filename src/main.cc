@@ -49,6 +49,7 @@ int main() {
 	sprite_list["vampire"] = Sprite("vampire");
 	sprite_list["sprite_test"] = Sprite("sprite_test");
 	sprite_list["bullet"] = Sprite("bullet");
+	sprite_list["blood"] = Sprite("blood");
 
 	// Load sounds
 	InitAudioDevice();
