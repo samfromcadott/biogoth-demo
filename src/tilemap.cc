@@ -137,8 +137,8 @@ void MapLayer::draw_image() const {
 	};
 
 	Rectangle source = {
-		offset.x + (parallax.x * origin.x),
-		offset.y + (parallax.y * origin.y),
+		(parallax.x * origin.x) + offset.x,
+		(parallax.y * origin.y) - offset.y,
 		(float)GetScreenWidth(),
 		(float)GetScreenHeight()
 	};
