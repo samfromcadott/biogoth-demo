@@ -21,3 +21,4 @@ extern bool show_help;
 
 extern raylib::Font title_font;
 extern raylib::Font normal_font;
+extern raylib::Texture blood_bar;

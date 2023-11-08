@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="blood-bar.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:snap-text-baseline="true"
+     inkscape:snap-global="true"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-center="true"
+     inkscape:snap-page="true"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="453.609"
+     inkscape:cy="329.86531"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:lockguides="false" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="powerclip"
+       id="path-effect26050"
+       is_visible="true"
+       lpeversion="1"
+       inverse="true"
+       flatten="false"
+       hide_clip="false"
+       message="Use fill-rule evenodd on &lt;b&gt;fill and stroke&lt;/b&gt; dialog if no flatten result after convert clip to paths." />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient24301">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop24297" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1"
+         offset="1"
+         id="stop24299" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient21479"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop21477" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient17153">
+      <stop
+         style="stop-color:#4e4e4e;stop-opacity:1"
+         offset="0"
+         id="stop17149" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="1"
+         id="stop17151" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient976">
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1"
+         offset="0"
+         id="stop972" />
+      <stop
+         style="stop-color:#000000;stop-opacity:1"
+         offset="1"
+         id="stop974" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient976"
+       id="linearGradient986"
+       x1="42.992031"
+       y1="16.565737"
+       x2="42.992031"
+       y2="56.253239"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(17.431168,5.2990751)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient17153"
+       id="linearGradient17155"
+       x1="31.377207"
+       y1="21.544001"
+       x2="31.377207"
+       y2="27.84026"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-72.308537,34.252887)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient21479"
+       id="linearGradient21481"
+       x1="12.5091"
+       y1="24.692131"
+       x2="31.509498"
+       y2="24.692131"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter24277"
+       x="-0.0604346"
+       y="-0.021011127"
+       width="1.0674955"
+       height="1.1373169">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood24267" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite24269" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="0"
+         result="blur"
+         id="feGaussianBlur24271" />
+      <feOffset
+         dx="-1"
+         dy="0.6"
+         result="offset"
+         id="feOffset24273" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite24275" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient24301"
+       id="linearGradient24303"
+       x1="69.948189"
+       y1="20.806471"
+       x2="37.040615"
+       y2="84.934868"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Drop Shadow"
+       id="filter24277-3"
+       x="-0.0604346"
+       y="-0.021011127"
+       width="1.0674955"
+       height="1.1373169">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood24267-4" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite24269-6" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="0"
+         result="blur"
+         id="feGaussianBlur24271-8" />
+      <feOffset
+         dx="-1"
+         dy="0.6"
+         result="offset"
+         id="feOffset24273-5" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite24275-2" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient24301"
+       id="linearGradient25870"
+       gradientUnits="userSpaceOnUse"
+       x1="69.948189"
+       y1="20.806471"
+       x2="37.040615"
+       y2="84.934868"
+       gradientTransform="translate(81.318593,32.145522)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient17153"
+       id="linearGradient25872"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-72.308537,34.252887)"
+       x1="31.377207"
+       y1="21.544001"
+       x2="31.377207"
+       y2="27.84026" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath26046">
+      <rect
+         style="display:none;vector-effect:non-scaling-stroke;fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:0.00166517;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:hairline"
+         id="rect26048"
+         width="8.4666662"
+         height="39.6875"
+         x="156.89598"
+         y="42.597923"
+         d="m 156.89598,42.597923 h 8.46667 v 39.6875 h -8.46667 z" />
+      <path
+         id="lpe_path-effect26050"
+         style="vector-effect:non-scaling-stroke;fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:0.00166517;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:hairline"
+         class="powerclip"
+         d="m 150.83763,36.539585 h 20.58333 V 88.34375 h -20.58333 z m 6.05835,6.058338 v 39.6875 h 8.46667 v -39.6875 z" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="vector-effect:non-scaling-stroke;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0134412;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:hairline"
+       id="rect1495"
+       width="10.583333"
+       height="41.804165"
+       x="59.364853"
+       y="20.806471" />
+    <rect
+       style="vector-effect:non-scaling-stroke;fill:url(#linearGradient986);fill-opacity:1;stroke:none;stroke-width:0.00166517;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:hairline"
+       id="rect846"
+       width="8.4666662"
+       height="39.6875"
+       x="60.423199"
+       y="21.864811" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:url(#linearGradient24303);stroke-width:0.26458333;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect22444"
+       width="9.3926516"
+       height="40.613495"
+       x="59.960205"
+       y="21.401814" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.338018;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect25305"
+       width="2.1166916"
+       height="3.0365124"
+       x="59.364853"
+       y="55.777103" />
+    <text
+       xml:space="preserve"
+       style="font-size:8.46667px;line-height:1.25;font-family:UnifrakturCook;-inkscape-font-specification:UnifrakturCook;fill:url(#linearGradient17155);fill-opacity:1;stroke:#000000;stroke-width:0.26458333;stroke-opacity:1;filter:url(#filter24277);stroke-miterlimit:4;stroke-dasharray:none"
+       x="-59.758099"
+       y="62.142757"
+       id="text6749"
+       transform="rotate(-90)"><tspan
+         sodipodi:role="line"
+         id="tspan6747"
+         style="font-size:8.46667px;fill:url(#linearGradient17155);fill-opacity:1;stroke:#000000;stroke-width:0.26458333;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+         x="-59.758099"
+         y="62.142757">Blood</tspan></text>
+    <path
+       style="vector-effect:non-scaling-stroke;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0134412;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:hairline"
+       id="rect1495-3"
+       width="10.583333"
+       height="41.804165"
+       x="155.83763"
+       y="41.539585"
+       clip-path="url(#clipPath26046)"
+       inkscape:path-effect="#path-effect26050"
+       d="m 155.83763,41.539585 h 10.58333 V 83.34375 h -10.58333 z"
+       sodipodi:type="rect"
+       transform="translate(-15.154182,11.412409)"
+       inkscape:export-filename="C:\Users\Sam\Art\Games\vamp-jam\assets\graphics\blood-bar.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:url(#linearGradient25870);stroke-width:0.264583;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect22444-6"
+       width="9.3926516"
+       height="40.613495"
+       x="141.27881"
+       y="53.547333"
+       inkscape:export-filename="C:\Users\Sam\Art\Games\vamp-jam\assets\graphics\blood-bar.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.338018;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect25305-7"
+       width="2.1166916"
+       height="3.0365124"
+       x="140.68346"
+       y="87.922623"
+       inkscape:export-filename="C:\Users\Sam\Art\Games\vamp-jam\assets\graphics\blood-bar.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-size:8.46667px;line-height:1.25;font-family:UnifrakturCook;-inkscape-font-specification:UnifrakturCook;fill:url(#linearGradient25872);fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter24277-3)"
+       x="-59.758099"
+       y="62.142757"
+       id="text6749-4"
+       transform="rotate(-90,56.732057,-24.586535)"
+       inkscape:export-filename="C:\Users\Sam\Art\Games\vamp-jam\assets\graphics\blood-bar.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan6747-1"
+         style="font-size:8.46667px;fill:url(#linearGradient25872);fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         x="-59.758099"
+         y="62.142757">Blood</tspan></text>
+  </g>
+</svg>

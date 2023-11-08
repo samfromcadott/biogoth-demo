@@ -31,6 +31,7 @@ Timer death_timer; // Counts down when player dies
 Timer help_timer; // Shows help text for limited time
 
 raylib::Font title_font, normal_font;
+raylib::Texture blood_bar;
 
 const float G = 13.0;
 
@@ -62,6 +63,9 @@ int main() {
 	// Load fonts
 	title_font = raylib::Font("assets/graphics/fonts/UnifrakturCook-Bold.ttf", 128);
 	normal_font = raylib::Font("assets/graphics/fonts/PermanentMarker-Regular.ttf", 128);
+
+	// Load UI elements
+	blood_bar = raylib::Texture("assets/graphics/ui/blood-bar.png");
 
 	// Load entity definitions
 	load_entities();

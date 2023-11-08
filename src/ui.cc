@@ -19,7 +19,14 @@ void health_bar() {
 		current_bar_height += (target_height - current_bar_height) * bar_speed * GetFrameTime();
 		float height_loss = max_height - current_bar_height;
 
-		DrawRectangle(int(bar_origin.x), int(bar_origin.y+height_loss), bar_width, current_bar_height, RED);
+		unsigned char redness = ( target_height / max_height ) * 255;
+
+		raylib::Rectangle bar(int(bar_origin.x), int(bar_origin.y+height_loss), bar_width, current_bar_height);
+		raylib::Rectangle bar_back(int(bar_origin.x), int(bar_origin.y), bar_width, max_height);
+
+		bar_back.Draw(BLACK);
+		bar.DrawGradientV( rgba(redness, 0, 0, 255), BLACK );
+		blood_bar.Draw( bar_origin - vec2(18, 4) );
 	}
 }
 
