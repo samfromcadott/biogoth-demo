@@ -15,9 +15,9 @@ Weapon* get_active_weapon(entt::entity entity) {
 }
 
 void animate_character() {
-	auto view = registry.view<AnimationState, const Velocity, const Collider, const Health>();
+	auto view = registry.view<AnimationState, const Character, const Velocity, const Collider, const Health>();
 
-	for ( auto [entity, animation, velocity, collider, health] : view.each() ) {
+	for ( auto [entity, animation, character, velocity, collider, health] : view.each() ) {
 		Weapon* weapon = get_active_weapon(entity);
 
 		if (health.now <= 0) animation.set_state(DIE);
@@ -26,6 +26,7 @@ void animate_character() {
 		else if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
 		else if ( collider.wall_direction != 0 && !collider.on_floor ) animation.set_state(WALL_SLIDE);
 		else if ( !collider.on_floor ) animation.set_state(FALL);
+		else if (character.bitten) animation.set_state(BITE);
 		else animation.set_state(IDLE);
 	}
 }

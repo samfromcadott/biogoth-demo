@@ -29,6 +29,7 @@ struct Character {
 	bool active;
 	Brain* brain;
 	uint8_t team;
+	bool bitten = false;
 	std::string death_sound;
 	std::string bite_sound;
 

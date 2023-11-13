@@ -45,6 +45,7 @@ void Bite::fire() {
 
 		// Disable the character
 		character.active = false;
+		character.bitten = true;
 
 		// Move the target to the biter
 		target_collider.enabled = false;
@@ -89,6 +90,7 @@ void Bite::end() {
 
 	auto& velocity = *registry.try_get<Velocity>(target);
 	auto& collider = *registry.try_get<Collider>(target);
+	auto& character = *registry.try_get<Character>(target);
 
 	has_target = false;
 
@@ -98,4 +100,5 @@ void Bite::end() {
 
 	velocity.value.y -= 3.0; // Stops them from attacking for a bit
 	collider.enabled = true; // Enable collider if target is alive
+	character.bitten = false;
 }
