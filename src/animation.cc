@@ -21,12 +21,12 @@ void animate_character() {
 		Weapon* weapon = get_active_weapon(entity);
 
 		if (health.now <= 0) animation.set_state(DIE);
+		else if (character.bitten) animation.set_state(BITE);
 		else if ( weapon && !collider.on_floor && weapon->action == ATTACK ) animation.set_state(AIR_ATTACK);
 		else if ( weapon ) animation.set_state(weapon->action);
 		else if ( collider.on_floor && velocity.value.x != 0 ) animation.set_state(WALK);
 		else if ( collider.wall_direction != 0 && !collider.on_floor ) animation.set_state(WALL_SLIDE);
 		else if ( !collider.on_floor ) animation.set_state(FALL);
-		else if (character.bitten) animation.set_state(BITE);
 		else animation.set_state(IDLE);
 	}
 }

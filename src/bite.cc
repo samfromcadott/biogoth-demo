@@ -47,10 +47,7 @@ void Bite::fire() {
 		character.active = false;
 		character.bitten = true;
 
-		// Move the target to the biter
-		target_collider.enabled = false;
-		target_position.value.x = position.value.x + (ray.end.x - ray.start.x) / 2;
-		target_position.value.y = position.value.y;
+		target_collider.enabled = false; // Disble the collider
 
 		this->target = target;
 		active = true;
@@ -68,8 +65,15 @@ void Bite::update() {
 
 	auto owner_health = registry.try_get<Health>(owner);
 	auto target_health = registry.try_get<Health>(target);
+	auto& position = *registry.try_get<Position>(owner);
+	auto& target_position = *registry.try_get<Position>(target);
+	auto& facing = *registry.try_get<Facing>(owner);
 
 	if (target_health->now <= 0) end();
+
+	// Move the target to the biter
+	target_position.value.x = position.value.x + facing.direction * range / 2;
+	target_position.value.y = position.value.y;
 
 	// Suck blood
 	int drain = std::min(damage, target_health->now);
