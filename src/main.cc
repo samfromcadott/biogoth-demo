@@ -129,13 +129,13 @@ void game_update() {
 	stun();
 	character_think();
 	death_by_pitfall();
-
-	animate_character();
 	particle_update();
 
 	// Combat
 	weapon_update();
 	bullets();
+
+	animate_character();
 
 	// Physics
 	character_movement();
