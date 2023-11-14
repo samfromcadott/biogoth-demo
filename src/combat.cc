@@ -86,7 +86,7 @@ void bullets() {
 
 		// Check for tile collision or map exit
 		TileCoord tile = tilemap.world_to_tile(position.value);
-		if ( tilemap(tile) != 0 || !tilemap.tile_in_map(tile) ) {
+		if ( tilemap(tile) != empty_tile ) {
 			registry.destroy(entity); // Destroy the bullet
 			continue;
 		}
