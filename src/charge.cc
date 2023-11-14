@@ -51,8 +51,6 @@ void Charge::update() {
 	// Look for targets
 	auto target_view = registry.view<const Position, const Collider, Velocity, Health>();
 	for ( auto [target, target_position, target_collider, target_velocity, target_health] : target_view.each() ) {
-		if (done) return;
-
 		if (!target_collider.enabled) continue;
 		if ( !rect.CheckCollision( target_collider.get_rectangle(target_position.value) ) ) continue;
 		if (target == owner) continue; // Don't harm self
@@ -73,6 +71,8 @@ void Charge::update() {
 
 		done = true;
 	}
+
+	if (done) end();
 }
 
 void Charge::end() {

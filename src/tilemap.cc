@@ -98,10 +98,12 @@ bool Tilemap::tile_in_map(const int x, const int y) const {
 }
 
 Tile Tilemap::operator()(const int x, const int y) const {
+	if ( !tile_in_map(x, y) ) return empty_tile;
 	return layers[main_layer](x, y);
 }
 
 Tile Tilemap::operator()(const TileCoord t) const {
+	if ( !tile_in_map(t) ) return empty_tile;
 	return layers[main_layer](t);
 }
 

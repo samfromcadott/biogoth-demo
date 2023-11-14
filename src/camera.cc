@@ -67,14 +67,16 @@ std::vector< vec2 > CameraSystem::find_close_characters() {
 /// Find the average of all characters near the player
 vec2 CameraSystem::center_close_characters(const std::vector< vec2 >& characters) {
 	vec2 sum;
+	int n = std::max(characters.size(), (size_t)1); // Avoids divide by zero
 
 	for ( const auto& v : characters ) sum += v;
 
-	return ( sum / characters.size() ) - base;
+	return ( sum / n ) - base;
 }
 
 /// Zooms to show all nearby characters
 float CameraSystem::zoom_to_characters(const std::vector< vec2 >& characters) {
+	if ( characters.size() == 0 ) return 0.0;
 	std::vector<float> values_x, values_y;
 
 	for (auto p : characters) {
