@@ -56,6 +56,7 @@ std::vector< vec2 > CameraSystem::find_close_characters() {
 
 	auto view = registry.view<const Character, const Position>();
 	for ( auto [entity, character, position] : view.each() ) {
+		if (!character.active) continue;
 		if ( position.value.Distance( find_player() ) < close_distance )
 			character_list.push_back( position.value );
 	}
@@ -138,9 +139,9 @@ void CameraSystem::update() {
 	const auto characters = find_close_characters();
 
 	vec2 delta =
-		track_player() * 0.2 +
+		track_player() * 0.8 +
 		look_ahead() * 0.6 +
-		center_close_characters(characters);
+		center_close_characters(characters) * 0.8;
 	float delta_zoom = zoom_to_characters(characters);
 
 	base += delta * GetFrameTime();
