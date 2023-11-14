@@ -77,7 +77,10 @@ void ParticleSystem::draw() {
 void particle_update() {
 	for ( auto [entity, particle_system] : registry.view<ParticleSystem>().each() ) {
 		particle_system.update();
+	}
 
+	// Delete particle systems when they are done
+	for ( auto [entity, particle_system] : registry.view<ParticleSystem>().each() ) {
 		if (particle_system.done) registry.destroy(entity);
 	}
 }
