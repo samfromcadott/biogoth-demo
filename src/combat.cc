@@ -84,8 +84,9 @@ void bullets() {
 	for ( auto [entity, position, velocity, bullet] : view.each() ) {
 		position.value += velocity.value;
 
-		// Check for tile collision
-		if ( tilemap( tilemap.world_to_tile(position.value) ) != 0 ) {
+		// Check for tile collision or map exit
+		TileCoord tile = tilemap.world_to_tile(position.value);
+		if ( tilemap(tile) != 0 || !tilemap.tile_in_map(tile) ) {
 			registry.destroy(entity); // Destroy the bullet
 			continue;
 		}
