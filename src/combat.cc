@@ -67,7 +67,7 @@ void death() {
 		character.active = false;
 		movement.direction.x = 0;
 
-		play_sound(character.death_sound, 0.4 + random_spread() * 0.1, 1.0 + random_spread() * 0.1);
+		play_sound(character.death_sound, 0.2, 1.0 + random_spread() * 0.1);
 	}
 }
 
