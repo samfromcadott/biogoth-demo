@@ -108,8 +108,22 @@ Tile Tilemap::operator()(const TileCoord t) const {
 }
 
 void MapLayer::draw_tile() const {
-	for (int y = 0; y < height; y++)
-	for (int x = 0; x < width; x++) {
+	// Find what range of tiles are on the screen
+	vec2 min_corner = CameraSystem::get_camera().GetScreenToWorld({0.0, 0.0});
+	vec2 max_corner = CameraSystem::get_camera().GetScreenToWorld({(float)screen_width, (float)screen_height});
+
+	TileCoord start_coord = tilemap.world_to_tile(min_corner);
+	TileCoord end_coord = tilemap.world_to_tile(max_corner);
+
+	// Prevent tiles out of bounds being drawn
+	start_coord.x = std::max(start_coord.x, 0);
+	start_coord.y = std::max(start_coord.y, 0);
+
+	end_coord.x = std::min(end_coord.x, width - 1);
+	end_coord.y = std::min(end_coord.y, height - 1);
+
+	for (int y = start_coord.y; y < end_coord.y + 1; y++)
+	for (int x = start_coord.x; x < end_coord.x + 1; x++) {
 		const Tile& t = tiles[ tile_index(x, y) ];
 		if (t == empty_tile) continue;
 
