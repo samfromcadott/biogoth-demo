@@ -135,7 +135,7 @@ void CameraSystem::init() {
 	zoom = 1.0;
 	max_zoom = 1.0;
 	min_zoom = 0.25;
-	close_distance = 1400.0;
+	close_distance = 1200.0;
 
 	camera = raylib::Camera2D( vec2(screen_width/2, screen_height/2), {0.0, 0.0} );
 	base = find_player();

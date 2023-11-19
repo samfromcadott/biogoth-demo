@@ -25,10 +25,12 @@ raylib::Camera2D camera( vec2(screen_width/2, screen_height/2), vec2(0.0, 0.0) )
 entt::entity player; // Reference to the player character entity
 
 bool player_died;
+bool player_won;
 bool show_help;
 
 Timer death_timer; // Counts down when player dies
 Timer help_timer; // Shows help text for limited time
+Timer win_timer; // Shows win screen
 
 raylib::Font title_font, normal_font;
 raylib::Texture blood_bar;
@@ -106,6 +108,7 @@ void game_start() {
 	// camera.target = registry.get<const Position>(player).value;
 	CameraSystem::init();
 	player_died = false;
+	player_won = false;
 
 	// Start the music
 	set_music("assets/audio/music/theme.mp3");
@@ -125,6 +128,14 @@ void game_update() {
 	} else { // When player is dead
 		death_timer.update();
 	}
+
+	// Check for the player getting to the end of the level
+	if ( registry.get<Position>(player).value.x > 62000 && !player_won ) {
+		player_won = true;
+		win_timer = Timer( 2.0, &game_start ); // Restart if the player wins
+	}
+
+	if (player_won) win_timer.update();
 
 	stun();
 	character_think();

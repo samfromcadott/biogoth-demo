@@ -25,7 +25,8 @@ void render_game(raylib::Window& window) {
 	// UI
 	health_bar();
 	if (show_help) help_text();
-	if (player_died) death_text();
+	else if (player_died) death_text();
+	else if (player_won) end_text();
 
 	DrawFPS(10, 10);
 

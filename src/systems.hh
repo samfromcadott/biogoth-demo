@@ -46,3 +46,4 @@ void render_particles();
 void health_bar();
 void help_text();
 void death_text();
+void end_text();

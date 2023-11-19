@@ -56,3 +56,8 @@ void death_text() {
 	DrawRectangle( 0, 0, screen_width, screen_height, rgba(0, 0, 0, 127) );
 	title_font.DrawText("YOU DIED", 256, screen_height/2, 128, raylib::WHITE);
 }
+
+void end_text() {
+	DrawRectangle( 0, 0, screen_width, screen_height, rgba(0, 0, 0, 127) );
+	title_font.DrawText("YOU WON", 256, screen_height/2, 128, raylib::WHITE);
+}

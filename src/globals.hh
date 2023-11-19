@@ -17,6 +17,7 @@ extern int screen_height;
 
 extern entt::entity player;
 extern bool player_died;
+extern bool player_won;
 extern bool show_help;
 
 extern raylib::Font title_font;
