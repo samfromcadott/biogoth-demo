@@ -60,6 +60,7 @@ void Charge::update() {
 
 		// Calculate damage
 		int damage = Remap(speed, 0.0, max_speed, min_damage, max_damage);
+		damage = Clamp(damage, min_damage, max_damage);
 		std::cout << "CHARGE!" <<  " " << damage << '\n';
 		deal_damage(target, damage, direction * facing_vector);
 
