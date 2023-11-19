@@ -33,7 +33,7 @@ Timer help_timer; // Shows help text for limited time
 raylib::Font title_font, normal_font;
 raylib::Texture blood_bar;
 
-const float G = 13.0;
+const float G = 32.0;
 
 void game_update();
 void game_start();

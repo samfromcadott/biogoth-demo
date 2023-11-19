@@ -1,6 +1,6 @@
 [Enemy]
-aggro_range = 700.0
-attack_range = 400.0
+aggro_range = 1200.0
+attack_range = 600.0
 max_speed = 3.0
 
 [Character]

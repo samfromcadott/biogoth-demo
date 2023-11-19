@@ -47,8 +47,13 @@ vec2 CameraSystem::track_player() {
 }
 
 vec2 CameraSystem::look_ahead() {
-	vec2 scale(96.0, 32.0);
-	return registry.get<Velocity>(player).value * scale;
+	auto velocity = registry.get<Velocity>(player).value;
+
+	vec2 scale;
+	scale.x = 128.0;
+	scale.y = velocity.y > 0.0? 64.0 : 16.0; // Look ahead vertically when moving down
+
+	return velocity * scale;
 }
 
 std::vector< vec2 > CameraSystem::find_close_characters() {
@@ -66,12 +71,12 @@ std::vector< vec2 > CameraSystem::find_close_characters() {
 
 /// Find the average of all characters near the player
 vec2 CameraSystem::center_close_characters(const std::vector< vec2 >& characters) {
-	vec2 sum;
-	int n = std::max(characters.size(), (size_t)1); // Avoids divide by zero
+	if ( characters.empty() ) return vec2(0.0, 0.0);
 
+	vec2 sum;
 	for ( const auto& v : characters ) sum += v;
 
-	return ( sum / n ) - base;
+	return ( sum / characters.size() ) - base;
 }
 
 /// Zooms to show all nearby characters
@@ -129,8 +134,8 @@ void CameraSystem::clamp_camera() {
 void CameraSystem::init() {
 	zoom = 1.0;
 	max_zoom = 1.0;
-	min_zoom = 0.8;
-	close_distance = 800.0;
+	min_zoom = 0.25;
+	close_distance = 1400.0;
 
 	camera = raylib::Camera2D( vec2(screen_width/2, screen_height/2), {0.0, 0.0} );
 	base = find_player();
@@ -141,9 +146,9 @@ void CameraSystem::update() {
 	const auto characters = find_close_characters();
 
 	vec2 delta =
-		track_player() * 0.8 +
-		look_ahead() * 0.6 +
-		center_close_characters(characters) * 0.8;
+		track_player() * 0.9 +
+		look_ahead() * 0.9 +
+		center_close_characters(characters) * 0.7;
 	float delta_zoom = zoom_to_characters(characters);
 
 	base += delta * GetFrameTime();

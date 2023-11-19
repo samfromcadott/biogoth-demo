@@ -54,7 +54,7 @@ void PlayerBrain::jump() {
 	// Wall jump
 	if ( jump.wish_jump && collider.wall_direction != 0 && !collider.on_floor ) {
 		velocity.value.y = -1.0;
-		velocity.value.x = -collider.wall_direction * 2.0;
+		velocity.value.x = -collider.wall_direction;
 		velocity.value = velocity.value.Normalize() * jump.speed;
 		gravity.scale = jump.gravity_scale;
 	}

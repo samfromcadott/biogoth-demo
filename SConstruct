@@ -8,8 +8,8 @@ LIBS=['raylib', 'opengl32', 'gdi32', 'winmm']
 LIBPATH=[f'vcpkg/installed/{platform}/lib']
 CPPPATH=[f'vcpkg/installed/{platform}/include', 'submodule/raylib-cpp/include', 'submodule/tileson']
 
-CCFLAGS='--target=x86_64-w64-windows-gnu -static -Wno-unknown-warning-option -Wunused-variable'
-CXXFLAGS='--target=x86_64-w64-windows-gnu -static -std=c++17 -Wno-unknown-warning-option -Wunused-variable'
+CCFLAGS='--target=x86_64-w64-windows-gnu -static -Wno-unknown-warning-option -Wunused-variable -Os'
+CXXFLAGS='--target=x86_64-w64-windows-gnu -static -std=c++17 -Wno-unknown-warning-option -Wunused-variable -Os'
 LINKFLAGS = '--target=x86_64-w64-windows-gnu'
 
 VariantDir('build', 'src', duplicate=False)
