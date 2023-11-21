@@ -20,3 +20,9 @@ working/rendered
 *.kra
 krita
 *.png~
+emsdk
+
+biogoth.data
+biogoth.html
+biogoth.js
+biogoth.wasm

@@ -5,6 +5,6 @@
 		"entt",
 		"magic-enum",
 		"raylib",
-		"toml"
+		"toml11"
 	]
 }
