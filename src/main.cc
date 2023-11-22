@@ -34,6 +34,9 @@ Timer win_timer; // Shows win screen
 
 raylib::Font title_font, normal_font;
 raylib::Texture blood_bar;
+raylib::Texture intro_screen;
+raylib::Texture death_screen;
+raylib::Texture outro_screen;
 
 const float G = 32.0;
 
@@ -68,6 +71,9 @@ int main() {
 
 	// Load UI elements
 	blood_bar = raylib::Texture("assets/graphics/ui/blood-bar.png");
+	intro_screen = raylib::Texture("assets/graphics/ui/intro.png");
+	death_screen = raylib::Texture("assets/graphics/ui/death.png");
+	outro_screen = raylib::Texture("assets/graphics/ui/outro.png");
 
 	// Load entity definitions
 	load_entities();

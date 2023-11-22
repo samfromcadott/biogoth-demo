@@ -23,3 +23,6 @@ extern bool show_help;
 extern raylib::Font title_font;
 extern raylib::Font normal_font;
 extern raylib::Texture blood_bar;
+extern raylib::Texture intro_screen;
+extern raylib::Texture death_screen;
+extern raylib::Texture outro_screen;

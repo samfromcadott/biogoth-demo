@@ -31,33 +31,13 @@ void health_bar() {
 }
 
 void help_text() {
-	const int margin_left = 64;
-	const int margin_top = 32;
-
-	const int title_size = 128;
-	const int name_size = 32;
-	const int help_size = 64;
-
-	DrawRectangle( 0, 0, screen_width, screen_height, rgba(0, 0, 0, 127) );
-
-	title_font.DrawText("HEMOGLOBIN - MVP", margin_left, margin_top, title_size, raylib::WHITE);
-	normal_font.DrawText("Sam Jackson", margin_left, margin_top+title_size+4, name_size, raylib::WHITE);
-
-	normal_font.DrawText(
-		"ARROWS to move\nCTRL to attack\nSPACE to jump\nV to bite",
-		margin_left,
-		margin_top+title_size+name_size+64,
-		help_size,
-		raylib::WHITE
-	);
+	intro_screen.Draw();
 }
 
 void death_text() {
-	DrawRectangle( 0, 0, screen_width, screen_height, rgba(0, 0, 0, 127) );
-	title_font.DrawText("YOU DIED", 256, screen_height/2, 128, raylib::WHITE);
+	death_screen.Draw();
 }
 
 void end_text() {
-	DrawRectangle( 0, 0, screen_width, screen_height, rgba(0, 0, 0, 127) );
-	title_font.DrawText("YOU WON", 256, screen_height/2, 128, raylib::WHITE);
+	outro_screen.Draw();
 }
