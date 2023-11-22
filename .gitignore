@@ -22,7 +22,7 @@ krita
 *.png~
 emsdk
 
-biogoth.data
-biogoth.html
-biogoth.js
-biogoth.wasm
+index.data
+index.html
+index.js
+index.wasm
