@@ -1,6 +1,11 @@
 #include <toml.hpp>
 #include <iostream>
 
+// The default range for Magic Enum is [-128, 128]
+#define MAGIC_ENUM_RANGE_MIN 0
+#define MAGIC_ENUM_RANGE_MAX 1024
+#include <magic_enum.hpp>
+
 #include "sprite.hh"
 
 std::map< std::string, Sprite > sprite_list;
@@ -23,28 +28,14 @@ Sprite::Sprite(std::string filename) {
 	const auto& file_lengths = toml::find(data, "length"); // Action lengths
 	const auto& file_offsets = toml::find(data, "offset"); // Action offsets
 
-	// Names of actions
-	static const std::vector<std::string> action_names = {
-		"IDLE",
-		"WALK",
-		"ATTACK",
-		"AIR_ATTACK",
-		"DIE",
-		"BITE",
-		"FALL",
-		"JUMP",
-		"WALL_SLIDE",
-		"WALL_JUMP"
-	};
-
 	// Get data for actions
 	for (int action = IDLE; action < ACTION_COUNT; action++) {
-		// Check if the action is defined in the file
-		if ( !file_lengths.contains( action_names[action] ) ) continue;
-		if ( !file_offsets.contains( action_names[action] ) ) continue;
+		auto action_name = std::string{ magic_enum::enum_name( Action(action) ) };
+		if ( !file_lengths.contains( action_name ) ) continue;
+		if ( !file_offsets.contains( action_name ) ) continue;
 
-		length[action] = toml::find<int>( file_lengths, action_names[action] );
-		offset[action] = toml::find<int>( file_offsets, action_names[action] );
+		length[action] = toml::find<int>( file_lengths, action_name );
+		offset[action] = toml::find<int>( file_offsets, action_name );
 	}
 }
 
