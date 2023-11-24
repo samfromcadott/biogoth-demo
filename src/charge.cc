@@ -22,6 +22,9 @@ Charge::Charge(entt::entity owner, toml::value data) {
 
 	auto offset_data = toml::find< std::vector<float> >(data, "offset");
 	this->offset = vec2( offset_data[0], offset_data[1] );
+
+	auto action_data = toml::find< std::string >(data, "action");
+	this->action = magic_enum::enum_cast<Action>( action_data ).value_or(Action::ATTACK_A);
 }
 
 void Charge::fire() {

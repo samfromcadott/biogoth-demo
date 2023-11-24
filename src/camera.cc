@@ -51,7 +51,7 @@ vec2 CameraSystem::look_ahead() {
 
 	vec2 scale;
 	scale.x = 128.0;
-	scale.y = velocity.y > 0.0? 64.0 : 16.0; // Look ahead vertically when moving down
+	scale.y = velocity.y > 0.0? 64.0 : 32.0; // Look ahead vertically when moving down
 
 	return velocity * scale;
 }
@@ -104,7 +104,7 @@ float CameraSystem::zoom_to_characters(const std::vector< vec2 >& characters) {
 
 /// Calculates camera shake and modifies offset
 void CameraSystem::shake() {
-	const float shake_scale = 4096.0;
+	const float shake_scale = 8000.0;
 
 	trauma = Clamp(trauma, 0.0, 1.0);
 
@@ -148,7 +148,7 @@ void CameraSystem::update() {
 	vec2 delta =
 		track_player() * 0.9 +
 		look_ahead() * 0.9 +
-		center_close_characters(characters) * 0.7;
+		center_close_characters(characters) * 0.6;
 	float delta_zoom = zoom_to_characters(characters);
 
 	base += delta * GetFrameTime();

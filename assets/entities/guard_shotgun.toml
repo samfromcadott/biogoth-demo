@@ -1,5 +1,5 @@
 [Enemy]
-aggro_range = 1200.0
+aggro_range = 1800.0
 attack_range = 600.0
 max_speed = 3.0
 

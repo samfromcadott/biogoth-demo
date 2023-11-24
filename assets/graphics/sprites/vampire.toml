@@ -6,8 +6,8 @@ direction_offset = 8
 [length]
 IDLE = 13
 WALK = 12
-ATTACK = 6
-AIR_ATTACK = 6
+ATTACK_A = 6
+ATTACK_B = 6
 DIE = 5
 FALL = 1
 WALL_SLIDE = 1
@@ -16,8 +16,8 @@ BITE = 1
 [offset]
 IDLE = 0
 WALK = 1
-ATTACK = 2
-AIR_ATTACK = 3
+ATTACK_A = 2
+ATTACK_B = 3
 DIE = 4
 FALL = 5
 WALL_SLIDE = 6

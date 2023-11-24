@@ -3,6 +3,11 @@
 #include <entt/entt.hpp>
 #include <toml.hpp>
 
+// The default range for Magic Enum is [-128, 128]
+#define MAGIC_ENUM_RANGE_MIN 0
+#define MAGIC_ENUM_RANGE_MAX 1024
+#include <magic_enum.hpp>
+
 #include "typedefs.hh"
 
 class Weapon {
@@ -12,7 +17,7 @@ protected:
 public:
 	bool active = false;
 	float timer = 0.0;
-	Action action = ATTACK;
+	Action action = ATTACK_A;
 
 	virtual void fire() = 0;
 	virtual void update() = 0;

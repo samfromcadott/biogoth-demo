@@ -15,6 +15,9 @@ Shield::Shield(entt::entity owner, toml::value data) {
 	this->rate = toml::find<float>(data, "rate");
 	this->length = toml::find<float>(data, "length");
 	this->deflect = toml::find<bool>(data, "deflect");
+
+	auto action_data = toml::find< std::string >(data, "action");
+	this->action = magic_enum::enum_cast<Action>( action_data ).value_or(Action::ATTACK_A);
 }
 
 void Shield::fire() {
