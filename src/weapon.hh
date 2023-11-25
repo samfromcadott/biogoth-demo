@@ -103,6 +103,9 @@ private:
 	vec2 direction;
 
 	bool done = false;
+	bool can_fire = true;
+
+	bool stopped(); // Checks if the owner has touched the floor and stopped
 
 public:
 	Charge() = default;

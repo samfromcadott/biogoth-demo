@@ -27,15 +27,28 @@ Charge::Charge(entt::entity owner, toml::value data) {
 	this->action = magic_enum::enum_cast<Action>( action_data ).value_or(Action::ATTACK_A);
 }
 
+bool Charge::stopped() {
+	auto& collider = *registry.try_get<Collider>(owner);
+	auto& velocity = *registry.try_get<Velocity>(owner);
+	float speed = velocity.value.Length();
+
+	if (speed < 0.1 && collider.on_floor) return true;
+	else return false;
+}
+
 void Charge::fire() {
+	if (!can_fire) return;
 	auto& character = *registry.try_get<Character>(owner);
 
 	active = true;
 	done = false;
+	can_fire = false;
 	character.active = false;
 }
 
 void Charge::update() {
+	if ( done && stopped() ) can_fire = true;
+	if (done && active) end();
 	if (!active) return;
 
 	auto& position = *registry.try_get<Position>(owner);
@@ -49,7 +62,8 @@ void Charge::update() {
 	rect.y = position.value.y - offset.y;
 
 	float speed = velocity.value.Length();
-	if (speed < 0.1 && collider.on_floor) end();
+	// if (speed < 0.1 && collider.on_floor) end();
+	if ( stopped() ) end();
 
 	// Look for targets
 	auto target_view = registry.view<const Position, const Collider, Velocity, Health>();
@@ -75,11 +89,10 @@ void Charge::update() {
 
 		done = true;
 	}
-
-	if (done) end();
 }
 
 void Charge::end() {
+	std::cout << "ended charge" << '\n';
 	auto& character = *registry.try_get<Character>(owner);
 
 	active = false;
