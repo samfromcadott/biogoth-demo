@@ -5,39 +5,99 @@ from glob import glob
 from itertools import product
 
 # CHARACTERS = ['guard']
-ACTIONS = ['idle', 'walk', 'attack', 'airattack', 'die', 'fall', 'slide', 'bite', 'stun']
+CHARACTERS = ['vampire']
+# ACTIONS = ['idle', 'walk', 'attack', 'airattack', 'die', 'fall', 'slide', 'bite', 'stun']
+ACTIONS = ["idle", "walk", "slash", "slash_air", "kick", "die", "spin_attack", "block", "fall", "bite", "heavy_air", "block_air", "kick_air", "slide"]
 DIRECTIONS = ['right', 'left']
 # DIRECTIONS = ['right']
 
 CHARACTERS = {
-	"guard": {
+	# "guard": {
+	# 	"idle": {
+	# 		"start": 1,
+	# 		"end": 21
+	# 	},
+	# 	"walk": {
+	# 		"start": 22,
+	# 		"end": 36
+	# 	},
+	# 	"attack": {
+	# 		"start": 80,
+	# 		"end": 89
+	# 	},
+	# 	"die": {
+	# 		"start": 37,
+	# 		"end": 79
+	# 	},
+	# 	"fall": {
+	# 		"start": 90,
+	# 		"end": 90
+	# 	},
+	# 	"bite": {
+	# 		"start": 91,
+	# 		"end": 91
+	# 	},
+	# 	"stun": {
+	# 		"start": 92,
+	# 		"end": 92
+	# 	}
+	# },
+	"vampire": {
 		"idle": {
 			"start": 1,
-			"end": 21
+			"end": 28
 		},
 		"walk": {
-			"start": 22,
+			"start": 29,
 			"end": 36
 		},
-		"attack": {
-			"start": 80,
-			"end": 89
+		"slash": {
+			"start": 37,
+			"end": 45
+		},
+		"slash_air": {
+			"start": 46,
+			"end": 54
+		},
+		"kick": {
+			"start": 55,
+			"end": 61
 		},
 		"die": {
-			"start": 37,
-			"end": 79
+			"start": 94,
+			"end": 106
+		},
+		"spin_attack": {
+			"start": 62,
+			"end": 93
+		},
+		"block": {
+			"start": 107,
+			"end": 114
 		},
 		"fall": {
-			"start": 90,
-			"end": 90
+			"start": 117,
+			"end": 117
 		},
 		"bite": {
-			"start": 91,
-			"end": 91
+			"start": 119,
+			"end": 119
 		},
-		"stun": {
-			"start": 92,
-			"end": 92
+		"heavy_air" : {
+			"start": 115,
+			"end": 115
+		},
+		"block_air" : {
+			"start": 120,
+			"end": 120
+		},
+		"kick_air" : {
+			"start": 116,
+			"end": 116
+		},
+		"slide" : {
+			"start": 118,
+			"end": 118
 		}
 	}
 }
@@ -65,7 +125,7 @@ def find_frames(character, frames):
 
 def create_canvas(frames):
 	# Find the longest action
-	anim_length = len( frames['die-right'] ) # length of the animation
+	anim_length = len( frames['spin_attack-right'] ) # length of the animation
 	im = Image.open( frames['idle-right'][0] ) # sprite dimmensions
 	sprite_width = im.width
 	sprite_height = im.height

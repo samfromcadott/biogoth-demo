@@ -50,7 +50,7 @@ damage = 40
 width = 100.0
 height = 32.0
 offset = [32.0, 64.0]
-rate = 0.5
+rate = 0.75
 push = 3.0
 can_cancel = true
 action = "ATTACK_A"
@@ -61,10 +61,10 @@ damage = 10
 width = 100.0
 height = 32.0
 offset = [32.0, 64.0]
-rate = 0.5
+rate = 0.58
 push = 15.0
 can_cancel = true
-action = "ATTACK_A"
+action = "ATTACK_C"
 
 [[WeaponSet]] # Ground heavy
 type = "Melee"
@@ -72,19 +72,19 @@ damage = 80
 width = 150.0
 height = 32.0
 offset = [32.0, 64.0]
-rate = 1.0
+rate = 2.6
 push = 8.0
 can_cancel = false
-action = "ATTACK_A"
+action = "ATTACK_D"
 
 [[WeaponSet]] # Ground block
 type = "Shield"
 damage = 20
 width = 32.0
-rate = 0.5
+rate = 0.6
 length = 0.4
 deflect = true
-action = "ATTACK_A"
+action = "ATTACK_E"
 
 # Air attacks
 
@@ -94,7 +94,7 @@ damage = 40
 width = 100.0
 height = 32.0
 offset = [32.0, 64.0]
-rate = 0.5
+rate = 0.75
 push = 6.0
 can_cancel = true
 action = "ATTACK_B"
@@ -109,7 +109,7 @@ height = 64.0
 offset = [32.0, 64.0]
 push = 16.0
 direction = [1.0, 0.0]
-action = "ATTACK_B"
+action = "ATTACK_F"
 
 [[WeaponSet]] # Air heavy
 type = "Charge"
@@ -121,7 +121,7 @@ height = 32.0
 offset = [-48.0, 0.0]
 push = 0.0
 direction = [0.0, 1.0]
-action = "ATTACK_B"
+action = "ATTACK_G"
 
 [[WeaponSet]] # Air block
 type = "Shield"
@@ -130,7 +130,7 @@ width = 32.0
 rate = 0.5
 length = 0.4
 deflect = true
-action = "ATTACK_B"
+action = "ATTACK_H"
 
 # [DebugColor]
 # color = [135, 60, 190, 255]
