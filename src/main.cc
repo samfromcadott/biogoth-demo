@@ -45,7 +45,7 @@ void game_update();
 void game_start();
 
 int main() {
-	Window window(screen_width, screen_height, "HEMOGLOBIN - MVP");
+	Window window(screen_width, screen_height, "Biogoth - MVP");
 
 	SetTargetFPS(60);
 
