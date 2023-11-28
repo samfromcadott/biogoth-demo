@@ -28,7 +28,7 @@ void render_game(raylib::Window& window) {
 	else if (player_died) death_text();
 	else if (player_won) end_text();
 
-	DrawFPS(10, 10);
+	// DrawFPS(10, 10);
 
 	EndDrawing();
 }
