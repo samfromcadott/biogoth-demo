@@ -26,3 +26,5 @@ extern raylib::Texture blood_bar;
 extern raylib::Texture intro_screen;
 extern raylib::Texture death_screen;
 extern raylib::Texture outro_screen;
+
+extern float game_time; // Time since the last restart

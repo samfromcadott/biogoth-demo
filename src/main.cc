@@ -39,6 +39,7 @@ raylib::Texture death_screen;
 raylib::Texture outro_screen;
 
 const float G = 32.0;
+float game_time = 0.0;
 
 void game_update();
 void game_start();
@@ -98,6 +99,7 @@ int main() {
 }
 
 void game_start() {
+	game_time = 0.0;
 	registry.clear();
 
 	// Load the level
@@ -121,6 +123,8 @@ void game_start() {
 }
 
 void game_update() {
+	game_time += GetFrameTime();
+
 	// Player actions
 	if ( registry.get<Health>(player).now > 0 ) { // Check is the player is alive
 		// player_move();
