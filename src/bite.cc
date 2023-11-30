@@ -72,8 +72,9 @@ void Bite::update() {
 	if (target_health->now <= 0) end();
 
 	// Move the target to the biter
-	target_position.value.x = position.value.x + facing.direction * range / 2;
+	target_position.value.x = position.value.x + facing.direction * 0.1;
 	target_position.value.y = position.value.y;
+	// target_position.value = position.value;
 
 	// Suck blood
 	int drain = std::min(damage, target_health->now);
