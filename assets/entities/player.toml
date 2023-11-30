@@ -82,7 +82,7 @@ type = "Shield"
 damage = 20
 width = 32.0
 rate = 0.6
-length = 0.4
+length = 0.6
 deflect = true
 action = "ATTACK_E"
 
@@ -128,7 +128,7 @@ type = "Shield"
 damage = 20
 width = 32.0
 rate = 0.5
-length = 0.4
+length = 0.5
 deflect = true
 action = "ATTACK_H"
 
