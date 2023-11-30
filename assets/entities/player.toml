@@ -46,7 +46,7 @@ range = 64.0
 
 [[WeaponSet]] # Normal attack
 type = "Melee"
-damage = 40
+damage = 50
 width = 100.0
 height = 32.0
 offset = [32.0, 64.0]
@@ -68,7 +68,7 @@ action = "ATTACK_C"
 
 [[WeaponSet]] # Ground heavy
 type = "Melee"
-damage = 80
+damage = 100
 width = 150.0
 height = 32.0
 offset = [32.0, 64.0]
@@ -90,7 +90,7 @@ action = "ATTACK_E"
 
 [[WeaponSet]] # Normal air attack
 type = "Melee"
-damage = 40
+damage = 50
 width = 100.0
 height = 32.0
 offset = [32.0, 64.0]
@@ -103,7 +103,7 @@ action = "ATTACK_B"
 type = "Charge"
 min_damage = 5
 max_damage = 70
-max_speed = 30.0
+max_speed = 20.0
 width = 150.0
 height = 64.0
 offset = [32.0, 64.0]
@@ -115,7 +115,7 @@ action = "ATTACK_F"
 type = "Charge"
 min_damage = 20
 max_damage = 200
-max_speed = 100.0
+max_speed = 80.0
 width = 96.0
 height = 32.0
 offset = [-48.0, 0.0]
