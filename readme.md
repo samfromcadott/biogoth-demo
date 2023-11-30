@@ -1,4 +1,4 @@
-Hemoglobin
+Biogoth
 ===========
 
 This is a prototype for a game I'm developing.
@@ -16,9 +16,8 @@ Libraries
 Assets
 -----------
 
-* https://opengameart.org/content/dunegon-prison-tilesheet
+* https://penusbmic.itch.io/sci-fi-platformer-dark-edition
 * https://opengameart.org/content/fleshy-fight-sounds
 * https://opengameart.org/content/3-melee-sounds
 * https://opengameart.org/content/aargh-male-screams
 * https://opengameart.org/content/chaingun-pistol-rifle-shotgun-shots
-* https://opengameart.org/content/background-night
