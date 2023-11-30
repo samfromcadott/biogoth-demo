@@ -15,7 +15,7 @@ win_env = Environment(
 	LIBS = ['raylib', 'opengl32', 'gdi32', 'winmm'],
 	LIBPATH=[f'vcpkg/installed/{platform}/lib'],
 	CXXFLAGS = f'--target={target} -static -std=c++17 -Wno-unknown-warning-option -Wunused-variable -Os',
-	LINKFLAGS='--target=x86_64-w64-windows-gnu'
+	LINKFLAGS='--target=x86_64-w64-windows-gnu -mwindows'
 )
 win_env['ENV']['TERM'] = os.environ['TERM'] # Colored output
 
